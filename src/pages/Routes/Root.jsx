@@ -4,17 +4,18 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import Home from './Home/Home';
-import Login from './Login/Login';
-import PrivateRoute from 'auth';
+import Home from '../Home/Home';
+import Menu_Inicial from '../../components/Menu_Inicial/menu_inicial';
+import PrivateRoute from 'private/auth';
 import Logout from 'components/Logout/logout';
-import UserLogin from '../components/User/Login/Login'
+import UserLogin from '../Login/Login'
 const PagesRoot = () => (
   <Router>
     <Switch>
       <Route exact path="/" component={UserLogin} />
       <PrivateRoute exact path="/home" component={Home} />
       <Route  exact path="/logout" component={Logout} />
+      <PrivateRoute  exact path="/menu_inicial" component={Menu_Inicial} />
     </Switch>
   </Router>
 )

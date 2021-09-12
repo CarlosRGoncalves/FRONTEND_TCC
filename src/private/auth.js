@@ -3,19 +3,21 @@ import {Route, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 const isAuth = async () =>{
-    console.log(localStorage.getItem('token'))
+   /// console.log(localStorage.getItem('token'))
     if(localStorage.getItem('token') !== null){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
 
-    const response = await axios.get('http://localhost:3000/validaToken',{headers})
+    const response = await axios.get('http://localhost:3006/validaToken',{headers})
         if(response.status == 200) {
           return true;
-        }else{
+        }else if(response.status == 401){
+            console.log("Entrou aqui")
             alert("Usuario não Autorizado!!!");
             return false;
         }
     }
+    console.log("Entrou aqui2")
     alert("Usuario não Autorizado!!!");
     return false;
 };
@@ -29,14 +31,14 @@ export const PrivateRoute = (props) => {
         isAuth().then((Authorization) =>{
             setIsAuthenticated(Authorization);
             setLoading(false);
-            console.log(Authorization);
+            //console.log(Authorization);
         }).catch(()=>{
             setIsAuthenticated(false);
             setLoading(false);
         })
     }, []);
-    console.log(isAuthenticated)
-    console.log(loading)
+   // console.log(isAuthenticated)
+   // console.log(loading)
     return (
         <Route
             {...rest}

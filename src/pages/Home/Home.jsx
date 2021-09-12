@@ -12,9 +12,10 @@ export default class Home extends Component {
     }
 }
 
-/*componentDidMount() {
+/*
+componentDidMount() {
     const token = localStorage.getItem('token');
-    axios.get('http://localhost:3000/usuario/secao',{ headers: new Headers({ 'Authorization': `Bearer ${token}` })})
+    axios.get('http://localhost://secao',{ headers: new Headers({ 'Authorization': `Bearer ${token}` })})
     .then(response => {
         if(response.status == 200) {
           

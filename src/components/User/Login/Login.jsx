@@ -1,32 +1,46 @@
 import React,{Component} from 'react';
-import UIButton from 'components/UI/Button/Button';
 
 import './Login.css';
-import { Alert } from 'react-bootstrap';
-import { useHistory, withRouter } from 'react-router';
+//import { Alert } from 'react-bootstrap';
 import axios from 'axios';
+import { Input } from '@material-ui/core';
+import { InputLabel } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Button';
+
+
+import Alert from '@material-ui/lab/Alert';
 
 class Login extends Component{
   constructor(props){
     super(props)
-    //console.log(this.props);
+   
     this.state={
-      message : '',//this.props.location.state?this.props.location.state.message:'',
+      message : '',
     }
   }
 
 
   signIn = (Event) =>{
     const data = {email: this.email, senha: this.senha};
-        axios.post('http://localhost:3000/usuario/login', data)
+    if(data.email == null && data.senha == null){
+        alert("Email e Senha sem preencher!!!")
+        
+    }else if(data.email == null){
+        alert("Email sem preencher!!!")
+    }else if(data.senha == null){
+        alert("Senha sem preencher!!!")
+    }else{
+        axios.post('http://localhost:3006/usuario/login', data)
         .then(response => {
-            console.log(response);
+
             if(response.status == 200){
               const token = response.data.token;
-             // alert(response.data.mensagem)
-             // console.log(response.data.mensagem)
+            
               localStorage.setItem('token', token);
-              this.props.history.push("/home");
+              window.location.replace("http://localhost:3000/menu_inicial");
+
+             // this.props.history.push("/home");
             }else{
               //alert()
               this.setState(response.data.mensagem)
@@ -36,31 +50,38 @@ class Login extends Component{
         .catch(e => {
           console.log(e);
           this.setState({message: e.message})
-
     });
+  }
     Event.preventDefault();
   }
   render() {
     return (
       <div className="borda">
         <div className="user-login">
-          <h1 className="user-login__title">Sistema de Orgânicos</h1>
+        <Typography variant="h1" center>
+        SISTEMA DE CONTROLE DE PRODUÇÃO DE ORGÂNICOS        </Typography>
+      
           {
             this.state.message !==''?(
-              alert('Falha de Autenticação!!!')
-             // <Alert color = "danger">{this.state.message}</Alert>
+              <Alert severity="error">Login Incorreto!</Alert>
+              //alert('Falha de Autenticação!!!')
             ) : ''
           }
+
           <form>
             <div className="user-login__form-control">
-              <label htmlFor="email">E-mail</label>
-              <input id="email" type="text" name="email" autoComplete="off" onChange={e => this.email = e.target.value} />
+              <InputLabel htmlFor="email">E-mail</InputLabel>
+              <Input id="email" type="text" name="email" autoComplete="off"  required onChange={e => this.email = e.target.value}/>
             </div>
             <div className="user-login__form-control">
-              <label htmlFor="password">Senha</label>
-              <input id="senha" type="password" name="senha" onChange={e => this.senha = e.target.value} />
+              <InputLabel htmlFor="password">Senha</InputLabel>
+              <Input id="senha" type="password" name="senha"  onChange={e => this.senha = e.target.value} required/>
+              <hr></hr>
             </div>
-            <UIButton
+           
+            <Button
+              variant="contained"
+              color="primary"
               type="submit"
               theme="contained-green"
               className="user-login__submit-button"
@@ -68,7 +89,7 @@ class Login extends Component{
               onClick = {this.signIn}
             >
               Entrar
-            </UIButton>
+            </Button>
             
           </form>
         </div>

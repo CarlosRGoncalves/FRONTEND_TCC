@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Root from './pages/Root';
+import Root from './pages/Routes/Root';
 import * as serviceWorker from './serviceWorker';
 
 

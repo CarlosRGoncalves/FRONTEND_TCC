@@ -1,0 +1,36 @@
+h1{
+    text-align: center;
+    position: relative;
+    font-size: 60px; 
+    color: #000; 
+  }
+  .botao1{
+    float: left;
+    
+     border:0px solid; 
+     padding: 33px 15px; 
+     vertical-align: middle; 
+     color:white;
+     border-radius:6px; 
+     font-size: 20px; 
+  }
+  .botao2{
+    
+    float: left;
+    
+     border:0px solid; 
+     padding: 35px 15px; 
+     vertical-align: middle; 
+     color:white;
+     border-radius:6px; 
+     font-size: 20px; 
+  }
+  @media(max-width: 900px){
+    .botao1{
+      margin-top: 1%;
+    }
+    .botao2{
+        margin-top: 1%;
+      }
+  
+  }
