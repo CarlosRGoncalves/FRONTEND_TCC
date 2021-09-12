@@ -100,31 +100,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 {
-  //const token = localStorage.getItem('token');
- // const nome =  useState()
-
-  /* axios.get('http://localhost:3006/cliente/')
-  .then(response => {
-      if(response.status == 200) {
-  
-        //console.log(response.data.response.cliente.nome)
-        var decoded = jwt_decode(localStorage.getItem("token"));
-        //console.log(decoded)
-        const t = JSON.stringify(response.data)
-        console.log(t)
-       localStorage.setItem("teste",t);
-      }else{
-      throw new Error("Oops! Ocorreu um erro. :(");}
-  })
-  .catch(e => console.log(e));
-  */
  const token = localStorage.getItem("token")
  if(token){
   const decoded = jwt_decode(token);
   localStorage.setItem("nome",decoded.nome);
  }
-  //console.log(decoded)
-  //localStorage.setItem("nome",decoded.nome);
+ 
 }
 export default function MiniDrawer (){
   
@@ -139,6 +120,7 @@ export default function MiniDrawer (){
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
   function listI(text) {
     if(text == 'Página Inicial'){
       //window.location.replace("http://localhost:3000/teste");
@@ -147,10 +129,15 @@ export default function MiniDrawer (){
       window.location.replace("http://localhost:3000/logout");
     }
   }
-    const [repositories, setRepositories] = useState([]);
 
+
+    const [repositories, setRepositories] = useState([]);
+   
     useEffect(() => {
-      const response = axios.get('http://localhost:3006/cliente/')
+      const token = localStorage.getItem('token');
+      const headers = { Authorization: `Bearer ${token}` };
+
+      const response = axios.get('http://localhost:3006/cliente/',{ headers })
       .then(response =>{
         console.log(response.data.cliente);
       setRepositories(response.data.cliente);
