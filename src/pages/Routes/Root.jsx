@@ -5,7 +5,7 @@ import {
   Route,
 } from 'react-router-dom';
 import Home from '../Home/Home';
-import Menu_Inicial from '../../components/Menu_Inicial/menu_inicial';
+import Menu_Inicial from '../Menu_Inicial/menu_inicial';
 import PrivateRoute from 'private/auth';
 import Logout from 'components/Logout/logout';
 import UserLogin from '../Login/Login'

@@ -6,7 +6,7 @@ h1{
   }
   .botao1{
     float: left;
-    
+    width:192px;
      border:0px solid; 
      padding: 33px 15px; 
      vertical-align: middle; 
@@ -16,8 +16,8 @@ h1{
   }
   .botao2{
     
-    float: left;
-    
+     float: left;
+     width:192px;
      border:0px solid; 
      padding: 35px 15px; 
      vertical-align: middle; 
