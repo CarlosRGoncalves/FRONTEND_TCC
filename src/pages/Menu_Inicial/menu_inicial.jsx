@@ -5,13 +5,17 @@ import './menu_inicial.css';
 import { Grid } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import MenuI from '../../components/Menu_Inicial/Menu'
+
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useState,useEffect } from 'react';
 import jwt_decode from "jwt-decode";
 import green from '@material-ui/core/colors/green';
+import Typography from '@material-ui/core/Typography';
+
 
 const drawerWidth = 240;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -32,34 +36,8 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
-  menuButton: {
-    marginRight: 36,
-  },
   hide: {
     display: 'none',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-  },
-  drawerOpen: {
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerClose: {
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflowX: 'hidden',
-    width: theme.spacing(7) + 1,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1,
-    },
   },
   toolbar: {
     display: 'flex',
@@ -73,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+
 }));
 
 {
@@ -82,6 +61,17 @@ const useStyles = makeStyles((theme) => ({
   localStorage.setItem("nome",decoded.nome);
  }
  
+}
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Sistema de Controle de Produção de Orgânicos '}
+
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
 }
 export default function MiniDrawer (){
   
@@ -105,27 +95,28 @@ export default function MiniDrawer (){
     
       return (       
         <div className={classes.root}>
-          <CssBaseline />
+          <CssBaseline/>
           <MenuI/>
-          <main className={classes.content}>
+          <main className={classes.content} >
               <div className={classes.toolbar} />
-                  <h2>Menu Inicial</h2>
-                  <Grid container spacing={40}>
-                    <Paper className = {classes.paper}>
+                  <h2>MENU INICIAL</h2>
+                  <Grid container spacing={40} >
+                    <Paper className = {classes.paper} >
                       <div className="botao1">
                         <Button
                           variant="contained"
                           color="primary"
-
+                          style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace("http://localhost:3000/USUARIO")}
                         >
-                          Gerenciar Usuários
+                            Gerenciar Usuários
                         </Button>
-                        </div>
-                        <div className="botao1">
+                      </div>
+                      <div className="botao1">
                           <Button
                             variant="contained"
                             color="primary"
-                            
+                            style={{backgroundColor: "#00A869"}}
                           >
                             Gerenciar clientes
                           </Button>
@@ -134,25 +125,27 @@ export default function MiniDrawer (){
                         <Button
                           variant="contained"
                           color="primary"
-                          
+                          style={{backgroundColor: "#00A869"}}
                         >
-                          Gerenciar Produção
+                          
+                            Gerenciar Produção
+                        
                         </Button>
                       </div>
                       <div className="botao1">
                         <Button
                           variant="contained"
                           color="primary"
-                          
+                          style={{backgroundColor: "#00A869"}}
                         >
                           Gerenciar Plantio
                         </Button>
-                        </div>
-                        <div className="botao1">
+                      </div>
+                      <div className="botao1">
                         <Button
                           variant="contained"
                           color="primary"
-                          
+                          style={{backgroundColor: "#00A869"}}
                         >
                           Gerenciar Colheita
                         </Button>
@@ -161,71 +154,74 @@ export default function MiniDrawer (){
                         <Button
                           variant="contained"
                           color="primary"
-                          
+                          style={{backgroundColor: "#00A869"}}
                         >
                           Gerenciar Seções
                         </Button>
-                        </div>
+                      </div>
                     
                       <div className="botao2">
                         <Button
                           variant="contained"
                           color="primary"
-                          
+                          style={{backgroundColor: "#00A869"}}
                         >
                           Gerenciar Planta
                         </Button>
                       </div>
-                        <div className="botao2">
+                      <div className="botao2">
                         <Button
                           variant="contained"
                           color="primary"
-                          
+                          style={{backgroundColor: "#00A869"}}
                         >
                           Gerenciar Insumos
                         </Button>
-                        </div>
-                        <div className="botao2">
+                      </div>
+                      <div className="botao2">
                         <Button
                           variant="contained"
                           color="primary"
-                          
+                          style={{backgroundColor: "#00A869"}}
                         >
                           Gerenciar Tipo de Planta
                         </Button>
-                        </div>
-                        <div className="botao2">
+                      </div>
+                      <div className="botao2">
                         <Button
                           variant="contained"
                           color="primary"
-                          
+                          style={{backgroundColor: "#00A869"}}
                         >
                            Pragas e Doenças
                         </Button>
-                        </div>
-                        <div className="botao2">
+                      </div>
+                      <div className="botao2">
                         <Button
                           variant="contained"
                           color="primary"
-                          
+                          style={{backgroundColor: "#00A869"}}
                         >
                           Gerenciar Fornecedores
                         </Button>
-                        </div>
-                        <div className="botao2">
+                      </div>
+                      <div className="botao2">
                         <Button
                           variant="contained"
                           color="primary"
-                          
+                          style={{backgroundColor: "#00A869"}}
                         >
                           Gerenciar Produto Final
                         </Button>
-                        </div>
-                      </Paper>
-                    </Grid>
+                      </div>
+                    </Paper>
+                  </Grid>
+             
+
+
           </main>
-              </div>
+        </div>
             
-        );
+      );
   
 }

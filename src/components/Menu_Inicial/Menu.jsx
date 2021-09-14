@@ -107,10 +107,11 @@ export default function MenuI (){
     <>
         <AppBar
             position="fixed"
+            style={{backgroundColor: "#00A869"}}
             className={clsx(classes.appBar, {
               [classes.appBarShift]: open,
             })}
-          >
+        >
             <Toolbar>
               <IconButton
                 color="inherit"
@@ -151,6 +152,6 @@ export default function MenuI (){
         <Divider />
 
       </Drawer>
-      </>
+    </>
   )
 }

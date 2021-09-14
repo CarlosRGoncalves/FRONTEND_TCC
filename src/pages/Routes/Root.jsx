@@ -5,6 +5,8 @@ import {
   Route,
 } from 'react-router-dom';
 import Home from '../Home/Home';
+import Usuarios from '../Usuarios/Usuario';
+
 import Menu_Inicial from '../Menu_Inicial/menu_inicial';
 import PrivateRoute from 'private/auth';
 import Logout from 'components/Logout/logout';
@@ -14,6 +16,7 @@ const PagesRoot = () => (
     <Switch>
       <Route exact path="/" component={UserLogin} />
       <PrivateRoute exact path="/home" component={Home} />
+      <PrivateRoute exact path="/usuario" component={Usuarios} />
       <Route  exact path="/logout" component={Logout} />
       <PrivateRoute  exact path="/menu_inicial" component={Menu_Inicial} />
     </Switch>
