@@ -106,8 +106,10 @@ export default function MiniDrawer (){
           <MenuI/>
           <main className={classes.content}>
               <div className={classes.toolbar} />
-                  <h2>USUÁRIOS</h2>
+                  
                   <Grid container spacing={20}>
+                  <Paper className = {classes.content} >
+                  <h2>Usuários</h2>
                         <TableContainer component={Paper}>
                             <Table className={classes.table} size="small" aria-label="a dense table">
                                 <TableHead>
@@ -142,7 +144,7 @@ export default function MiniDrawer (){
                                 </TableBody>
                             </Table>
                         </TableContainer>
-                    
+                    </Paper>
                   </Grid>
           </main>
         </div>

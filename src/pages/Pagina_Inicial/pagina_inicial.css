@@ -1,0 +1,11 @@
+
+#container-da-imagem {
+  width: 500px;
+  position: relative;
+}
+#container-da-imagem img {
+  width: 100%
+}
+img {
+  width: 100%
+}

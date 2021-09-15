@@ -63,16 +63,6 @@ const useStyles = makeStyles((theme) => ({
  
 }
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Sistema de Controle de Produção de Orgânicos '}
-
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 export default function MiniDrawer (){
   
     const classes = useStyles();
@@ -99,9 +89,10 @@ export default function MiniDrawer (){
           <MenuI/>
           <main className={classes.content} >
               <div className={classes.toolbar} />
-                  <h2>MENU INICIAL</h2>
+                  
                   <Grid container spacing={40} >
-                    <Paper className = {classes.paper} >
+                    <Paper className = {classes.content} >
+                    <h2>Menu Inicial</h2>
                       <div className="botao1">
                         <Button
                           variant="contained"
