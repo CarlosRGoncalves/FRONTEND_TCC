@@ -89,10 +89,13 @@ export default function MiniDrawer (){
           <MenuI/>
           <main className={classes.content} >
               <div className={classes.toolbar} />
-                  
+              
+                  <h2>Menu Inicial</h2>
+              <Paper className = {classes.content} >
                   <Grid container spacing={40} >
-                    <Paper className = {classes.content} >
-                    <h2>Menu Inicial</h2>
+                  
+                    
+                    
                       <div className="botao1">
                         <Button
                           variant="contained"
@@ -205,10 +208,10 @@ export default function MiniDrawer (){
                           Gerenciar Produto Final
                         </Button>
                       </div>
-                    </Paper>
+                   
                   </Grid>
              
-
+                  </Paper>
 
           </main>
         </div>

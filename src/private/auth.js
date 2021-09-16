@@ -15,6 +15,9 @@ const isAuth = async () =>{
             console.log("Entrou aqui")
             alert("Usuario não Autorizado!!!");
             return false;
+        }else{
+            alert('Usuário não Autorizado!!!')
+          window.location.replace("http://localhost:3000/");
         }
     }
     console.log("Entrou aqui2")
