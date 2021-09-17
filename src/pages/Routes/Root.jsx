@@ -7,7 +7,7 @@ import {
 import Home from '../Home/Home';
 import Usuarios from '../Usuarios/Usuario';
 import Usuarios_Cadastro from '../Usuarios/Usuario cadastro';
-
+import Usuarios_Alterar from '../Usuarios/Usuario alterar';
 import Menu_Inicial from '../Menu_Inicial/menu_inicial';
 import Pagina_Inicial from '../Pagina_Inicial/pagina_inicial';
 
@@ -20,8 +20,8 @@ const PagesRoot = () => (
       <Route exact path="/" component={UserLogin} />
       <PrivateRoute exact path="/home" component={Home} />
       <PrivateRoute exact path="/usuario" component={Usuarios} />
-      <PrivateRoute exact path="/usuario_cadastro" component={Usuarios_Cadastro} />
-
+      <PrivateRoute exact path="/usuario/cadastro" component={Usuarios_Cadastro} />
+      <PrivateRoute exact path="/usuario/alterar/:id_usuario" component={Usuarios_Alterar} />
       <Route  exact path="/logout" component={Logout} />
       <PrivateRoute  exact path="/menu_inicial" component={Menu_Inicial} />
       <PrivateRoute  exact path="/pagina_inicial" component={Pagina_Inicial} />

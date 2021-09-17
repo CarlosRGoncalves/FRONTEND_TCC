@@ -26,6 +26,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import { useParams } from 'react-router';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -85,24 +86,39 @@ export default function UsuarioCadastro(){
     const [telefone, setTelefone] = useState('');
     const [tipo_usuario, setTipo_usuario] = useState('');
     const [senha, setSenha] = useState('');
-  
-    async  function Cadastrar(){
+    const [idUsu, setUsu] = useState('');
+    const {id_usuario} = useParams()
+    useEffect(() => {
+      async function getUsuario(){
+       
+            var response = await axios.get('http://localhost:3006/usuario/'+id_usuario)
+            
+            setNome(response.data.usuario.nome);
+            setEmail(response.data.usuario.email);
+            setTelefone(response.data.usuario.telefone);
+            setTipo_usuario(response.data.usuario.tipo_usuario);
+        }
+      getUsuario();
+      
+    },[]);
+    async  function Alterar(){
       const data = {
         nome:nome,
         email:email,
         telefone:telefone,
         tipo_usuario:tipo_usuario,
-        senha:senha
+        senha:senha,
+        id_usuario:id_usuario
       }
-
+      console.log(data)
       if(nome!=''&&email!=''&&telefone!=''&&tipo_usuario!=''&&senha!=''){
-        var result = await axios.post('http://localhost:3006/usuario/cadastro',data)
-        if(result.status ===201){
-          alert('Usuário Cadastrado com Sucesso!')
-          window.location.replace("http://localhost:3000/usuario");
+        var result = await axios.patch('http://localhost:3006/usuario/'+id_usuario,data)
+        if(result.status ===200){
+          alert('Usuário Alterado com Sucesso!')
+          window.location.href = '/usuario';
         }else{
           alert('Ocorreu um erro, Tente novamente!')
-          window.location.replace("http://localhost:3000/usuario/cadastro");
+          
         }
       }else{
         alert('Campo em Branco!')
@@ -120,7 +136,7 @@ export default function UsuarioCadastro(){
             <div className={classes.toolbar} />
             
                 <Typography variant="h6" gutterBottom>
-                    Cadastro de Usuários
+                    Alteração de Usuário
                 </Typography>
                 <Paper className = {classes.content} >
                   <Grid container spacing={3}>
@@ -200,9 +216,9 @@ export default function UsuarioCadastro(){
                               variant="contained"
                               color="primary"
                               style={{backgroundColor: "#00A869"}}
-                              onClick ={Cadastrar}
+                              onClick ={Alterar}
                             >
-                              Cadastrar Usuário
+                              Alterar Usuário
                     </Button>
                     </Grid>
                 </Paper>
