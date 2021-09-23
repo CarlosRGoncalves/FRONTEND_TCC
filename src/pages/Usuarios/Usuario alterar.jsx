@@ -91,16 +91,20 @@ export default function UsuarioCadastro(){
     useEffect(() => {
       async function getUsuario(){
        
-            var response = await axios.get('http://localhost:3006/usuario/'+id_usuario)
+            var response = await axios.get('http://localhost:3006/usuario/'+id_usuario).then().catch(err => {
+              if(err.response.status ===500){
+                alert('Erro no Servidor!')
+              }
+            })
             
             setNome(response.data.usuario.nome);
             setEmail(response.data.usuario.email);
             setTelefone(response.data.usuario.telefone);
             setTipo_usuario(response.data.usuario.tipo_usuario);
-        }
-      getUsuario();
-      
+      }
+      getUsuario();      
     },[]);
+
     async  function Alterar(){
       const data = {
         nome:nome,
@@ -112,20 +116,21 @@ export default function UsuarioCadastro(){
       }
       console.log(data)
       if(nome!=''&&email!=''&&telefone!=''&&tipo_usuario!=''&&senha!=''){
-        var result = await axios.patch('http://localhost:3006/usuario/'+id_usuario,data)
-        if(result.status ===200){
-          alert('Usuário Alterado com Sucesso!')
-          window.location.href = '/usuario';
-        }else{
-          alert('Ocorreu um erro, Tente novamente!')
-          
-        }
+        var result = await axios.patch('http://localhost:3006/usuario/'+id_usuario,data).then(res => {
+          if(res.status ===200){
+            alert('Usuário Alterado com Sucesso!')
+            window.location.replace("http://localhost:3000/usuario");
+          }
+        }).catch(err => {
+          if(err.response.status ===500){
+            alert('E-mail já cadastrado ou Erro no Servidor!')
+           
+          }
+        })
       }else{
         alert('Campo em Branco!')
       }
     }
-    
- 
     return (       
       
       <div className={classes.root}>
@@ -164,6 +169,7 @@ export default function UsuarioCadastro(){
                         autoComplete="email"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
+                       // disabled
                       />
                     </Grid>
                     <Grid item xs={12} sm={3}>
@@ -211,8 +217,7 @@ export default function UsuarioCadastro(){
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <br/>
-                    <Button
-                              
+                    <Button                              
                               variant="contained"
                               color="primary"
                               style={{backgroundColor: "#00A869"}}

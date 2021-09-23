@@ -96,14 +96,22 @@ export default function UsuarioCadastro(){
       }
 
       if(nome!=''&&email!=''&&telefone!=''&&tipo_usuario!=''&&senha!=''){
-        var result = await axios.post('http://localhost:3006/usuario/cadastro',data)
-        if(result.status ===201){
-          alert('Usuário Cadastrado com Sucesso!')
-          window.location.replace("http://localhost:3000/usuario");
-        }else{
-          alert('Ocorreu um erro, Tente novamente!')
-          window.location.replace("http://localhost:3000/usuario/cadastro");
-        }
+        var result = await axios.post('http://localhost:3006/usuario/cadastro',data).then(res => {
+          //console.log("AQUI",res.status);
+          if(res.status ===201){
+            alert('Usuário Cadastrado com Sucesso!')
+            window.location.replace("http://localhost:3000/usuario");
+          }
+        }).catch(err => {
+          if(err.response.status ===409){
+            alert(err.response.data.mensagem)
+          }
+          else if(err.response.status ===500){
+            alert('Erro no Servidor!')
+            window.location.replace("http://localhost:3000/usuario/cadastro");
+          }
+        })
+
       }else{
         alert('Campo em Branco!')
       }
