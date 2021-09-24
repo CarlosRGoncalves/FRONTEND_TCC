@@ -104,6 +104,7 @@ export default function UsuarioCadastro(){
           }
         }).catch(err => {
           if(err.response.status ===409){
+            console.log(err.response)
             alert(err.response.data.mensagem)
           }
           else if(err.response.status ===500){

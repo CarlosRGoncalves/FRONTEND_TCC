@@ -82,7 +82,7 @@ export default function MiniDrawer (){
   
     const response = axios.get('http://localhost:3006/usuario/',{ headers })
     .then(response =>{
-      console.log(response.data.usuario);
+    //console.log(response.data.usuario);
     setUsuarios(response.data.usuario);
     })
     .catch(err =>{
@@ -96,14 +96,18 @@ export default function MiniDrawer (){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
     if(window.confirm("Você tem certeza que vai excluir esse Usuário?")){
-      var result = await axios.delete('http://localhost:3006/usuario/'+id,{ headers })
+      var result = await axios.delete('http://localhost:3006/usuario/'+id,{ headers }).then(res =>{
+        if(res.status ===202){
+          console.log(res)
+          alert(res.data.response.mensagem)
+          window.location.replace("http://localhost:3000/usuario");
+        }
+      }).catch(err =>{
+        console.log(err)
+        alert(err);
+      })
 
-      if(result.status ===202){
-        window.location.replace("http://localhost:3000/usuario");
-      }else{
-        alert('Ocorreu um erro, Tente novamente!')
-        window.location.replace("http://localhost:3000/usuario");
-      }
+  
     }
   }
 
