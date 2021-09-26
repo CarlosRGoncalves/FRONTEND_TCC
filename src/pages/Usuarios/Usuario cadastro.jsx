@@ -99,7 +99,7 @@ export default function UsuarioCadastro(){
         var result = await axios.post('http://localhost:3006/usuario/cadastro',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
-            alert('Usuário Cadastrado com Sucesso!')
+            alert(res.data.response.mensagem)
             window.location.replace("http://localhost:3000/usuario");
           }
         }).catch(err => {

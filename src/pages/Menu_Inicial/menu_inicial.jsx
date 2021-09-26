@@ -96,17 +96,17 @@ export default function MiniDrawer (){
                   
                     
                     
-                      <div className="botao1">
+                      <div className="botao2">
                         <Button
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace("http://localhost:3000/USUARIO")}
+                          onClick = {() => window.location.replace("http://localhost:3000/usuario")}
                         >
                             Gerenciar Usuários
                         </Button>
                       </div>
-                      <div className="botao1">
+                      <div className="botao2">
                           <Button
                             variant="contained"
                             color="primary"
@@ -115,7 +115,7 @@ export default function MiniDrawer (){
                             Gerenciar clientes
                           </Button>
                       </div>
-                      <div className="botao1">
+                      <div className="botao2">
                         <Button
                           variant="contained"
                           color="primary"
@@ -126,7 +126,7 @@ export default function MiniDrawer (){
                         
                         </Button>
                       </div>
-                      <div className="botao1">
+                      <div className="botao2">
                         <Button
                           variant="contained"
                           color="primary"
@@ -135,7 +135,7 @@ export default function MiniDrawer (){
                           Gerenciar Plantio
                         </Button>
                       </div>
-                      <div className="botao1">
+                      <div className="botao2">
                         <Button
                           variant="contained"
                           color="primary"
@@ -144,11 +144,13 @@ export default function MiniDrawer (){
                           Gerenciar Colheita
                         </Button>
                       </div>
-                      <div className="botao1">
+                      <div className="botao2">
                         <Button
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace("http://localhost:3000/secao")}
+
                         >
                           Gerenciar Seções
                         </Button>
@@ -177,6 +179,7 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace("http://localhost:3000/tipo_planta")}
                         >
                           Gerenciar Tipo de Planta
                         </Button>
