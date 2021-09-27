@@ -18,7 +18,7 @@ import Paper from '@material-ui/core/Paper';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
-import './secao.css';
+import './planta.css';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -71,17 +71,17 @@ const useStyles = makeStyles((theme) => ({
 export default function MiniDrawer (){
   
   const classes = useStyles();
-  const [secoes, setSecoes] = useState([]);
+  const [plantas, setPlantas] = useState([]);
 
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
   
-    const response = axios.get('http://localhost:3006/secao/',{ headers })
+    const response = axios.get('http://localhost:3006/planta/',{ headers })
     .then(response =>{
     //console.log(response.data.usuario);
-    setSecoes(response.data.secao);
+    setPlantas(response.data.planta);
     })
     .catch(err =>{
       console.log(err)
@@ -94,11 +94,11 @@ export default function MiniDrawer (){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
     if(window.confirm("Você tem certeza que vai excluir essa Seção?")){
-      var result = await axios.delete('http://localhost:3006/secao/'+id,{ headers }).then(res =>{
+      var result = await axios.delete('http://localhost:3006/planta/'+id,{ headers }).then(res =>{
         if(res.status ===202){
           console.log(res)
           alert(res.data.response.mensagem)
-          window.location.replace("http://localhost:3000/secao");
+          window.location.replace("http://localhost:3000/planta");
         }
       }).catch(err =>{
         console.log(err)
@@ -110,16 +110,16 @@ export default function MiniDrawer (){
   }
 
   function cad() {
-    window.location.replace("http://localhost:3000/secao/cadastro");
+    window.location.replace("http://localhost:3000/planta/cadastro");
   }
 
   function Tp_Usuario() {
     const token = localStorage.getItem('token');
     if(token){
-          const decoded = jwt_decode(token);
+        /*  const decoded = jwt_decode(token);
           if(decoded.tipo_usuario == 2){
             return("true")
-          }
+          }*/
     }
     return;
   }
@@ -131,33 +131,37 @@ export default function MiniDrawer (){
       <main className={classes.content}>
           <div className={classes.toolbar} />
           
-          <h2>Seções</h2>
+          <h2>Plantas</h2>
             <Grid container spacing={20}>
             <Paper className = {classes.content} >
                   <TableContainer component={Paper}>
                       <Table className={classes.table} size="small" aria-label="a dense table">
                           <TableHead>
                           <TableRow>
-                              <TableCell>ID Secao</TableCell>
-                              <TableCell align="center">ID Usuario</TableCell>
+                              <TableCell>ID Planta</TableCell>
+                              <TableCell align="center">ID Tipo de Planta</TableCell>
                               <TableCell align="center">Descricão</TableCell>
-                              <TableCell align="center">Area&nbsp;</TableCell>
+                              <TableCell align="center">Epoca Plantio&nbsp;</TableCell>
+                              <TableCell align="center">Forma Plantio&nbsp;</TableCell>
+                              <TableCell align="center">Tempo Colheita&nbsp;</TableCell>
                               <TableCell align="center">Opções&nbsp;</TableCell>
                           </TableRow>
                           </TableHead>
                           <TableBody>
-                              {secoes.map((row) => (
-                                  <TableRow key={row.id_secao}>
+                              {plantas.map((row) => (
+                                  <TableRow key={row.id_planta}>
                                   <TableCell component="th" scope="row">
-                                      {row.id_secao}
+                                      {row.id_planta}
                                   </TableCell>
-                                  <TableCell align="center">{row.id_usuario}</TableCell>
+                                  <TableCell align="center">{row.id_tipo_planta}</TableCell>
                                   <TableCell align="center">{row.descricao}</TableCell>
-                                  <TableCell align="center">{row.area}</TableCell>
+                                  <TableCell align="center">{row.epoca_plantio}</TableCell>
+                                  <TableCell align="center">{row.forma_plantio}</TableCell>
+                                  <TableCell align="center">{row.tempo_colheita}</TableCell>
                                   <TableCell align="right">
                                     <ButtonGroup  aria-label="outlined primary button group">
-                                        <Button color = "primary" align="center" startIcon={<CreateIcon/>} href={'/secao/alterar/'+row.id_secao} disabled = {Tp_Usuario()}></Button>
-                                        <Button color = "secondary" align="center" startIcon={<DeleteIcon/>} onClick = {() => Delete(row.id_secao)} disabled = {Tp_Usuario()}></Button>
+                                        <Button color = "primary" align="center" startIcon={<CreateIcon/>} href={'/planta/alterar/'+row.id_planta} disabled = {Tp_Usuario()}></Button>
+                                        <Button color = "secondary" align="center" startIcon={<DeleteIcon/>} onClick = {() => Delete(row.id_planta)} disabled = {Tp_Usuario()}></Button>
                                     </ButtonGroup>
                                   </TableCell>
 
@@ -176,7 +180,7 @@ export default function MiniDrawer (){
                                 onClick = {() => cad()}
                                 disabled = {Tp_Usuario()}
                               >
-                                Cadastrar Nova Seção
+                                Cadastrar Nova Planta
                           </Button>
                     </div>
                 </Paper>

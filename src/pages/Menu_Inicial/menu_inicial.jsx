@@ -66,24 +66,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MiniDrawer (){
   
     const classes = useStyles();
-    const [repositories, setRepositories] = useState([]);
-   
-    useEffect(() => {
-      const token = localStorage.getItem('token');
-      const headers = { Authorization: `Bearer ${token}` };
-
-      const response = axios.get('http://localhost:3006/cliente/',{ headers })
-      .then(response =>{
-        console.log(response.data.cliente);
-      setRepositories(response.data.cliente);
-      })
-      .catch(err =>{
-        console.log(err)
-      })
-      
-    },[]);
-    
-      return (       
+    return (       
         <div className={classes.root}>
           <CssBaseline/>
           <MenuI/>
@@ -149,18 +132,17 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace("http://localhost:3000/secao")}
-
                         >
-                          Gerenciar Seções
+                          Gerenciar Produto Final
                         </Button>
                       </div>
-                    
                       <div className="botao2">
                         <Button
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace("http://localhost:3000/planta")}
+
                         >
                           Gerenciar Planta
                         </Button>
@@ -207,8 +189,10 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace("http://localhost:3000/secao")}
+
                         >
-                          Gerenciar Produto Final
+                          Gerenciar Seções
                         </Button>
                       </div>
                    

@@ -15,6 +15,9 @@ import Secoes from '../Secoes/Secao';
 import Secoes_Cadastro from '../Secoes/Secao cadastro';
 import Secoes_Alterar from '../Secoes/Secao alterar';
 
+import Plantas from '../Plantas/Planta';
+import Plantas_Cadastro from '../Plantas/Planta cadastro';
+import Plantas_Alterar from '../Plantas/Planta alterar';
 
 import Tipos_Plantas from '../Tipos_Plantas/Tipo_planta';
 import Tipos_Plantas_Cadastro from '../Tipos_Plantas/Tipo_planta cadastro';
@@ -42,6 +45,10 @@ const PagesRoot = () => (
       <PrivateRoute exact path="/tipo_planta" component={Tipos_Plantas} />
       <PrivateRoute exact path="/tipo_planta/cadastro" component={Tipos_Plantas_Cadastro} />
       <PrivateRoute exact path="/tipo_planta/alterar/:id_tipo_planta" component={Tipos_Plantas_Alterar} />
+
+      <PrivateRoute exact path="/planta" component={Plantas} />
+      <PrivateRoute exact path="/planta/cadastro" component={Plantas_Cadastro} />
+      <PrivateRoute exact path="/planta/alterar/:id_planta" component={Plantas_Alterar} />
 
       <Route  exact path="/logout" component={Logout} />
       <PrivateRoute  exact path="/menu_inicial" component={Menu_Inicial} />
