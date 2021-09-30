@@ -16,11 +16,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import Chip from '@material-ui/core/Chip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
-import Typography from '@material-ui/core/Typography';
-import './usuario.css';
+import './Produto_final.css';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -73,36 +71,37 @@ const useStyles = makeStyles((theme) => ({
 export default function MiniDrawer (){
   
   const classes = useStyles();
-  const [usuarios, setUsuarios] = useState([]);
+  const [produto_final, setProduto_final] = useState([]);
 
 
   useEffect(() => {
-    async function usu(){
+    async function produto_final(){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
   
-    const response = await axios.get('http://localhost:3006/usuario/',{ headers })
+    const response = await axios.get('http://localhost:3006/produto_final/',{ headers })
     .then(response =>{
-    //console.log(response.data.usuario);
-    setUsuarios(response.data.usuario);
+    //console.log(response.data.produto_final);
+
+    setProduto_final(response.data.produto_final);
     })
     .catch(err =>{
       console.log(err)
       alert(err);
     })
   }
-  usu();
+  produto_final();
   },[]);
 
   async function Delete(id){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
-    if(window.confirm("Você tem certeza que vai excluir esse Usuário?")){
-      var result = await axios.delete('http://localhost:3006/usuario/'+id,{ headers }).then(res =>{
+    if(window.confirm("Você tem certeza que vai excluir esse Produto Final ?")){
+      var result = await axios.delete('http://localhost:3006/produto_final/'+id,{ headers }).then(res =>{
         if(res.status ===202){
           console.log(res)
           alert(res.data.response.mensagem)
-          window.location.replace("http://localhost:3000/usuario");
+          window.location.replace("http://localhost:3000/produto_final");
         }
       }).catch(err =>{
         console.log(err)
@@ -114,17 +113,17 @@ export default function MiniDrawer (){
   }
 
   function cad() {
-    window.location.replace("http://localhost:3000/usuario/cadastro");
+    window.location.replace("http://localhost:3000/produto_final/cadastro");
   }
 
   function Tp_Usuario() {
-    const token = localStorage.getItem('token');
+  /*  const token = localStorage.getItem('token');
     if(token){
           const decoded = jwt_decode(token);
           if(decoded.tipo_usuario == 2){
             return("true")
           }
-    }
+    }*/
     return;
   }
 
@@ -135,35 +134,36 @@ export default function MiniDrawer (){
       <main className={classes.content}>
           <div className={classes.toolbar} />
           
-          <h2>Usuários</h2>
+          <h2>Produtos Finais</h2>
             <Grid container spacing={20}>
             <Paper className = {classes.content} >
                   <TableContainer component={Paper}>
                       <Table className={classes.table} size="small" aria-label="a dense table">
                           <TableHead>
                           <TableRow>
-                              <TableCell>Id</TableCell>
-                              <TableCell align="center">Nome</TableCell>
-                              <TableCell align="center">Email</TableCell>
-                              <TableCell align="center">Telefone&nbsp;</TableCell>
-                              <TableCell align="center">Tipo Usuário&nbsp;</TableCell>
+                              <TableCell>ID Produto Final</TableCell>
+                              <TableCell align="center">Nome&nbsp;</TableCell>
+                              <TableCell align="center">Descricão</TableCell>
+                              <TableCell align="center">Medida</TableCell>
+                              <TableCell align="center">Valor</TableCell>
                               <TableCell align="center">Opções&nbsp;</TableCell>
                           </TableRow>
                           </TableHead>
                           <TableBody>
-                              {usuarios.map((row) => (
-                                  <TableRow key={row.id_usuario}>
+                              {produto_final.map((row) => (
+                                
+                                  <TableRow key={row.id_produto_final}>
                                   <TableCell component="th" scope="row">
-                                      {row.id_usuario}
+                                      {row.id_produto_final}
                                   </TableCell>
                                   <TableCell align="center">{row.nome}</TableCell>
-                                  <TableCell align="center">{row.email}</TableCell>
-                                  <TableCell align="center">{row.telefone}</TableCell>
-                                  <TableCell align="center">{row.tipo_usuario ===1?<Chip label="Administrador" color="primary"/>:<Chip label="Produtor" color="secondary" />}</TableCell>
+                                  <TableCell align="center">{row.descricao}</TableCell>
+                                  <TableCell align="center">{row.medida}</TableCell>
+                                  <TableCell align="center">{row.valor}</TableCell>
                                   <TableCell align="right">
                                     <ButtonGroup  aria-label="outlined primary button group">
-                                        <Button color = "primary" align="center" startIcon={<CreateIcon/>} href={'/usuario/alterar/'+row.id_usuario} disabled = {Tp_Usuario()}></Button>
-                                        <Button color = "secondary" align="center" startIcon={<DeleteIcon/>} onClick = {() => Delete(row.id_usuario)} disabled = {Tp_Usuario()}></Button>
+                                        <Button color = "primary" align="center" startIcon={<CreateIcon/>} href={'/produto_final/alterar/'+row.id_produto_final} disabled = {Tp_Usuario()}></Button>
+                                        <Button color = "secondary" align="center" startIcon={<DeleteIcon/>} onClick = {() => Delete(row.id_produto_final)} disabled = {Tp_Usuario()}></Button>
                                     </ButtonGroup>
                                   </TableCell>
 
@@ -175,14 +175,14 @@ export default function MiniDrawer (){
                     <br/>
                     <div >
                           <Button
-                                id = "cadUsuario"
+                                id = "cadProdutoFinal"
                                 variant="contained"
                                 color="primary"
                                 style={{backgroundColor: "#00A869"}}
                                 onClick = {() => cad()}
                                 disabled = {Tp_Usuario()}
                               >
-                                Cadastrar Novo Usuário
+                                Cadastrar Novo Produto Final
                           </Button>
                     </div>
                 </Paper>

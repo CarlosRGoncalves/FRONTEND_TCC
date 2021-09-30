@@ -72,51 +72,34 @@ const useStyles = makeStyles((theme) => ({
 export default function MiniDrawer (){
   
     const classes = useStyles();
-    /*
-    const [repositories, setRepositories] = useState([]);
-   
-    useEffect(() => {
-      const token = localStorage.getItem('token');
-      const headers = { Authorization: `Bearer ${token}` };
-
-      const response = axios.get('http://localhost:3006/cliente/',{ headers })
-      .then(response =>{
-        console.log(response.data.cliente);
-      setRepositories(response.data.cliente);
-      })
-      .catch(err =>{
-        console.log(err)
-      })
-      
-    },[]);
-    */
-      return (       
-        <div className={classes.root}>
-          <CssBaseline/>
-          <MenuI/>
-          <main className={classes.content} >
-              <div className={classes.toolbar} />
+    
+    return (       
+      <div className={classes.root}>
+        <CssBaseline/>
+        <MenuI/>
+        <main className={classes.content} >
+            <div className={classes.toolbar} />
+          
+                <h2>Página Inicial</h2>
+            <Paper className = {classes.content} >
+                  <Typography paragraph>
+                      O mercado de orgânicos no Brasil começou sua produção em grande escala no início da década de 90, com destaque para as iniciativas criadas pela Associação de Agricultores
+                      Biológicos do Estado do Rio de Janeiro (Abio), pela Cooperativa Ecológica Coolmeia
+                      de Porto Alegre, e pela Associação de Agricultura Orgânica (AAO) de São Paulo.
+                  </Typography>
+                  <Typography paragraph>
+                      Diante a esse cenário, é visível o crescimento da produção de produtos orgânicos. Assim, existe uma necessidade de soluções eficazes tecnológicas para o registro do procedimento de produção para o pequeno produtor rural principalmente que muitas vezes não tem o suporte suficiente e o conhecimento para usar tais tecnologias que possa corrigir.
+                  </Typography>
+                  <Typography paragraph>
+                      Através de pesquisas no cenário agrícula, foi percebido um déficit de sistemas voltados aos pequenos produtores orgânicos, Por este motivo, este trabalho tem o intuito de facilitar o procedimento de registro de produções orgânicas para pequenos produtores. O software é pensado no pequeno produtor assim com intuito de ser simples e de fácil utilização.
+                  </Typography>
+                  
             
-                  <h2>Página Inicial</h2>
-              <Paper className = {classes.content} >
-                    <Typography paragraph>
-                        O mercado de orgânicos no Brasil começou sua produção em grande escala no início da década de 90, com destaque para as iniciativas criadas pela Associação de Agricultores
-                        Biológicos do Estado do Rio de Janeiro (Abio), pela Cooperativa Ecológica Coolmeia
-                        de Porto Alegre, e pela Associação de Agricultura Orgânica (AAO) de São Paulo.
-                    </Typography>
-                    <Typography paragraph>
-                        Diante a esse cenário, é visível o crescimento da produção de produtos orgânicos. Assim, existe uma necessidade de soluções eficazes tecnológicas para o registro do procedimento de produção para o pequeno produtor rural principalmente que muitas vezes não tem o suporte suficiente e o conhecimento para usar tais tecnologias que possa corrigir.
-                    </Typography>
-                    <Typography paragraph>
-                        Através de pesquisas no cenário agrícula, foi percebido um déficit de sistemas voltados aos pequenos produtores orgânicos, Por este motivo, este trabalho tem o intuito de facilitar o procedimento de registro de produções orgânicas para pequenos produtores. O software é pensado no pequeno produtor assim com intuito de ser simples e de fácil utilização.
-                    </Typography>
-                    
-             
-                 </Paper>
+                </Paper>
 
-          </main>
-        </div>
-            
-      );
+        </main>
+      </div>
+          
+    );
   
 }

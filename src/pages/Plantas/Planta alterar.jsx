@@ -71,6 +71,7 @@ export default function SecaoAlterar(){
   
     const classes = useStyles();
     const [id_tipo_planta, setId_tipo_planta] = useState('');
+    const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
     const [epoca_plantio, setEpoca_plantio] = useState('');
     const [forma_plantio, setForma_plantio] = useState('');
@@ -91,6 +92,7 @@ export default function SecaoAlterar(){
             })
             console.log(response.data.response.planta)
             setId_tipo_planta(response.data.response.planta.id_tipo_planta);
+            setNome(response.data.response.planta.nome);
             setDescricao(response.data.response.planta.descricao);
             setEpoca_plantio(response.data.response.planta.epoca_plantio);
             setForma_plantio(response.data.response.planta.forma_plantio);
@@ -118,6 +120,7 @@ export default function SecaoAlterar(){
     async  function Alterar(){
       const data = {
         id_tipo_planta:id_tipo_planta,
+        nome:nome,
         descricao:descricao,
         epoca_plantio:epoca_plantio,
         forma_plantio:forma_plantio,
@@ -169,6 +172,19 @@ export default function SecaoAlterar(){
                       ))}
                       </Select>
                     </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        required
+                        id="nome"
+                        name="nome"
+                        label="Nome"
+                        fullWidth
+                        autoComplete="nome"
+                        value={nome}
+                        onChange={e => setNome(e.target.value)}
+                       // disabled
+                      />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField

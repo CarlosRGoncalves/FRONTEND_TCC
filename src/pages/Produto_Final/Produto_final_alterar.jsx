@@ -5,16 +5,13 @@ import { Grid } from '@material-ui/core';
 import MenuI from '../../components/Menu_Inicial/Menu'
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import jwt_decode from "jwt-decode";
 import green from '@material-ui/core/colors/green';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
+import { useParams } from 'react-router';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -61,53 +58,64 @@ const useStyles = makeStyles((theme) => ({
  const token = localStorage.getItem("token")
  if(token){
   const decoded = jwt_decode(token);
-  localStorage.setItem("nome",decoded.nome);
+  localStorage.setItem("id_usuario",decoded.id_usuario);
  }
  
 }
 
-export default function UsuarioCadastro(){
+export default function Pragas_doencaAlterar(){
   
     const classes = useStyles();
+    const [descricao, setDescricao] = useState('');
     const [nome, setNome] = useState('');
-    const [email, setEmail] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [tipo_usuario, setTipo_usuario] = useState('');
-    const [senha, setSenha] = useState('');
-  
-    async  function Cadastrar(){
-      const data = {
-        nome:nome,
-        email:email,
-        telefone:telefone,
-        tipo_usuario:tipo_usuario,
-        senha:senha
+    const [medida, setMedida] = useState('');
+    const [valor, setValor] = useState('');
+    const {id_produto_final} = useParams()
+    useEffect(() => {
+      async function getProduto_finalAlterar(){
+        const token = localStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}` };
+       // console.log(id_produto_final)
+          var response = await axios.get('http://localhost:3006/produto_final/'+id_produto_final,{headers}).then().catch(err => {
+              if(err.response.status ===500){
+                alert('Erro no Servidor!')
+              }
+            })
+         //   console.log(response)
+            setDescricao(response.data.response.produto_final.descricao);
+            setNome(response.data.response.produto_final.nome);
+            setMedida(response.data.response.produto_final.medida);
+            setValor(response.data.response.produto_final.valor);
       }
+      getProduto_finalAlterar();      
+    },[]);
 
-      if(nome!=''&&email!=''&&telefone!=''&&tipo_usuario!=''&&senha!=''){
-        var result = await axios.post('http://localhost:3006/usuario/cadastro',data).then(res => {
-          //console.log("AQUI",res.status);
-          if(res.status ===201){
+    async  function Alterar(){
+      const data = {
+        descricao:descricao,
+        nome:nome,
+        medida:medida,
+        valor:valor
+      }
+      console.log(data)
+      if(descricao!=''&&nome!=''&&medida!=''&&valor!=''&&valor>=0){
+        const token = localStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}` };
+        var result = await axios.patch('http://localhost:3006/produto_final/'+id_produto_final,data).then(res => {
+          if(res.status ===202){
             alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/usuario");
+            window.location.replace("http://localhost:3000/produto_final");
           }
         }).catch(err => {
-          if(err.response.status ===409){
-            console.log(err.response)
-            alert(err.response.data.mensagem)
-          }
-          else if(err.response.status ===500){
-            alert('Erro no Servidor!')
-            //window.location.replace("http://localhost:3000/usuario/cadastro");
+          if(err.response.status ===500){
+            alert('Erro na Alteração')
+           
           }
         })
-
       }else{
-        alert('Campo em Branco!')
+        alert('Algum campo Preenchido Incorretamente!!!')
       }
     }
-    
- 
     return (       
       
       <div className={classes.root}>
@@ -118,89 +126,73 @@ export default function UsuarioCadastro(){
             <div className={classes.toolbar} />
             
                 <Typography variant="h6" gutterBottom>
-                    Cadastro de Usuários
+                    Alteração de Pragas/Doenças
                 </Typography>
                 <Paper className = {classes.content} >
                   <Grid container spacing={3}>
-                    
-                    <Grid item xs={12} sm={6}>
+                   
+                    <Grid item xs={12} sm={4}>
                       <TextField
                         required
                         id="nome"
                         name="nome"
-                        label="Nome Completo"
+                        label="Nome"
                         fullWidth
                         autoComplete="nome"
                         value={nome}
                         onChange={e => setNome(e.target.value)}
-                        
                       />
                     </Grid>
-                    <Grid item xs={12} sm={5}>
+                    <Grid item xs={12} sm={6}>
                       <TextField
                         required
-                        id="email"
-                        name="email"
-                        label="Email"
+                        id="descricao"
+                        name="descricao"
+                        label="Descricao"
                         fullWidth
-                        autoComplete="email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
+                        autoComplete="descricao"
+                        value={descricao}
+                        onChange={e => setDescricao(e.target.value)}
+                       // disabled
                       />
                     </Grid>
-                    <Grid item xs={12} sm={3}>
+                    <Grid item xs={12} sm={6}>
                       <TextField
                         required
-                        id="telefone"
-                        name="telefone"
-                        label="Telefone"
+                        id="medida"
+                        name="medida"
+                        label="Medida"
                         fullWidth
-                        autoComplete="telefone"
-                        value={telefone}
-                        onChange={e => setTelefone(e.target.value)}
+                        autoComplete="medida"
+                        value={medida}
+                        onChange={e => setMedida(e.target.value)}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={3}>
-                      <FormControl className={classes.formControl}>
-                      <InputLabel id="tipo_usuario">Tipo Usuário</InputLabel>
-                      <Select
-                        labelId="tipo_usuario"
-                        id="tipo_usuario"
-                        value={tipo_usuario}
-                        onChange={e => setTipo_usuario(e.target.value)}
-                      >
-                        <MenuItem value={1}>Administrador</MenuItem>
-                        <MenuItem value={2}>Produtor</MenuItem>
-                      
-                      </Select>
-                    </FormControl>
-                    </Grid>
-                    <Grid item xs={12} sm={5}>
+                    <Grid item xs={12} sm={6}>
                       <TextField
                         required
-                        type = "password"
-                        id="senha"
-                        name="senha"
-                        label="Senha"
+                        type="number"
+                        InputProps={{ inputProps: { min: 0, step: 0.1 } }}
+                        id="valor"
+                        name="valor"
+                        label="Valor"
                         fullWidth
-                        autoComplete="senha"
-                        value={senha}
-                        onChange={e => setSenha(e.target.value)}
+                        autoComplete="valor"
+                        value={valor}
+                        onChange={e => setValor(e.target.value)}
                       />
-                        
                     </Grid>
-                   
+   
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <br/>
-                    <Button
-                              
+                    <Button                              
                               variant="contained"
                               color="primary"
                               style={{backgroundColor: "#00A869"}}
-                              onClick ={Cadastrar}
+                              onClick ={Alterar}
                             >
-                              Cadastrar Usuário
+                              Alterar Produto Final
                     </Button>
                     </Grid>
                 </Paper>

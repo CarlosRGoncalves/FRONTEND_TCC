@@ -23,6 +23,18 @@ import Tipos_Plantas from '../Tipos_Plantas/Tipo_planta';
 import Tipos_Plantas_Cadastro from '../Tipos_Plantas/Tipo_planta cadastro';
 import Tipos_Plantas_Alterar from '../Tipos_Plantas/Tipo_planta alterar';
 
+import Pragas_Doencas from '../Pragas_Doencas/Praga_doenca';
+import Pragas_Doencas_Cadastro from '../Pragas_Doencas/Praga_doenca cadastro';
+import Pragas_Doencas_Alterar from '../Pragas_Doencas/Praga_doenca alterar';
+
+import Fornecedor from '../Fornecedor/Fornecedor';
+import Fornecedor_Cadastro from '../Fornecedor/Fornecedor  cadastro';
+import Fornecedor_Alterar from '../Fornecedor/Fornecedor alterar';
+
+import Produto_Final from '../Produto_Final/Produto_final';
+import Produto_Final_Cadastro from '../Produto_Final/Produto_final_cadastro';
+import Produto_Final_Alterar from '../Produto_Final/Produto_final_alterar';
+
 import Pagina_Inicial from '../Pagina_Inicial/pagina_inicial';
 
 import PrivateRoute from 'private/auth';
@@ -49,6 +61,18 @@ const PagesRoot = () => (
       <PrivateRoute exact path="/planta" component={Plantas} />
       <PrivateRoute exact path="/planta/cadastro" component={Plantas_Cadastro} />
       <PrivateRoute exact path="/planta/alterar/:id_planta" component={Plantas_Alterar} />
+
+      <PrivateRoute exact path="/praga_doenca" component={Pragas_Doencas} />
+      <PrivateRoute exact path="/praga_doenca/cadastro" component={Pragas_Doencas_Cadastro} />
+      <PrivateRoute exact path="/praga_doenca/alterar/:id_p_doenca" component={Pragas_Doencas_Alterar} />
+
+      <PrivateRoute exact path="/fornecedor" component={Fornecedor} />
+      <PrivateRoute exact path="/fornecedor/cadastro" component={Fornecedor} />
+      <PrivateRoute exact path="/fornecedor/alterar/:id_fornecedor" component={Fornecedor} />
+
+      <PrivateRoute exact path="/produto_final" component={Produto_Final} />
+      <PrivateRoute exact path="/produto_final/cadastro" component={Produto_Final_Cadastro} />
+      <PrivateRoute exact path="/produto_final/alterar/:id_produto_final" component={Produto_Final_Alterar} />
 
       <Route  exact path="/logout" component={Logout} />
       <PrivateRoute  exact path="/menu_inicial" component={Menu_Inicial} />

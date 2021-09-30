@@ -75,10 +75,11 @@ export default function MiniDrawer (){
 
 
   useEffect(() => {
+    async function tp_planta(){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
   
-    const response = axios.get('http://localhost:3006/tipo_planta/',{ headers })
+    const response = await axios.get('http://localhost:3006/tipo_planta/',{ headers })
     .then(response =>{
     //console.log(response.data.tipo_planta);
 
@@ -88,13 +89,14 @@ export default function MiniDrawer (){
       console.log(err)
       alert(err);
     })
-    
+  }
+  tp_planta();
   },[]);
 
   async function Delete(id){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
-    if(window.confirm("Você tem certeza que vai excluir essa Seção?")){
+    if(window.confirm("Você tem certeza que vai excluir essa Tipo de Planta?")){
       var result = await axios.delete('http://localhost:3006/tipo_planta/'+id,{ headers }).then(res =>{
         if(res.status ===202){
           console.log(res)

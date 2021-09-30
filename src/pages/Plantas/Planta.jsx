@@ -75,25 +75,27 @@ export default function MiniDrawer (){
 
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const headers = { Authorization: `Bearer ${token}` };
-  
-    const response = axios.get('http://localhost:3006/planta/',{ headers })
-    .then(response =>{
-    //console.log(response.data.usuario);
-    setPlantas(response.data.planta);
-    })
-    .catch(err =>{
-      console.log(err)
-      alert(err);
-    })
+    async function planta(){
+      const token = localStorage.getItem('token');
+      const headers = { Authorization: `Bearer ${token}` };
     
+      const response = axios.get('http://localhost:3006/planta/',{ headers })
+      .then(response =>{
+      //console.log(response.data.usuario);
+      setPlantas(response.data.planta);
+      })
+      .catch(err =>{
+        console.log(err)
+        alert(err);
+      })
+    }
+    planta();
   },[]);
 
   async function Delete(id){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
-    if(window.confirm("Você tem certeza que vai excluir essa Seção?")){
+    if(window.confirm("Você tem certeza que vai excluir essa Planta?")){
       var result = await axios.delete('http://localhost:3006/planta/'+id,{ headers }).then(res =>{
         if(res.status ===202){
           console.log(res)
@@ -140,6 +142,7 @@ export default function MiniDrawer (){
                           <TableRow>
                               <TableCell>ID Planta</TableCell>
                               <TableCell align="center">ID Tipo de Planta</TableCell>
+                              <TableCell align="center">Nome</TableCell>
                               <TableCell align="center">Descricão</TableCell>
                               <TableCell align="center">Epoca Plantio&nbsp;</TableCell>
                               <TableCell align="center">Forma Plantio&nbsp;</TableCell>
@@ -154,6 +157,7 @@ export default function MiniDrawer (){
                                       {row.id_planta}
                                   </TableCell>
                                   <TableCell align="center">{row.id_tipo_planta}</TableCell>
+                                  <TableCell align="center">{row.nome}</TableCell>
                                   <TableCell align="center">{row.descricao}</TableCell>
                                   <TableCell align="center">{row.epoca_plantio}</TableCell>
                                   <TableCell align="center">{row.forma_plantio}</TableCell>

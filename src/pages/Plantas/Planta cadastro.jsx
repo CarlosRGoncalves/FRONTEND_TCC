@@ -72,6 +72,7 @@ export default function SecaoCadastro(){
   
     const classes = useStyles();
     const [id_tipo_planta, setId_tipo_planta] = useState('');
+    const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
     const [epoca_plantio, setEpoca_plantio] = useState('');
     const [forma_plantio, setForma_plantio] = useState('');
@@ -79,32 +80,35 @@ export default function SecaoCadastro(){
     const [tipo_plantas, setTipo_plantas] = useState([]);
 
     useEffect(() => {
-      const token = localStorage.getItem('token');
-      const headers = { Authorization: `Bearer ${token}` };
-    
-      const response = axios.get('http://localhost:3006/tipo_planta/',{ headers })
-      .then(response =>{
-      //console.log(response.data.usuario);
-      setTipo_plantas(response.data.tipo_planta);
-      })
-      .catch(err =>{
-        console.log(err)
-        alert(err);
-      })
-      
+      async  function tp(){
+          const token = localStorage.getItem('token');
+          const headers = { Authorization: `Bearer ${token}` };
+        
+          const response = await axios.get('http://localhost:3006/tipo_planta/',{ headers })
+          .then(response =>{
+          //console.log(response.data.usuario);
+          setTipo_plantas(response.data.tipo_planta);
+          })
+          .catch(err =>{
+            console.log(err)
+            alert(err);
+          })
+      }
+      tp();
     },[]);
     
     
     async  function Cadastrar(){
       const data = {
         id_tipo_planta:id_tipo_planta,
+        nome:nome,
         descricao:descricao,
         epoca_plantio:epoca_plantio,
         forma_plantio:forma_plantio,
         tempo_colheita:tempo_colheita
       }
 
-      if(descricao!=''&&epoca_plantio!=''){
+      if(descricao!=''&&epoca_plantio!=''&&nome!=''){
         var result = await axios.post('http://localhost:3006/planta',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
@@ -114,7 +118,7 @@ export default function SecaoCadastro(){
         }).catch(err => {
           if(err.response.status ===500){
             alert('Erro no Cadastro!')
-            window.location.replace("http://localhost:3000/planta/cadastro");
+            //window.location.replace("http://localhost:3000/planta/cadastro");
           }
         })
 
@@ -138,7 +142,7 @@ export default function SecaoCadastro(){
                 </Typography>
                 <Paper className = {classes.content} >
                   <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={4}>
                       <FormControl className={classes.formControl}>
                       <InputLabel id="id_tipo_planta">Tipo de Planta</InputLabel>
                       <Select
@@ -152,7 +156,19 @@ export default function SecaoCadastro(){
                       </Select>
                     </FormControl>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={3}>
+                      <TextField
+                        required
+                        id="nome"
+                        name="nome"
+                        label="Nome"
+                        fullWidth
+                        autoComplete="nome"
+                        value={nome}
+                        onChange={e => setNome(e.target.value)}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={5}>
                       <TextField
                         required
                         id="descricao"
@@ -210,7 +226,7 @@ export default function SecaoCadastro(){
                               style={{backgroundColor: "#00A869"}}
                               onClick ={Cadastrar}
                             >
-                              Cadastrar Seção
+                              Cadastrar Planta
                     </Button>
                     </Grid>
                 </Paper>

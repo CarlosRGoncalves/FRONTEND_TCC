@@ -75,19 +75,21 @@ export default function MiniDrawer (){
 
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const headers = { Authorization: `Bearer ${token}` };
-  
-    const response = axios.get('http://localhost:3006/secao/',{ headers })
-    .then(response =>{
-    //console.log(response.data.usuario);
-    setSecoes(response.data.secao);
-    })
-    .catch(err =>{
-      console.log(err)
-      alert(err);
-    })
-    
+    async function sec(){
+        const token = localStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}` };
+      
+        const response = await axios.get('http://localhost:3006/secao/',{ headers })
+        .then(response =>{
+        //console.log(response.data.usuario);
+        setSecoes(response.data.secao);
+        })
+        .catch(err =>{
+          console.log(err)
+          alert(err);
+        })
+    }
+    sec();
   },[]);
 
   async function Delete(id){

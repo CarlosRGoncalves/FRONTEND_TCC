@@ -1,6 +1,6 @@
 import React  from 'react';
 import axios from 'axios';
-import { Button } from '@material-ui/core';
+import { Button, Input } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import MenuI from '../../components/Menu_Inicial/Menu'
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,6 +11,8 @@ import green from '@material-ui/core/colors/green';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -53,47 +55,41 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-{
- const token = localStorage.getItem("token")
- if(token){
-  const decoded = jwt_decode(token);
- // localStorage.setItem("id_usuario",decoded.id_usuario);
- }
- 
-}
-
-export default function SecaoCadastro(){
+export default function Produto_FinalCadastro(){
   
     const classes = useStyles();
-    const [id_usuario, setId_usuario] = useState('');
     const [descricao, setDescricao] = useState('');
-    const [area, setArea] = useState('');
+    const [nome, setNome] = useState('');
+    const [medida, setMedida] = useState('');
+    const [valor, setValor] = useState('');
     
     
     
     async  function Cadastrar(){
       const data = {
-        id_usuario:jwt_decode(localStorage.getItem("token")).id_usuario,
+        nome:nome,
         descricao:descricao,
-        area:area
+        medida:medida,
+        valor:valor
+       
       }
 
-      if(descricao!=''&&area!=''){
-        var result = await axios.post('http://localhost:3006/secao',data).then(res => {
+      if(descricao!=''&&nome!=''&&medida!=''&&valor!=''&&valor>=0){
+        var result = await axios.post('http://localhost:3006/produto_final',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
             alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/secao");
+            window.location.replace("http://localhost:3000/produto_final");
           }
         }).catch(err => {
           if(err.response.status ===500){
             alert('Erro no Cadastro!')
-           //window.location.replace("http://localhost:3000/secao/cadastro");
+            
           }
         })
 
       }else{
-        alert('Campo em Branco!')
+        alert('Algum campo Preenchido Incorretamente!!!')
       }
     }
     
@@ -108,10 +104,22 @@ export default function SecaoCadastro(){
             <div className={classes.toolbar} />
             
                 <Typography variant="h6" gutterBottom>
-                    Cadastro de Seção
+                    Cadastro Produto Final
                 </Typography>
                 <Paper className = {classes.content} >
                   <Grid container spacing={3}>
+                  <Grid item xs={13} sm={6}>
+                      <TextField
+                        required
+                        id="nome"
+                        name="nome"
+                        label="Nome"
+                        fullWidth
+                        autoComplete="nome"
+                        value={nome}
+                        onChange={e => setNome(e.target.value)}
+                      />
+                    </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField
                         required
@@ -124,16 +132,30 @@ export default function SecaoCadastro(){
                         onChange={e => setDescricao(e.target.value)}
                       />
                     </Grid>
-                    <Grid item xs={13} sm={6}>
+                    <Grid item xs={12} sm={6}>
                       <TextField
                         required
-                        id="area"
-                        name="area"
-                        label="Area"
+                        id="medida"
+                        name="medida"
+                        label="Medida"
                         fullWidth
-                        autoComplete="area"
-                        value={area}
-                        onChange={e => setArea(e.target.value)}
+                        autoComplete="medida"
+                        value={medida}
+                        onChange={e => setMedida(e.target.value)}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        required
+                        type="number"
+                        InputProps={{ inputProps: { min: 0, step: 0.1 } }}
+                        id="valor"
+                        name="valor"
+                        label="Valor"
+                        fullWidth
+                        autoComplete="valor"
+                        value={valor}
+                        onChange={e => setValor(e.target.value)}
                       />
                     </Grid>
                    
@@ -147,7 +169,7 @@ export default function SecaoCadastro(){
                               style={{backgroundColor: "#00A869"}}
                               onClick ={Cadastrar}
                             >
-                              Cadastrar Seção
+                              Cadastrar Produto Final
                     </Button>
                     </Grid>
                 </Paper>

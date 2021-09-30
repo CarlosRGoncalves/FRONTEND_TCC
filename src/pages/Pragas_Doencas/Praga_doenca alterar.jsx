@@ -5,12 +5,13 @@ import { Grid } from '@material-ui/core';
 import MenuI from '../../components/Menu_Inicial/Menu'
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import jwt_decode from "jwt-decode";
 import green from '@material-ui/core/colors/green';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { useParams } from 'react-router';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -57,49 +58,61 @@ const useStyles = makeStyles((theme) => ({
  const token = localStorage.getItem("token")
  if(token){
   const decoded = jwt_decode(token);
- // localStorage.setItem("id_usuario",decoded.id_usuario);
+  localStorage.setItem("id_usuario",decoded.id_usuario);
  }
  
 }
 
-export default function SecaoCadastro(){
+export default function Pragas_doencaAlterar(){
   
     const classes = useStyles();
-    const [id_usuario, setId_usuario] = useState('');
     const [descricao, setDescricao] = useState('');
-    const [area, setArea] = useState('');
-    
-    
-    
-    async  function Cadastrar(){
-      const data = {
-        id_usuario:jwt_decode(localStorage.getItem("token")).id_usuario,
-        descricao:descricao,
-        area:area
-      }
+    const [nome, setNome] = useState('');
+    const {id_p_doenca} = useParams()
+    useEffect(() => {
+      async function getPragas_doencaAlterar(){
+        const token = localStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}` };
+       // console.log(id_p_doenca)
+          var response = await axios.get('http://localhost:3006/pragas_doenca/'+id_p_doenca,{headers}).then().catch(err => {
+              if(err.response.status ===500){
+                alert('Erro no Servidor!')
+              }
+            })
+         //   console.log(response)
+            setDescricao(response.data.response.pragas_doenca.descricao);
+            setNome(response.data.response.pragas_doenca.nome);
 
-      if(descricao!=''&&area!=''){
-        var result = await axios.post('http://localhost:3006/secao',data).then(res => {
-          //console.log("AQUI",res.status);
-          if(res.status ===201){
+      }
+      getPragas_doencaAlterar();      
+    },[]);
+
+    async  function Alterar(){
+      const data = {
+        descricao:descricao,
+        nome:nome
+      }
+      console.log(data)
+      if(descricao!=''&&nome!=''){
+        const token = localStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}` };
+        var result = await axios.patch('http://localhost:3006/pragas_doenca/'+id_p_doenca,data).then(res => {
+          if(res.status ===202){
             alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/secao");
+            window.location.replace("http://localhost:3000/praga_doenca");
           }
         }).catch(err => {
           if(err.response.status ===500){
-            alert('Erro no Cadastro!')
-           //window.location.replace("http://localhost:3000/secao/cadastro");
+            alert('Erro na Alteração')
+           
           }
         })
-
       }else{
         alert('Campo em Branco!')
       }
     }
-    
- 
     return (       
-     
+      
       <div className={classes.root}>
         <CssBaseline/>
         <MenuI/>
@@ -108,10 +121,23 @@ export default function SecaoCadastro(){
             <div className={classes.toolbar} />
             
                 <Typography variant="h6" gutterBottom>
-                    Cadastro de Seção
+                    Alteração de Pragas/Doenças
                 </Typography>
                 <Paper className = {classes.content} >
                   <Grid container spacing={3}>
+                   
+                    <Grid item xs={12} sm={4}>
+                      <TextField
+                        required
+                        id="nome"
+                        name="nome"
+                        label="Nome"
+                        fullWidth
+                        autoComplete="nome"
+                        value={nome}
+                        onChange={e => setNome(e.target.value)}
+                      />
+                    </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField
                         required
@@ -122,32 +148,20 @@ export default function SecaoCadastro(){
                         autoComplete="descricao"
                         value={descricao}
                         onChange={e => setDescricao(e.target.value)}
+                       // disabled
                       />
                     </Grid>
-                    <Grid item xs={13} sm={6}>
-                      <TextField
-                        required
-                        id="area"
-                        name="area"
-                        label="Area"
-                        fullWidth
-                        autoComplete="area"
-                        value={area}
-                        onChange={e => setArea(e.target.value)}
-                      />
-                    </Grid>
-                   
+   
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <br/>
-                    <Button
-                              
+                    <Button                              
                               variant="contained"
                               color="primary"
                               style={{backgroundColor: "#00A869"}}
-                              onClick ={Cadastrar}
+                              onClick ={Alterar}
                             >
-                              Cadastrar Seção
+                              Alterar Pragas/Doenças
                     </Button>
                     </Grid>
                 </Paper>

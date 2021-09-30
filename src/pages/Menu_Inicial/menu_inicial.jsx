@@ -132,6 +132,8 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace("http://localhost:3000/produto_final")}
+
                         >
                           Gerenciar Produto Final
                         </Button>
@@ -171,6 +173,8 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace("http://localhost:3000/praga_doenca")}
+
                         >
                            Pragas e Doenças
                         </Button>
@@ -180,6 +184,7 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace("http://localhost:3000/fornecedor")}
                         >
                           Gerenciar Fornecedores
                         </Button>
