@@ -140,10 +140,10 @@ export default function MiniDrawer (){
                       <Table className={classes.table} size="small" aria-label="a dense table">
                           <TableHead>
                           <TableRow>
-                              <TableCell>ID Secao</TableCell>
-                              <TableCell align="center">ID Usuario</TableCell>
+                              <TableCell>ID Seção</TableCell>
+                              <TableCell align="center">ID Usuário</TableCell>
                               <TableCell align="center">Descricão</TableCell>
-                              <TableCell align="center">Area&nbsp;</TableCell>
+                              <TableCell align="center">Área&nbsp;</TableCell>
                               <TableCell align="center">Opções&nbsp;</TableCell>
                           </TableRow>
                           </TableHead>

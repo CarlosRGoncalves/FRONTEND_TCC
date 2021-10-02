@@ -16,9 +16,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Chip from '@material-ui/core/Chip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
-import './Fornecedor.css';
+import Typography from '@material-ui/core/Typography';
+import './Cliente.css';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -71,37 +73,36 @@ const useStyles = makeStyles((theme) => ({
 export default function MiniDrawer (){
   
   const classes = useStyles();
-  const [fornecedor , setFornecedor ] = useState([]);
+  const [clientes, setClientes] = useState([]);
 
 
   useEffect(() => {
-    async function fornecedor(){
+    async function cli(){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
   
-    const response = await axios.get('http://localhost:3006/fornecedor/',{ headers })
+    const response = await axios.get('http://localhost:3006/cliente/',{ headers })
     .then(response =>{
-    //console.log(response.data.fornecedor );
-
-    setFornecedor (response.data.fornecedor);
+    //console.log(response.data.cliente);
+    setClientes(response.data.cliente);
     })
     .catch(err =>{
       console.log(err)
       alert(err);
     })
   }
-  fornecedor ();
+  cli();
   },[]);
 
   async function Delete(id){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
-    if(window.confirm("Você tem certeza que vai excluir esse Fornecedor  ?")){
-      var result = await axios.delete('http://localhost:3006/fornecedor/'+id,{ headers }).then(res =>{
+    if(window.confirm("Você tem certeza que vai excluir esse Cliente?")){
+      var result = await axios.delete('http://localhost:3006/cliente/'+id,{ headers }).then(res =>{
         if(res.status ===202){
           console.log(res)
           alert(res.data.response.mensagem)
-          window.location.replace("http://localhost:3000/fornecedor");
+          window.location.replace("http://localhost:3000/cliente");
         }
       }).catch(err =>{
         console.log(err)
@@ -113,14 +114,14 @@ export default function MiniDrawer (){
   }
 
   function cad() {
-    window.location.replace("http://localhost:3000/fornecedor/cadastro");
+    window.location.replace("http://localhost:3000/cliente/cadastro");
   }
 
   function Tp_Usuario() {
     const token = localStorage.getItem('token');
     if(token){
           const decoded = jwt_decode(token);
-          if(decoded.tipo_usuario == 2){
+          if(decoded.tipo_cliente == 2){
             return("true")
           }
     }
@@ -134,33 +135,37 @@ export default function MiniDrawer (){
       <main className={classes.content}>
           <div className={classes.toolbar} />
           
-          <h2>Fornecedor</h2>
+          <h2>Clientes</h2>
             <Grid container spacing={20}>
             <Paper className = {classes.content} >
                   <TableContainer component={Paper}>
                       <Table className={classes.table} size="small" aria-label="a dense table">
                           <TableHead>
                           <TableRow>
-                              <TableCell>ID Fornecedor </TableCell>
-                              <TableCell align="center">Nome&nbsp;</TableCell>
-                              <TableCell align="center">Cnpj</TableCell>
+                              <TableCell>ID Cliente</TableCell>
+                              <TableCell align="center">Nome</TableCell>
+                              <TableCell align="center">Email</TableCell>
+                              <TableCell align="center">Telefone&nbsp;</TableCell>
+                              <TableCell align="center">Cpf&nbsp;</TableCell>
+                              <TableCell align="center">Endereço&nbsp;</TableCell>
                               <TableCell align="center">Opções&nbsp;</TableCell>
                           </TableRow>
                           </TableHead>
                           <TableBody>
-                              {fornecedor .map((row) => (
-                                
-                                  <TableRow key={row.id_fornecedor }>
+                              {clientes.map((row) => (
+                                  <TableRow key={row.id_cliente}>
                                   <TableCell component="th" scope="row">
-                                      {row.id_fornecedor }
+                                      {row.id_cliente}
                                   </TableCell>
                                   <TableCell align="center">{row.nome}</TableCell>
-                                  <TableCell align="center">{row.cnpj}</TableCell>
-                                  
+                                  <TableCell align="center">{row.email}</TableCell>
+                                  <TableCell align="center">{row.telefone}</TableCell>
+                                  <TableCell align="center">{row.cpf}</TableCell>
+                                  <TableCell align="center">{row.endereco}</TableCell>
                                   <TableCell align="right">
                                     <ButtonGroup  aria-label="outlined primary button group">
-                                        <Button color = "primary" align="center" startIcon={<CreateIcon/>} href={'/fornecedor/alterar/'+row.id_fornecedor } disabled = {Tp_Usuario()}></Button>
-                                        <Button color = "secondary" align="center" startIcon={<DeleteIcon/>} onClick = {() => Delete(row.id_fornecedor )} disabled = {Tp_Usuario()}></Button>
+                                        <Button color = "primary" align="center" startIcon={<CreateIcon/>} href={'/cliente/alterar/'+row.id_cliente} disabled = {Tp_Usuario()}></Button>
+                                        <Button color = "secondary" align="center" startIcon={<DeleteIcon/>} onClick = {() => Delete(row.id_cliente)} disabled = {Tp_Usuario()}></Button>
                                     </ButtonGroup>
                                   </TableCell>
 
@@ -172,14 +177,14 @@ export default function MiniDrawer (){
                     <br/>
                     <div >
                           <Button
-                                id = "cadFornecedor"
+                                id = "cadUsuario"
                                 variant="contained"
                                 color="primary"
                                 style={{backgroundColor: "#00A869"}}
                                 onClick = {() => cad()}
                                 disabled = {Tp_Usuario()}
                               >
-                                Cadastrar Novo Fornecedor
+                                Cadastrar Novo Cliente
                           </Button>
                     </div>
                 </Paper>

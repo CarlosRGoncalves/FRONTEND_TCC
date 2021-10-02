@@ -94,6 +94,8 @@ export default function MiniDrawer (){
                             variant="contained"
                             color="primary"
                             style={{backgroundColor: "#00A869"}}
+                            onClick = {() => window.location.replace("http://localhost:3000/cliente")}
+
                           >
                             Gerenciar clientes
                           </Button>
@@ -154,6 +156,8 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace("http://localhost:3000/insumo")}
+
                         >
                           Gerenciar Insumos
                         </Button>
@@ -200,7 +204,17 @@ export default function MiniDrawer (){
                           Gerenciar Seções
                         </Button>
                       </div>
-                   
+                      <div className="botao2">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace("http://localhost:3000/pedido")}
+
+                        >
+                          Gerenciar Pedidos
+                        </Button>
+                      </div>
                   </Grid>
              
                   </Paper>

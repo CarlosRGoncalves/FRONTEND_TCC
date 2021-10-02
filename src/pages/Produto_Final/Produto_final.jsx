@@ -159,7 +159,7 @@ export default function MiniDrawer (){
                                   <TableCell align="center">{row.nome}</TableCell>
                                   <TableCell align="center">{row.descricao}</TableCell>
                                   <TableCell align="center">{row.medida}</TableCell>
-                                  <TableCell align="center">{row.valor}</TableCell>
+                                  <TableCell align="center">{row.valor} R$</TableCell>
                                   <TableCell align="right">
                                     <ButtonGroup  aria-label="outlined primary button group">
                                         <Button color = "primary" align="center" startIcon={<CreateIcon/>} href={'/produto_final/alterar/'+row.id_produto_final} disabled = {Tp_Usuario()}></Button>

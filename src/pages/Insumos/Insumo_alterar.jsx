@@ -12,9 +12,22 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { useParams } from 'react-router';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
   root: {
     display: 'flex',
   },
@@ -58,53 +71,81 @@ const useStyles = makeStyles((theme) => ({
  const token = localStorage.getItem("token")
  if(token){
   const decoded = jwt_decode(token);
-  localStorage.setItem("id_usuario",decoded.id_usuario);
+  localStorage.setItem("id_fornecedor",decoded.id_fornecedor);
  }
  
 }
 
-export default function Pragas_doencaAlterar(){
+export default function InsumoAlterar(){
   
     const classes = useStyles();
-    const [descricao, setDescricao] = useState('');
+    const [id_fornecedor, setId_fornecedor] = useState('');
     const [nome, setNome] = useState('');
-    const [medida, setMedida] = useState('');
+    const [descricao, setDescricao] = useState('');
+    const [quantidade, setQuantidade] = useState('');
+    const [date, setDate] = useState('');
     const [valor, setValor] = useState('');
-    const {id_produto_final} = useParams()
+    const [fornecedores, setFornecedores] = useState([]);
+    const {id_insumo} = useParams()
+    
+    
+    
     useEffect(() => {
-      async function getProduto_finalAlterar(){
+      async function getInsumo(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-       // console.log(id_produto_final)
-          var response = await axios.get('http://localhost:3006/produto_final/'+id_produto_final,{headers}).then().catch(err => {
+            var response = await axios.get('http://localhost:3006/insumo/'+id_insumo,{headers}).then().catch(err => {
               if(err.response.status ===500){
                 alert('Erro no Servidor!')
               }
             })
-         //   console.log(response)
-            setDescricao(response.data.response.produto_final.descricao);
-            setNome(response.data.response.produto_final.nome);
-            setMedida(response.data.response.produto_final.medida);
-            setValor(response.data.response.produto_final.valor);
+           // console.log(response.data.response.insumo)
+            setId_fornecedor(response.data.response.insumo.id_fornecedor);
+            setNome(response.data.response.insumo.nome);
+            setDescricao(response.data.response.insumo.descricao);
+            setQuantidade(response.data.response.insumo.quantidade);
+            //console.log(response.data.response.insumo.data)
+
+           // console.log(response.data.response.insumo.data.substring(10))
+            setDate(response.data.response.insumo.data.substring(0,10));
+            setValor(response.data.response.insumo.valor);
+            setId_fornecedor(response.data.response.insumo.id_fornecedor);
+            
       }
-      getProduto_finalAlterar();      
+      async function getFornecedor(){
+        const token = localStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}` };
+            var response = await axios.get('http://localhost:3006/fornecedor/',{headers}).then(response =>{
+
+              setFornecedores(response.data.fornecedor);
+            })
+            .catch(err => {
+              if(err.response.status ===500){
+                alert('Erro no Servidor!')
+              }
+            })
+      }
+      getFornecedor();
+      getInsumo();      
     },[]);
 
     async  function Alterar(){
       const data = {
-        descricao:descricao,
+        id_fornecedor:id_fornecedor,
         nome:nome,
-        medida:medida,
+        descricao:descricao,
+        quantidade:quantidade,
+        data:date,
         valor:valor
       }
       console.log(data)
-      if(descricao!=''&&nome!=''&&medida!=''&&valor!=''&&valor>=0){
+      if(id_fornecedor!=''&&descricao!=''&&quantidade!=''&&date!=''&&valor!=''){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-        var result = await axios.patch('http://localhost:3006/produto_final/'+id_produto_final,data).then(res => {
+        var result = await axios.patch('http://localhost:3006/insumo/'+id_insumo,data).then(res => {
           if(res.status ===202){
             alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/produto_final");
+            window.location.replace("http://localhost:3000/insumo");
           }
         }).catch(err => {
           if(err.response.status ===500){
@@ -113,7 +154,7 @@ export default function Pragas_doencaAlterar(){
           }
         })
       }else{
-        alert('Algum campo Preenchido Incorretamente!!!')
+        alert('Campo em Branco ou Preenchido Incorretamente!')
       }
     }
     return (       
@@ -126,11 +167,24 @@ export default function Pragas_doencaAlterar(){
             <div className={classes.toolbar} />
             
                 <Typography variant="h6" gutterBottom>
-                    Alteração de Produto Final
+                    Alteração de Insumos
                 </Typography>
                 <Paper className = {classes.content} >
                   <Grid container spacing={3}>
-                   
+                  <Grid item xs={12} sm={4}>
+                      <FormControl className={classes.formControl}>
+                      <InputLabel id="id_fornecedor">Fornecedor</InputLabel>
+                      <Select
+                            labelId="Fornecedor"
+                            id="id_fornecedor"
+                            value={id_fornecedor}
+                            onChange={e => setId_fornecedor(e.target.value)}
+                          > {fornecedores.map((row) =>(
+                              <MenuItem value={row.id_fornecedor}>{row.nome}</MenuItem>
+                            ))}
+                      </Select>
+                    </FormControl>
+                    </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField
                         required
@@ -141,6 +195,7 @@ export default function Pragas_doencaAlterar(){
                         autoComplete="nome"
                         value={nome}
                         onChange={e => setNome(e.target.value)}
+                       // disabled
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -156,33 +211,53 @@ export default function Pragas_doencaAlterar(){
                        // disabled
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={13} sm={3}>
                       <TextField
                         required
-                        id="medida"
-                        name="medida"
-                        label="Medida"
+                        type="number"
+                        InputProps={{ inputProps: { min: 0, step: 0.1 } }}
+                        id="quantidade"
+                        name="quantidade"
+                        label="Quantidade"
                         fullWidth
-                        autoComplete="medida"
-                        value={medida}
-                        onChange={e => setMedida(e.target.value)}
+                        autoComplete="quantidade"
+                        value={quantidade}
+                        onChange={e => setQuantidade(e.target.value)}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={13} sm={3}>
+                    
+                    <form className={classes.container} noValidate>
+                      <TextField
+                      required
+                        id="data"
+                        label="Data do Insumo"
+                        type="date"
+                        defaultValue=""
+                        className={classes.textField}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        value={date}
+                        onChange={e => setDate(e.target.value)}
+                      />
+                    </form>
+                    
+                    </Grid>
+                    <Grid item xs={13} sm={6}>
                       <TextField
                         required
                         type="number"
                         InputProps={{ inputProps: { min: 0, step: 0.1 } }}
                         id="valor"
                         name="valor"
-                        label="Valor"
+                        label="Valor Insumo"
                         fullWidth
                         autoComplete="valor"
                         value={valor}
                         onChange={e => setValor(e.target.value)}
                       />
                     </Grid>
-   
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <br/>
@@ -192,7 +267,7 @@ export default function Pragas_doencaAlterar(){
                               style={{backgroundColor: "#00A869"}}
                               onClick ={Alterar}
                             >
-                              Alterar Produto Final
+                              Alterar Insumo
                     </Button>
                     </Grid>
                 </Paper>

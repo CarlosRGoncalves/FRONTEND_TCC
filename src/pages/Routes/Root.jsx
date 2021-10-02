@@ -11,6 +11,7 @@ import Usuarios_Cadastro from '../Usuarios/Usuario cadastro';
 import Usuarios_Alterar from '../Usuarios/Usuario alterar';
 import Menu_Inicial from '../Menu_Inicial/menu_inicial';
 
+
 import Secoes from '../Secoes/Secao';
 import Secoes_Cadastro from '../Secoes/Secao cadastro';
 import Secoes_Alterar from '../Secoes/Secao alterar';
@@ -34,6 +35,18 @@ import Fornecedor_Alterar from '../Fornecedor/Fornecedor alterar';
 import Produto_Final from '../Produto_Final/Produto_final';
 import Produto_Final_Cadastro from '../Produto_Final/Produto_final_cadastro';
 import Produto_Final_Alterar from '../Produto_Final/Produto_final_alterar';
+
+import Clientes from '../Clientes/Cliente';
+import Clientes_Cadastro from '../Clientes/Cliente_cadastro';
+import Clientes_Alterar from '../Clientes/Cliente_alterar';
+
+import Insumos from '../Insumos/Insumo';
+import Insumos_Cadastro from '../Insumos/Insumo_cadastro';
+import Insumos_Alterar from '../Insumos/Insumo_alterar';
+
+import Pedidos from '../Pedidos/Pedido';
+import Pedidos_Cadastro from '../Pedidos/Pedido_cadastro';
+import Pedidos_Alterar from '../Pedidos/Pedido_alterar';
 
 import Pagina_Inicial from '../Pagina_Inicial/pagina_inicial';
 
@@ -73,6 +86,18 @@ const PagesRoot = () => (
       <PrivateRoute exact path="/produto_final" component={Produto_Final} />
       <PrivateRoute exact path="/produto_final/cadastro" component={Produto_Final_Cadastro} />
       <PrivateRoute exact path="/produto_final/alterar/:id_produto_final" component={Produto_Final_Alterar} />
+
+      <PrivateRoute exact path="/cliente" component={Clientes} />
+      <PrivateRoute exact path="/cliente/cadastro" component={Clientes_Cadastro} />
+      <PrivateRoute exact path="/cliente/alterar/:id_cliente" component={Clientes_Alterar} />
+
+      <PrivateRoute exact path="/insumo" component={Insumos} />
+      <PrivateRoute exact path="/insumo/cadastro" component={Insumos_Cadastro} />
+      <PrivateRoute exact path="/insumo/alterar/:id_insumo" component={Insumos_Alterar} />
+
+      <PrivateRoute exact path="/pedido" component={Pedidos} />
+      <PrivateRoute exact path="/pedido/cadastro" component={Pedidos_Cadastro} />
+      <PrivateRoute exact path="/pedido/alterar/:id_pedido" component={Pedidos_Alterar} />
 
       <Route  exact path="/logout" component={Logout} />
       <PrivateRoute  exact path="/menu_inicial" component={Menu_Inicial} />

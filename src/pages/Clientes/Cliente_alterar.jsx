@@ -8,9 +8,24 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { useState,useEffect } from 'react';
 import jwt_decode from "jwt-decode";
 import green from '@material-ui/core/colors/green';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Chip from '@material-ui/core/Chip';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CreateIcon from '@material-ui/icons/Create';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 import { useParams } from 'react-router';
 const drawerWidth = 240;
 
@@ -58,62 +73,63 @@ const useStyles = makeStyles((theme) => ({
  const token = localStorage.getItem("token")
  if(token){
   const decoded = jwt_decode(token);
-  localStorage.setItem("id_usuario",decoded.id_usuario);
+  localStorage.setItem("nome",decoded.nome);
  }
  
 }
 
-export default function Pragas_doencaAlterar(){
+export default function ClienteAlterar(){
   
     const classes = useStyles();
-    const [descricao, setDescricao] = useState('');
     const [nome, setNome] = useState('');
-    const [medida, setMedida] = useState('');
-    const [valor, setValor] = useState('');
-    const {id_produto_final} = useParams()
+    const [email, setEmail] = useState('');
+    const [telefone, setTelefone] = useState('');
+    const [cpf, setCpf] = useState('');
+    const [endereco, setEndereco] = useState('');
+    const {id_cliente} = useParams()
     useEffect(() => {
-      async function getProduto_finalAlterar(){
-        const token = localStorage.getItem('token');
-        const headers = { Authorization: `Bearer ${token}` };
-       // console.log(id_produto_final)
-          var response = await axios.get('http://localhost:3006/produto_final/'+id_produto_final,{headers}).then().catch(err => {
+      async function getUsuario(){
+            const token = localStorage.getItem('token');
+            const headers = { Authorization: `Bearer ${token}` };
+            var response = await axios.get('http://localhost:3006/cliente/'+id_cliente,{headers}).then().catch(err => {
               if(err.response.status ===500){
                 alert('Erro no Servidor!')
               }
             })
-         //   console.log(response)
-            setDescricao(response.data.response.produto_final.descricao);
-            setNome(response.data.response.produto_final.nome);
-            setMedida(response.data.response.produto_final.medida);
-            setValor(response.data.response.produto_final.valor);
+            //console.log(response.data)
+            setNome(response.data.response.cliente.nome);
+            setEmail(response.data.response.cliente.email);
+            setTelefone(response.data.response.cliente.telefone);
+            setCpf(response.data.response.cliente.cpf);
+            setEndereco(response.data.response.cliente.endereco);
       }
-      getProduto_finalAlterar();      
+      getUsuario();      
     },[]);
 
     async  function Alterar(){
       const data = {
-        descricao:descricao,
         nome:nome,
-        medida:medida,
-        valor:valor
+        email:email,
+        telefone:telefone,
+        cpf:cpf,
+        endereco:endereco,
+        id_cliente:id_cliente
       }
       console.log(data)
-      if(descricao!=''&&nome!=''&&medida!=''&&valor!=''&&valor>=0){
-        const token = localStorage.getItem('token');
-        const headers = { Authorization: `Bearer ${token}` };
-        var result = await axios.patch('http://localhost:3006/produto_final/'+id_produto_final,data).then(res => {
+      if(nome!=''&&email!=''&&telefone!=''&&cpf!=''&&endereco!=''){
+        var result = await axios.patch('http://localhost:3006/cliente/'+id_cliente,data).then(res => {
           if(res.status ===202){
             alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/produto_final");
+            window.location.replace("http://localhost:3000/cliente");
           }
         }).catch(err => {
           if(err.response.status ===500){
-            alert('Erro na Alteração')
+            alert('E-mail já cadastrado ou Erro no Servidor!')
            
           }
         })
       }else{
-        alert('Algum campo Preenchido Incorretamente!!!')
+        alert('Campo em Branco!')
       }
     }
     return (       
@@ -126,63 +142,75 @@ export default function Pragas_doencaAlterar(){
             <div className={classes.toolbar} />
             
                 <Typography variant="h6" gutterBottom>
-                    Alteração de Produto Final
+                    Alteração de Cliente
                 </Typography>
                 <Paper className = {classes.content} >
                   <Grid container spacing={3}>
-                   
+                    
                     <Grid item xs={12} sm={6}>
                       <TextField
                         required
                         id="nome"
                         name="nome"
-                        label="Nome"
+                        label="Nome Completo"
                         fullWidth
                         autoComplete="nome"
                         value={nome}
                         onChange={e => setNome(e.target.value)}
+                        
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={5}>
                       <TextField
                         required
-                        id="descricao"
-                        name="descricao"
-                        label="Descricao"
+                        id="email"
+                        name="email"
+                        label="Email"
                         fullWidth
-                        autoComplete="descricao"
-                        value={descricao}
-                        onChange={e => setDescricao(e.target.value)}
+                        autoComplete="email"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
                        // disabled
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={3}>
                       <TextField
                         required
-                        id="medida"
-                        name="medida"
-                        label="Medida"
+                        id="telefone"
+                        name="telefone"
+                        label="Telefone"
                         fullWidth
-                        autoComplete="medida"
-                        value={medida}
-                        onChange={e => setMedida(e.target.value)}
+                        autoComplete="telefone"
+                        value={telefone}
+                        onChange={e => setTelefone(e.target.value)}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={3}>
                       <TextField
                         required
-                        type="number"
-                        InputProps={{ inputProps: { min: 0, step: 0.1 } }}
-                        id="valor"
-                        name="valor"
-                        label="Valor"
+                        id="cpf"
+                        name="cpf"
+                        label="cpf"
                         fullWidth
-                        autoComplete="valor"
-                        value={valor}
-                        onChange={e => setValor(e.target.value)}
+                        autoComplete="cpf"
+                        value={cpf}
+                        onChange={e => setCpf(e.target.value)}
                       />
                     </Grid>
-   
+                    <Grid item xs={12} sm={5}>
+                      <TextField
+                        required
+                        id="endereco"
+                        name="endereco"
+                        label="Endereco"
+                        fullWidth
+                        autoComplete="endereco"
+                        value={endereco}
+                        onChange={e => setEndereco(e.target.value)}
+                      />
+                        
+                    </Grid>
+                   
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <br/>
@@ -192,7 +220,7 @@ export default function Pragas_doencaAlterar(){
                               style={{backgroundColor: "#00A869"}}
                               onClick ={Alterar}
                             >
-                              Alterar Produto Final
+                              Alterar Endereço
                     </Button>
                     </Grid>
                 </Paper>

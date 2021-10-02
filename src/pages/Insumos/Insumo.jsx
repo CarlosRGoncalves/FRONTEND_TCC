@@ -18,7 +18,7 @@ import Paper from '@material-ui/core/Paper';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
-import './Fornecedor.css';
+import './Insumo.css';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -71,37 +71,36 @@ const useStyles = makeStyles((theme) => ({
 export default function MiniDrawer (){
   
   const classes = useStyles();
-  const [fornecedor , setFornecedor ] = useState([]);
+  const [insumos, setInsumos] = useState([]);
 
 
   useEffect(() => {
-    async function fornecedor(){
-    const token = localStorage.getItem('token');
-    const headers = { Authorization: `Bearer ${token}` };
-  
-    const response = await axios.get('http://localhost:3006/fornecedor/',{ headers })
-    .then(response =>{
-    //console.log(response.data.fornecedor );
-
-    setFornecedor (response.data.fornecedor);
-    })
-    .catch(err =>{
-      console.log(err)
-      alert(err);
-    })
-  }
-  fornecedor ();
+    async function insumo(){
+      const token = localStorage.getItem('token');
+      const headers = { Authorization: `Bearer ${token}` };
+    
+      const response = axios.get('http://localhost:3006/insumo/',{ headers })
+      .then(response =>{
+      //console.log(response.data.usuario);
+      setInsumos(response.data.insumo);
+      })
+      .catch(err =>{
+        console.log(err)
+        alert(err);
+      })
+    }
+    insumo();
   },[]);
 
   async function Delete(id){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
-    if(window.confirm("Você tem certeza que vai excluir esse Fornecedor  ?")){
-      var result = await axios.delete('http://localhost:3006/fornecedor/'+id,{ headers }).then(res =>{
+    if(window.confirm("Você tem certeza que vai excluir esse Insumo?")){
+      var result = await axios.delete('http://localhost:3006/insumo/'+id,{ headers }).then(res =>{
         if(res.status ===202){
           console.log(res)
           alert(res.data.response.mensagem)
-          window.location.replace("http://localhost:3000/fornecedor");
+          window.location.replace("http://localhost:3000/insumo");
         }
       }).catch(err =>{
         console.log(err)
@@ -113,7 +112,7 @@ export default function MiniDrawer (){
   }
 
   function cad() {
-    window.location.replace("http://localhost:3000/fornecedor/cadastro");
+    window.location.replace("http://localhost:3000/insumo/cadastro");
   }
 
   function Tp_Usuario() {
@@ -134,33 +133,39 @@ export default function MiniDrawer (){
       <main className={classes.content}>
           <div className={classes.toolbar} />
           
-          <h2>Fornecedor</h2>
+          <h2>Insumos</h2>
             <Grid container spacing={20}>
             <Paper className = {classes.content} >
                   <TableContainer component={Paper}>
                       <Table className={classes.table} size="small" aria-label="a dense table">
                           <TableHead>
                           <TableRow>
-                              <TableCell>ID Fornecedor </TableCell>
-                              <TableCell align="center">Nome&nbsp;</TableCell>
-                              <TableCell align="center">Cnpj</TableCell>
+                              <TableCell>ID Insumo</TableCell>
+                              <TableCell align="center">ID Fornecedor</TableCell>
+                              <TableCell align="center">Nome</TableCell>
+                              <TableCell align="center">Descricão</TableCell>
+                              <TableCell align="center">Quantidade&nbsp;</TableCell>
+                              <TableCell align="center">Data&nbsp;</TableCell>
+                              <TableCell align="center">Valor&nbsp;</TableCell>
                               <TableCell align="center">Opções&nbsp;</TableCell>
                           </TableRow>
                           </TableHead>
                           <TableBody>
-                              {fornecedor .map((row) => (
-                                
-                                  <TableRow key={row.id_fornecedor }>
+                              {insumos.map((row) => (
+                                  <TableRow key={row.id_insumo}>
                                   <TableCell component="th" scope="row">
-                                      {row.id_fornecedor }
+                                      {row.id_insumo}
                                   </TableCell>
+                                  <TableCell align="center">{row.id_fornecedor}</TableCell>
                                   <TableCell align="center">{row.nome}</TableCell>
-                                  <TableCell align="center">{row.cnpj}</TableCell>
-                                  
+                                  <TableCell align="center">{row.descricao}</TableCell>
+                                  <TableCell align="center">{row.quantidade}</TableCell>
+                                  <TableCell align="center">{row.data.substring(0,10)}</TableCell>
+                                  <TableCell align="center">{row.valor} R$</TableCell>
                                   <TableCell align="right">
                                     <ButtonGroup  aria-label="outlined primary button group">
-                                        <Button color = "primary" align="center" startIcon={<CreateIcon/>} href={'/fornecedor/alterar/'+row.id_fornecedor } disabled = {Tp_Usuario()}></Button>
-                                        <Button color = "secondary" align="center" startIcon={<DeleteIcon/>} onClick = {() => Delete(row.id_fornecedor )} disabled = {Tp_Usuario()}></Button>
+                                        <Button color = "primary" align="center" startIcon={<CreateIcon/>} href={'/insumo/alterar/'+row.id_insumo} disabled = {Tp_Usuario()}></Button>
+                                        <Button color = "secondary" align="center" startIcon={<DeleteIcon/>} onClick = {() => Delete(row.id_insumo)} disabled = {Tp_Usuario()}></Button>
                                     </ButtonGroup>
                                   </TableCell>
 
@@ -172,14 +177,14 @@ export default function MiniDrawer (){
                     <br/>
                     <div >
                           <Button
-                                id = "cadFornecedor"
+                                id = "cadInsumo"
                                 variant="contained"
                                 color="primary"
                                 style={{backgroundColor: "#00A869"}}
                                 onClick = {() => cad()}
                                 disabled = {Tp_Usuario()}
                               >
-                                Cadastrar Novo Fornecedor
+                                Cadastrar Novo Insumo
                           </Button>
                     </div>
                 </Paper>
