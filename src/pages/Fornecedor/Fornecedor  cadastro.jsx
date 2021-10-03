@@ -63,7 +63,7 @@ export default function FornecedorCadastro(){
     
     async  function Cadastrar(){
       const data = {
-        nome:nome,
+        nome_fornecedor:nome,
         cnpj:cnpj,
        
       }

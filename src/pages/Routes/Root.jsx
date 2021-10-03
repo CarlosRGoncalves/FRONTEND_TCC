@@ -80,8 +80,8 @@ const PagesRoot = () => (
       <PrivateRoute exact path="/praga_doenca/alterar/:id_p_doenca" component={Pragas_Doencas_Alterar} />
 
       <PrivateRoute exact path="/fornecedor" component={Fornecedor} />
-      <PrivateRoute exact path="/fornecedor/cadastro" component={Fornecedor} />
-      <PrivateRoute exact path="/fornecedor/alterar/:id_fornecedor" component={Fornecedor} />
+      <PrivateRoute exact path="/fornecedor/cadastro" component={Fornecedor_Cadastro} />
+      <PrivateRoute exact path="/fornecedor/alterar/:id_fornecedor" component={Fornecedor_Alterar} />
 
       <PrivateRoute exact path="/produto_final" component={Produto_Final} />
       <PrivateRoute exact path="/produto_final/cadastro" component={Produto_Final_Cadastro} />

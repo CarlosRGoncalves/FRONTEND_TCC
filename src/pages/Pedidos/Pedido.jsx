@@ -141,8 +141,8 @@ export default function MiniDrawer (){
                           <TableHead>
                           <TableRow>
                               <TableCell>ID Pedido</TableCell>
-                              <TableCell align="center">ID Produto Final</TableCell>
-                              <TableCell align="center">ID Cliente</TableCell>
+                              <TableCell align="center">Produto Final</TableCell>
+                              <TableCell align="center">Cliente</TableCell>
                               <TableCell align="center">Status</TableCell>
                               <TableCell align="center">Descricão</TableCell>
                               <TableCell align="center">Quantidade&nbsp;</TableCell>
@@ -157,8 +157,8 @@ export default function MiniDrawer (){
                                   <TableCell component="th" scope="row">
                                       {row.id_pedido}
                                   </TableCell>
-                                  <TableCell align="center">{row.id_produto_final}</TableCell>
-                                  <TableCell align="center">{row.id_cliente}</TableCell>
+                                  <TableCell align="center">{row.nome_produto_final}</TableCell>
+                                  <TableCell align="center">{row.email}</TableCell>
 
                                   <TableCell align="center">{row.status}</TableCell>
                                   <TableCell align="center">{row.descricao}</TableCell>

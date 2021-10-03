@@ -65,7 +65,7 @@ export default function SecaoCadastro(){
     async  function Cadastrar(){
       const data = {
         id_usuario:jwt_decode(localStorage.getItem("token")).id_usuario,
-        nome:nome,
+        nome_tipo_planta:nome,
         descricao:descricao,
        
       }
@@ -140,7 +140,7 @@ export default function SecaoCadastro(){
                               style={{backgroundColor: "#00A869"}}
                               onClick ={Cadastrar}
                             >
-                              Cadastrar Seção
+                              Cadastrar Tipo de Planta
                     </Button>
                     </Grid>
                 </Paper>

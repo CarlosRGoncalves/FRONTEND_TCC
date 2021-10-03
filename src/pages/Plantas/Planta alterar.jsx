@@ -92,7 +92,7 @@ export default function SecaoAlterar(){
             })
             console.log(response.data.response.planta)
             setId_tipo_planta(response.data.response.planta.id_tipo_planta);
-            setNome(response.data.response.planta.nome);
+            setNome(response.data.response.planta.nome_planta);
             setDescricao(response.data.response.planta.descricao);
             setEpoca_plantio(response.data.response.planta.epoca_plantio);
             setForma_plantio(response.data.response.planta.forma_plantio);
@@ -104,7 +104,7 @@ export default function SecaoAlterar(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
             var response = await axios.get('http://localhost:3006/tipo_planta/',{headers}).then(response =>{
-
+              console.log(response.data.tipo_planta)
               setTipo_plantas(response.data.tipo_planta);
             })
             .catch(err => {
@@ -120,7 +120,7 @@ export default function SecaoAlterar(){
     async  function Alterar(){
       const data = {
         id_tipo_planta:id_tipo_planta,
-        nome:nome,
+        nome_planta:nome,
         descricao:descricao,
         epoca_plantio:epoca_plantio,
         forma_plantio:forma_plantio,
@@ -168,7 +168,7 @@ export default function SecaoAlterar(){
                         value={id_tipo_planta}
                        onChange={e => setId_tipo_planta(e.target.value)}
                       >{tipo_plantas.map((row) =>(
-                          <MenuItem value={row.id_tipo_planta}>{row.nome}</MenuItem>
+                          <MenuItem value={row.id_tipo_planta}>{row.nome_tipo_planta}</MenuItem>
                       ))}
                       </Select>
                     </FormControl>

@@ -156,7 +156,7 @@ export default function MiniDrawer (){
                                       {row.id_tipo_planta}
                                   </TableCell>
                                   <TableCell align="center">{row.id_usuario}</TableCell>
-                                  <TableCell align="center">{row.nome}</TableCell>
+                                  <TableCell align="center">{row.nome_tipo_planta}</TableCell>
                                   <TableCell align="center">{row.descricao}</TableCell>
                                   
                                   <TableCell align="right">

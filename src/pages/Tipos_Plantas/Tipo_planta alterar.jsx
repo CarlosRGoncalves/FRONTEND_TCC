@@ -97,7 +97,7 @@ export default function Tipo_plantaAlterar(){
            // console.log(response.data.response.tipo_planta)
             setId_usuario(response.data.response.tipo_planta.id_usuario);
             setDescricao(response.data.response.tipo_planta.descricao);
-            setNome(response.data.response.tipo_planta.nome);
+            setNome(response.data.response.tipo_planta.nome_tipo_planta);
 
       }
       getTipo_plantaAlterar();      
@@ -106,7 +106,7 @@ export default function Tipo_plantaAlterar(){
     async  function Alterar(){
       const data = {
         descricao:descricao,
-        nome:nome
+        nome_tipo_planta:nome
       }
       console.log(data)
       if(id_usuario!=''&&descricao!=''&&nome!=''){
@@ -137,7 +137,7 @@ export default function Tipo_plantaAlterar(){
             <div className={classes.toolbar} />
             
                 <Typography variant="h6" gutterBottom>
-                    Alteração de Seção
+                    Alteração de Tipo de Planta
                 </Typography>
                 <Paper className = {classes.content} >
                   <Grid container spacing={3}>
@@ -190,7 +190,7 @@ export default function Tipo_plantaAlterar(){
                               style={{backgroundColor: "#00A869"}}
                               onClick ={Alterar}
                             >
-                              Alterar Seção
+                              Alterar Tipo de Planta
                     </Button>
                     </Grid>
                 </Paper>

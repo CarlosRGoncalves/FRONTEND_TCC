@@ -101,7 +101,7 @@ export default function SecaoCadastro(){
     async  function Cadastrar(){
       const data = {
         id_tipo_planta:id_tipo_planta,
-        nome:nome,
+        nome_planta:nome,
         descricao:descricao,
         epoca_plantio:epoca_plantio,
         forma_plantio:forma_plantio,
@@ -151,7 +151,7 @@ export default function SecaoCadastro(){
                         value={id_tipo_planta}
                        onChange={e => setId_tipo_planta(e.target.value)}
                       >{tipo_plantas.map((row) =>(
-                          <MenuItem value={row.id_tipo_planta}>{row.nome}</MenuItem>
+                          <MenuItem value={row.id_tipo_planta}>{row.nome_tipo_planta}</MenuItem>
                       ))}
                       </Select>
                     </FormControl>

@@ -154,7 +154,7 @@ export default function MiniDrawer (){
                                   <TableCell component="th" scope="row">
                                       {row.id_p_doenca}
                                   </TableCell>
-                                  <TableCell align="center">{row.nome}</TableCell>
+                                  <TableCell align="center">{row.nome_p_doenca}</TableCell>
                                   <TableCell align="center">{row.descricao}</TableCell>
                                   
                                   <TableCell align="right">

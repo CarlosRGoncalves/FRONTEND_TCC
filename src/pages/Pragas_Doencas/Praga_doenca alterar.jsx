@@ -81,7 +81,7 @@ export default function Pragas_doencaAlterar(){
             })
          //   console.log(response)
             setDescricao(response.data.response.pragas_doenca.descricao);
-            setNome(response.data.response.pragas_doenca.nome);
+            setNome(response.data.response.pragas_doenca.nome_p_doenca);
 
       }
       getPragas_doencaAlterar();      
@@ -90,7 +90,7 @@ export default function Pragas_doencaAlterar(){
     async  function Alterar(){
       const data = {
         descricao:descricao,
-        nome:nome
+        nome_p_doenca:nome
       }
       console.log(data)
       if(descricao!=''&&nome!=''){

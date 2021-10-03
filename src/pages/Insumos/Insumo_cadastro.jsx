@@ -160,7 +160,7 @@ export default function InsumoCadastro(){
                             value={id_fornecedor}
                             onChange={e => setId_fornecedor(e.target.value)}
                           > {fornecedores.map((row) =>(
-                              <MenuItem value={row.id_fornecedor}>{row.nome}</MenuItem>
+                              <MenuItem value={row.id_fornecedor}>{row.nome_fornecedor}</MenuItem>
                             ))}
                       </Select>
                     </FormControl>

@@ -141,7 +141,7 @@ export default function MiniDrawer (){
                           <TableHead>
                           <TableRow>
                               <TableCell>ID Planta</TableCell>
-                              <TableCell align="center">ID Tipo de Planta</TableCell>
+                              <TableCell align="center">Tipo de Planta</TableCell>
                               <TableCell align="center">Nome</TableCell>
                               <TableCell align="center">Descricão</TableCell>
                               <TableCell align="center">Época Plantio&nbsp;</TableCell>
@@ -156,8 +156,8 @@ export default function MiniDrawer (){
                                   <TableCell component="th" scope="row">
                                       {row.id_planta}
                                   </TableCell>
-                                  <TableCell align="center">{row.id_tipo_planta}</TableCell>
-                                  <TableCell align="center">{row.nome}</TableCell>
+                                  <TableCell align="center">{row.nome_tipo_planta}</TableCell>
+                                  <TableCell align="center">{row.nome_planta}</TableCell>
                                   <TableCell align="center">{row.descricao}</TableCell>
                                   <TableCell align="center">{row.epoca_plantio}</TableCell>
                                   <TableCell align="center">{row.forma_plantio}</TableCell>

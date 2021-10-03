@@ -101,7 +101,7 @@ export default function InsumoAlterar(){
             })
            // console.log(response.data.response.insumo)
             setId_fornecedor(response.data.response.insumo.id_fornecedor);
-            setNome(response.data.response.insumo.nome);
+            setNome(response.data.response.insumo.nome_insumo,);
             setDescricao(response.data.response.insumo.descricao);
             setQuantidade(response.data.response.insumo.quantidade);
             //console.log(response.data.response.insumo.data)
@@ -132,7 +132,7 @@ export default function InsumoAlterar(){
     async  function Alterar(){
       const data = {
         id_fornecedor:id_fornecedor,
-        nome:nome,
+        nome_insumo:nome,
         descricao:descricao,
         quantidade:quantidade,
         data:date,
@@ -180,7 +180,7 @@ export default function InsumoAlterar(){
                             value={id_fornecedor}
                             onChange={e => setId_fornecedor(e.target.value)}
                           > {fornecedores.map((row) =>(
-                              <MenuItem value={row.id_fornecedor}>{row.nome}</MenuItem>
+                              <MenuItem value={row.id_fornecedor}>{row.nome_fornecedor}</MenuItem>
                             ))}
                       </Select>
                     </FormControl>

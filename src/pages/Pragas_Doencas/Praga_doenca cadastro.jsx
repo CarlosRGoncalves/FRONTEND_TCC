@@ -63,7 +63,7 @@ export default function SecaoCadastro(){
     
     async  function Cadastrar(){
       const data = {
-        nome:nome,
+        nome_p_doenca:nome,
         descricao:descricao,
        
       }

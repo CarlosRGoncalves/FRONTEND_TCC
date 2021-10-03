@@ -81,7 +81,7 @@ export default function FornecedorAlterar(){
             })
          //   console.log(response)
             setCnpj(response.data.response.fornecedor.cnpj);
-            setNome(response.data.response.fornecedor.nome);
+            setNome(response.data.response.fornecedor.nome_fornecedor);
 
       }
       getFornecedor();      
@@ -90,7 +90,7 @@ export default function FornecedorAlterar(){
     async  function Alterar(){
       const data = {
         cnpj:cnpj,
-        nome:nome
+        nome_fornecedor:nome
       }
       console.log(data)
       if(cnpj!=''&&nome!=''){
