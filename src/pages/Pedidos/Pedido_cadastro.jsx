@@ -139,7 +139,7 @@ export default function InsumoCadastro(){
           //console.log("AQUI",res.status);
           if(res.status ===201){
             //console.log(res.data.response.pedidoCriado.valor)
-            const m ="Pedido Cadastrado com Sucesso!!!\n" + "\nID do Pedido: " + res.data.response.pedidoCriado.id_pedido + "\nValor do Pedido: " + res.data.response.pedidoCriado.valor+"R$"
+            const m =res.data.response.mensagem + "\n\nID do Pedido: " + res.data.response.pedidoCriado.id_pedido + "\nValor do Pedido: " + res.data.response.pedidoCriado.valor+"R$"
             alert(m)
             window.location.replace("http://localhost:3000/pedido");
           }

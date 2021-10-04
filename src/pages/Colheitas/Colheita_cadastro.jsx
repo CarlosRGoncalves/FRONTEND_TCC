@@ -70,59 +70,74 @@ const useStyles = makeStyles((theme) => ({
  const token = localStorage.getItem("token")
  if(token){
   const decoded = jwt_decode(token);
- // localStorage.setItem("id_fornecedor",decoded.id_fornecedor);
+ // localStorage.setItem("id_producao",decoded.id_producao);
  }
  
 }
 
-export default function InsumoCadastro(){
+export default function ColheitaCadastro(){
 
   
   
     const classes = useStyles();
-    const [id_fornecedor, setId_fornecedor] = useState('');
-    const [nome, setNome] = useState('');
-    const [descricao, setDescricao] = useState('');
-    const [quantidade, setQuantidade] = useState('');
+    const [id_producao, setId_producao] = useState('');
+    const [id_pedido, setId_pedido] = useState('');
+    
     const [date, setDate] = useState('');
-    const [valor, setValor] = useState('');
-    const [fornecedores, setFornecedores] = useState([]);
+    const [quantidade, setQuantidade] = useState('');
+    const [producoes, setProducoes] = useState([]);
+    const [pedidos, setPedidos] = useState([]);
 
     useEffect(() => {
-      async  function tp(){
+      async  function producao(){
           const token = localStorage.getItem('token');
           const headers = { Authorization: `Bearer ${token}` };
         
-          const response = await axios.get('http://localhost:3006/fornecedor/',{ headers })
+          const response = await axios.get('http://localhost:3006/producao/',{ headers })
           .then(response =>{
           //console.log(response.data.usuario);
-          setFornecedores(response.data.fornecedor);
+          setProducoes(response.data.producao);
           })
           .catch(err =>{
             console.log(err)
             alert(err);
           })
       }
-      tp();
+      async  function pedido(){
+        const token = localStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}` };
+      
+        const response = await axios.get('http://localhost:3006/pedido/',{ headers })
+        .then(response =>{
+        //console.log(response.data.usuario);
+        setPedidos(response.data.pedido);
+        })
+        .catch(err =>{
+          console.log(err)
+          alert(err);
+        })
+    }
+      pedido();
+      producao();
     },[]);
     
     
     async  function Cadastrar(){
       const data = {
-        id_fornecedor:id_fornecedor,
-        nome:nome,
-        descricao:descricao,
+        id_producao:id_producao,
+        id_pedido:id_pedido,
         quantidade:quantidade,
-        data:date,
-        valor:valor
+        data_colheita:date
       }
 
-      if(descricao!=''&&quantidade!=''&&nome!=''&&date!=''&&valor!=''){
-        var result = await axios.post('http://localhost:3006/insumo',data).then(res => {
+      if(quantidade!=''&&quantidade!=''&&date!=''&&id_producao!=''&&id_pedido!=''){
+        var result = await axios.post('http://localhost:3006/colheita',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
-            alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/insumo");
+            //console.log(res.data.response.pedidoCriado.quantidade)
+            const m =res.data.response.mensagem + "\n\nID da Colheita: " + res.data.response.colheitaCriado.id_colheita            
+            alert(m)
+            window.location.replace("http://localhost:3000/colheita");
           }
         }).catch(err => {
           if(err.response.status ===500){
@@ -147,53 +162,44 @@ export default function InsumoCadastro(){
             <div className={classes.toolbar} />
             
                 <Typography variant="h6" gutterBottom>
-                    Cadastro de Insumos
+                    Cadastro de Colheita
                 </Typography>
                 <Paper className = {classes.content} >
                   <Grid container spacing={3}>
-                  <Grid item xs={12} sm={4}>
+                  <Grid item xs={12} sm={5}>
                       <FormControl className={classes.formControl}>
-                      <InputLabel id="id_fornecedor">Fornecedor</InputLabel>
+                      <InputLabel id="id_producao">ID Produção</InputLabel>
                       <Select
-                            labelId="Fornecedor"
-                            id="id_fornecedor"
-                            value={id_fornecedor}
-                            onChange={e => setId_fornecedor(e.target.value)}
-                          > {fornecedores.map((row) =>(
-                              <MenuItem value={row.id_fornecedor}>{row.nome_fornecedor}</MenuItem>
+                            labelId="Produção"
+                            id="id_producao"
+                            value={id_producao}
+                            onChange={e => setId_producao(e.target.value)}
+                          > {producoes.map((row) =>(
+                              <MenuItem value={row.id_producao}>{row.id_producao}</MenuItem>
                             ))}
                       </Select>
                     </FormControl>
                     </Grid>
-                    <Grid item xs={12} sm={3}>
-                      <TextField
-                        required
-                        id="nome"
-                        name="nome"
-                        label="Nome"
-                        fullWidth
-                        autoComplete="nome"
-                        value={nome}
-                        onChange={e => setNome(e.target.value)}
-                      />
-                    </Grid>
                     <Grid item xs={12} sm={5}>
-                      <TextField
-                        required
-                        id="descricao"
-                        name="descricao"
-                        label="Descricao"
-                        fullWidth
-                        autoComplete="descricao"
-                        value={descricao}
-                        onChange={e => setDescricao(e.target.value)}
-                      />
+                      <FormControl className={classes.formControl}>
+                      <InputLabel id="id_pedido">ID Pedido</InputLabel>
+                      <Select
+                            labelId="Pedido"
+                            id="pedido"
+                            value={id_pedido}
+                            onChange={e => setId_pedido(e.target.value)}
+                          > {pedidos.map((row) =>(
+                              <MenuItem value={row.id_pedido}>{row.id_pedido}</MenuItem>
+                            ))}
+                      </Select>
+                    </FormControl>
                     </Grid>
-                    <Grid item xs={13} sm={3}>
+                    
+                    <Grid item xs={13} sm={5}>
                       <TextField
                         required
                         type="number"
-                        InputProps={{ inputProps: { min: 0, step: 0.1 } }}
+                        InputProps={{ inputProps: { min: 1, step: 1 } }}
                         id="quantidade"
                         name="quantidade"
                         label="Quantidade"
@@ -203,13 +209,13 @@ export default function InsumoCadastro(){
                         onChange={e => setQuantidade(e.target.value)}
                       />
                     </Grid>
-                    <Grid item xs={13} sm={3}>
+                    <Grid item xs={13} sm={5}>
                     
                     <form className={classes.container} noValidate>
                       <TextField
                       required
                         id="date"
-                        label="Data do Insumo"
+                        label="Data da Colheita"
                         type="date"
                         defaultValue=""
                         className={classes.textField}
@@ -222,20 +228,7 @@ export default function InsumoCadastro(){
                     </form>
                     
                     </Grid>
-                    <Grid item xs={13} sm={6}>
-                      <TextField
-                        required
-                        type="number"
-                        InputProps={{ inputProps: { min: 0, step: 0.1 } }}
-                        id="valor"
-                        name="valor"
-                        label="Valor do Insumo"
-                        fullWidth
-                        autoComplete="valor"
-                        value={valor}
-                        onChange={e => setValor(e.target.value)}
-                      />
-                    </Grid>
+                    
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <br/>
@@ -246,7 +239,7 @@ export default function InsumoCadastro(){
                               style={{backgroundColor: "#00A869"}}
                               onClick ={Cadastrar}
                             >
-                              Cadastrar Planta
+                              Cadastrar Colheita
                     </Button>
                     </Grid>
                 </Paper>

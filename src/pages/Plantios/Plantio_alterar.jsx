@@ -11,6 +11,7 @@ import green from '@material-ui/core/colors/green';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { useParams } from 'react-router';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -66,79 +67,109 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-{
- const token = localStorage.getItem("token")
- if(token){
-  const decoded = jwt_decode(token);
- // localStorage.setItem("id_fornecedor",decoded.id_fornecedor);
- }
- 
-}
 
-export default function InsumoCadastro(){
-
-  
+export default function PedidoAlterar(){
   
     const classes = useStyles();
-    const [id_fornecedor, setId_fornecedor] = useState('');
-    const [nome, setNome] = useState('');
+
+
+    const [id_secao, setId_secao] = useState('');
+    const [id_planta, setId_planta] = useState('');
+   
     const [descricao, setDescricao] = useState('');
     const [quantidade, setQuantidade] = useState('');
     const [date, setDate] = useState('');
     const [valor, setValor] = useState('');
-    const [fornecedores, setFornecedores] = useState([]);
-
+    const [secoes, setSecoes] = useState([]);
+    const [plantas, setPlantas] = useState([]);
+    const {id_plantio} = useParams()
+    
+    
+    
     useEffect(() => {
-      async  function tp(){
-          const token = localStorage.getItem('token');
-          const headers = { Authorization: `Bearer ${token}` };
-        
-          const response = await axios.get('http://localhost:3006/fornecedor/',{ headers })
-          .then(response =>{
-          //console.log(response.data.usuario);
-          setFornecedores(response.data.fornecedor);
-          })
-          .catch(err =>{
-            console.log(err)
-            alert(err);
-          })
+      async function getPlantio(){
+        const token = localStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}` };
+            var response = await axios.get('http://localhost:3006/plantio/'+id_plantio,{headers}).then().catch(err => {
+              if(err.response.status ===500){
+                alert('Erro no Servidor!')
+              }
+            })
+            //console.log(response.data)
+            setId_secao(response.data.response.plantio.id_secao);
+            setId_planta(response.data.response.plantio.id_planta);
+            setDescricao(response.data.response.plantio.descricao);
+            setQuantidade(response.data.response.plantio.quantidade);
+            setValor(response.data.response.plantio.valor_custo);
+
+            setDate(response.data.response.plantio.data_plantio.substring(0,10));
+           // setId_secao(response.data.response.plantio.id_secao);
+            
       }
-      tp();
+      async function getSecao(){
+        const token = localStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}` };
+            var response = await axios.get('http://localhost:3006/secao/',{headers}).then(response =>{
+
+              setSecoes(response.data.secao);
+            })
+            .catch(err => {
+              if(err.response.status ===500){
+                alert('Erro no Servidor!')
+              }
+            })
+      }
+      async function getPlanta(){
+        const token = localStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}` };
+            var response = await axios.get('http://localhost:3006/planta/',{headers}).then(response =>{
+
+              setPlantas(response.data.planta);
+            })
+            .catch(err => {
+              if(err.response.status ===500){
+                alert('Erro no Servidor!')
+              }
+            })
+      }
+      getPlanta();
+      getSecao();
+      getPlantio();      
     },[]);
-    
-    
-    async  function Cadastrar(){
+
+    async  function Alterar(){
       const data = {
-        id_fornecedor:id_fornecedor,
-        nome:nome,
+        id_secao:id_secao,
+        id_planta:id_planta,
         descricao:descricao,
         quantidade:quantidade,
-        data:date,
-        valor:valor
+        data_plantio:date,
+        valor_custo:valor
+       
       }
-
-      if(descricao!=''&&quantidade!=''&&nome!=''&&date!=''&&valor!=''){
-        var result = await axios.post('http://localhost:3006/insumo',data).then(res => {
-          //console.log("AQUI",res.status);
-          if(res.status ===201){
+      //console.log(data)
+      if(id_secao!=''&&id_planta!=''&&descricao!=''&&quantidade!=''&&date!=''&&valor!=''){
+        const token = localStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}` };
+        var result = await axios.patch('http://localhost:3006/plantio/'+id_plantio,data).then(res => {
+          if(res.status ===202){
+         
             alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/insumo");
+
+            window.location.replace("http://localhost:3000/plantio");
           }
         }).catch(err => {
           if(err.response.status ===500){
-            alert('Erro no Cadastro!')
-            //window.location.replace("http://localhost:3000/planta/cadastro");
+            alert('Erro na Alteração')
+           
           }
         })
-
       }else{
         alert('Campo em Branco ou Preenchido Incorretamente!')
       }
     }
-    
- 
     return (       
-     
+      
       <div className={classes.root}>
         <CssBaseline/>
         <MenuI/>
@@ -147,36 +178,58 @@ export default function InsumoCadastro(){
             <div className={classes.toolbar} />
             
                 <Typography variant="h6" gutterBottom>
-                    Cadastro de Insumos
+                    Alteração de Plantios
                 </Typography>
                 <Paper className = {classes.content} >
-                  <Grid container spacing={3}>
+                <Grid container spacing={3}>
                   <Grid item xs={12} sm={4}>
                       <FormControl className={classes.formControl}>
-                      <InputLabel id="id_fornecedor">Fornecedor</InputLabel>
+                      <InputLabel id="id_secao">Seção</InputLabel>
                       <Select
-                            labelId="Fornecedor"
-                            id="id_fornecedor"
-                            value={id_fornecedor}
-                            onChange={e => setId_fornecedor(e.target.value)}
-                          > {fornecedores.map((row) =>(
-                              <MenuItem value={row.id_fornecedor}>{row.nome_fornecedor}</MenuItem>
+                            labelId="Seção"
+                            id="id_secao"
+                            value={id_secao}
+                            onChange={e => setId_secao(e.target.value)}
+                          > {secoes.map((row) =>(
+                              <MenuItem value={row.id_secao}>{row.id_secao}</MenuItem>
                             ))}
                       </Select>
                     </FormControl>
                     </Grid>
-                    <Grid item xs={12} sm={3}>
-                      <TextField
-                        required
-                        id="nome"
-                        name="nome"
-                        label="Nome"
-                        fullWidth
-                        autoComplete="nome"
-                        value={nome}
-                        onChange={e => setNome(e.target.value)}
-                      />
+                    <Grid item xs={12} sm={4}>
+                      <FormControl className={classes.formControl}>
+                      <InputLabel id="id_planta">Planta</InputLabel>
+                      <Select
+                            labelId="Planta"
+                            id="planta"
+                            value={id_planta}
+                            onChange={e => setId_planta(e.target.value)}
+                          > {plantas.map((row) =>(
+                              <MenuItem value={row.id_planta}>{row.nome_planta}</MenuItem>
+                            ))}
+                      </Select>
+                    </FormControl>
                     </Grid>
+                    <Grid item xs={13} sm={4}>
+                    
+                    <form className={classes.container} noValidate>
+                      <TextField
+                      required
+                        id="date"
+                        label="Data do Plantio"
+                        type="date"
+                        defaultValue=""
+                        className={classes.textField}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        value={date}
+                        onChange={e => setDate(e.target.value)}
+                      />
+                    </form>
+                    
+                    </Grid>
+                    
                     <Grid item xs={12} sm={5}>
                       <TextField
                         required
@@ -193,7 +246,7 @@ export default function InsumoCadastro(){
                       <TextField
                         required
                         type="number"
-                        InputProps={{ inputProps: { min: 0, step: 0.1 } }}
+                        InputProps={{ inputProps: { min: 1, step: 1 } }}
                         id="quantidade"
                         name="quantidade"
                         label="Quantidade"
@@ -203,33 +256,15 @@ export default function InsumoCadastro(){
                         onChange={e => setQuantidade(e.target.value)}
                       />
                     </Grid>
-                    <Grid item xs={13} sm={3}>
                     
-                    <form className={classes.container} noValidate>
-                      <TextField
-                      required
-                        id="date"
-                        label="Data do Insumo"
-                        type="date"
-                        defaultValue=""
-                        className={classes.textField}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        value={date}
-                        onChange={e => setDate(e.target.value)}
-                      />
-                    </form>
-                    
-                    </Grid>
-                    <Grid item xs={13} sm={6}>
+                    <Grid item xs={13} sm={4}>
                       <TextField
                         required
                         type="number"
                         InputProps={{ inputProps: { min: 0, step: 0.1 } }}
                         id="valor"
                         name="valor"
-                        label="Valor do Insumo"
+                        label="Valor do Plantio"
                         fullWidth
                         autoComplete="valor"
                         value={valor}
@@ -239,14 +274,13 @@ export default function InsumoCadastro(){
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <br/>
-                    <Button
-                              
+                    <Button                              
                               variant="contained"
                               color="primary"
                               style={{backgroundColor: "#00A869"}}
-                              onClick ={Cadastrar}
+                              onClick ={Alterar}
                             >
-                              Cadastrar Planta
+                              Alterar Pedido
                     </Button>
                     </Grid>
                 </Paper>

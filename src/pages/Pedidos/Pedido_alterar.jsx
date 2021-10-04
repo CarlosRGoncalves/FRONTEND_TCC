@@ -184,7 +184,7 @@ export default function PedidoAlterar(){
             <div className={classes.toolbar} />
             
                 <Typography variant="h6" gutterBottom>
-                    Alteração de Insumos
+                    Alteração de Pedidos
                 </Typography>
                 <Paper className = {classes.content} >
                   <Grid container spacing={3}>

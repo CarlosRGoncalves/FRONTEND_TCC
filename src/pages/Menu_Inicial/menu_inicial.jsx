@@ -105,6 +105,8 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace("http://localhost:3000/producao")}
+
                         >
                           
                             Gerenciar Produção
@@ -116,6 +118,8 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace("http://localhost:3000/plantio")}
+
                         >
                           Gerenciar Plantio
                         </Button>
@@ -125,6 +129,8 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace("http://localhost:3000/colheita")}
+
                         >
                           Gerenciar Colheita
                         </Button>

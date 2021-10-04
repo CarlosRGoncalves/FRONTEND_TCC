@@ -48,6 +48,18 @@ import Pedidos from '../Pedidos/Pedido';
 import Pedidos_Cadastro from '../Pedidos/Pedido_cadastro';
 import Pedidos_Alterar from '../Pedidos/Pedido_alterar';
 
+import Plantios from '../Plantios/Plantio';
+import Plantios_Cadastro from '../Plantios/Plantio_cadastro';
+import Plantios_Alterar from '../Plantios/Plantio_alterar';
+
+import Producoes from '../Producoes/Producao';
+import Producoes_Cadastro from '../Producoes/Producao_cadastro';
+import Producoes_Alterar from '../Producoes/Producao_alterar';
+
+import Colheitas from '../Colheitas/Colheita';
+import Colheitas_Cadastro from '../Colheitas/Colheita_cadastro';
+import Colheitas_Alterar from '../Colheitas/Colheita_alterar';
+
 import Pagina_Inicial from '../Pagina_Inicial/pagina_inicial';
 
 import PrivateRoute from 'private/auth';
@@ -98,6 +110,18 @@ const PagesRoot = () => (
       <PrivateRoute exact path="/pedido" component={Pedidos} />
       <PrivateRoute exact path="/pedido/cadastro" component={Pedidos_Cadastro} />
       <PrivateRoute exact path="/pedido/alterar/:id_pedido" component={Pedidos_Alterar} />
+
+      <PrivateRoute exact path="/plantio" component={Plantios} />
+      <PrivateRoute exact path="/plantio/cadastro" component={Plantios_Cadastro} />
+      <PrivateRoute exact path="/plantio/alterar/:id_plantio" component={Plantios_Alterar} />
+
+      <PrivateRoute exact path="/producao" component={Producoes} />
+      <PrivateRoute exact path="/producao/cadastro" component={Producoes_Cadastro} />
+      <PrivateRoute exact path="/producao/alterar/:id_producao" component={Producoes_Alterar} />
+
+      <PrivateRoute exact path="/colheita" component={Colheitas} />
+      <PrivateRoute exact path="/colheita/cadastro" component={Colheitas_Cadastro} />
+      <PrivateRoute exact path="/colheita/alterar/:id_colheita" component={Colheitas_Alterar} />
 
       <Route  exact path="/logout" component={Logout} />
       <PrivateRoute  exact path="/menu_inicial" component={Menu_Inicial} />
