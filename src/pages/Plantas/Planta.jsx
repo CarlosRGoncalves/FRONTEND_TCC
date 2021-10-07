@@ -143,7 +143,7 @@ export default function MiniDrawer (){
                               <TableCell>ID Planta</TableCell>
                               <TableCell align="center">Tipo de Planta</TableCell>
                               <TableCell align="center">Nome</TableCell>
-                              <TableCell align="center">Descricão</TableCell>
+                              <TableCell align="center">Descrição</TableCell>
                               <TableCell align="center">Época Plantio&nbsp;</TableCell>
                               <TableCell align="center">Forma Plantio&nbsp;</TableCell>
                               <TableCell align="center">Tempo Colheita&nbsp;</TableCell>

@@ -9,28 +9,68 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import BuildIcon from '@material-ui/icons/Build';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-function listI(text) {
-  if(text == 'Página Inicial'){
-    window.location.replace("http://localhost:3000/pagina_inicial");
-  }else if(text == 'Sair'){
-    window.location.replace("http://localhost:3000/logout");
-  }
-  else if(text == 'Gerenciar'){
-    window.location.replace("http://localhost:3000/menu_inicial");
-  }
-  
-}
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import Collapse from '@material-ui/core/Collapse';
+import { makeStyles } from '@material-ui/core/styles';
+import BlurOnOutlinedIcon from '@material-ui/icons/BlurOnOutlined';
+import DraftsIcon from '@material-ui/icons/Drafts';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
+}));
+
 export default function ListItems (){
-  
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+  function listI(text) {
+    if(text == 'Página Inicial'){
+      window.location.replace("http://localhost:3000/pagina_inicial");
+    }else if(text == 'Sair'){
+      window.location.replace("http://localhost:3000/logout");
+    }
+    else if(text == 'Gerenciar'){
+      window.location.replace("http://localhost:3000/menu_inicial");
+    }
+    else if(text == 'Relátorios'){
+      handleClick();
+     // window.location.replace("http://localhost:3000/menu_inicial");
+    }
+    
+  }
   return(
           <>
             <List>
-                  {['Página Inicial', 'Gerenciar', 'Relátorios', 'Sair'].map((text, index) => (
+                  {['Sair', 'Página Inicial', 'Gerenciar', 'Relátorios'].map((text, index) => (
                       <ListItem button key={text} onClick = {() => listI(text)}>
-                        <ListItemIcon>{(index === 0 ? <KeyboardArrowRightIcon /> : (index === 1?<BuildIcon />:(index === 2?<AssignmentIcon/>:<PowerSettingsNewIcon/>)))}</ListItemIcon>
-                        <ListItemText ext primary={text}>{/*text === 'Gerenciar' ? console.log("Texte"):console.log("Texte2") */}</ListItemText>
+                        <ListItemIcon>{(index === 0 ? <PowerSettingsNewIcon /> : (index === 1?<KeyboardArrowRightIcon />:(index === 2?<BuildIcon/>:< AssignmentIcon/>)))}</ListItemIcon>
+                        <ListItemText ext primary={text}/>
+                        {open ? <ExpandMore /> : <ExpandLess/>}
                       </ListItem>
+                      
                     ))}
+                    <Collapse in={!open} timeout="auto" unmountOnExit>
+                      <List component="div" disablePadding>
+                        <ListItem button className={classes.nested}>
+                          <ListItemIcon>
+                            <BlurOnOutlinedIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="Pedidos" />
+                          
+                        </ListItem>
+                      </List>
+                    </Collapse>
             </List>
           </>
   )
