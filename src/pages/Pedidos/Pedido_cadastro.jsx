@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
  
 }
 
-export default function InsumoCadastro(){
+export default function PedidoCadastro(){
 
   
   

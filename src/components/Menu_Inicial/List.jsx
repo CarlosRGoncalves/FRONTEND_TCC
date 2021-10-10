@@ -49,6 +49,12 @@ export default function ListItems (){
     }
     
   }
+  function RelPedidos() {
+    
+      window.location.replace("http://localhost:3000/pedido/relatorio");
+  
+    
+  }
   return(
           <>
             <List>
@@ -66,7 +72,7 @@ export default function ListItems (){
                           <ListItemIcon>
                             <BlurOnOutlinedIcon />
                           </ListItemIcon>
-                          <ListItemText primary="Pedidos" />
+                          <ListItemText primary="Pedidos" onClick = {() => RelPedidos()} />
                           
                         </ListItem>
                       </List>
