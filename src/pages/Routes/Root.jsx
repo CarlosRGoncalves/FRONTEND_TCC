@@ -39,6 +39,7 @@ import Produto_Final_Alterar from '../Produto_Final/Produto_final_alterar';
 import Clientes from '../Clientes/Cliente';
 import Clientes_Cadastro from '../Clientes/Cliente_cadastro';
 import Clientes_Alterar from '../Clientes/Cliente_alterar';
+import Clientes_Relatorio from '../Clientes/Cliente_relatorio';
 
 import Insumos from '../Insumos/Insumo';
 import Insumos_Cadastro from '../Insumos/Insumo_cadastro';
@@ -104,6 +105,7 @@ const PagesRoot = () => (
       <PrivateRoute exact path="/cliente" component={Clientes} />
       <PrivateRoute exact path="/cliente/cadastro" component={Clientes_Cadastro} />
       <PrivateRoute exact path="/cliente/alterar/:id_cliente" component={Clientes_Alterar} />
+      <PrivateRoute exact path="/cliente/relatorio" component={Clientes_Relatorio} />
 
       <PrivateRoute exact path="/insumo" component={Insumos} />
       <PrivateRoute exact path="/insumo/cadastro" component={Insumos_Cadastro} />

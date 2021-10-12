@@ -55,6 +55,12 @@ export default function ListItems (){
   
     
   }
+  function RelClientes() {
+    
+    window.location.replace("http://localhost:3000/cliente/relatorio");
+
+  
+}
   return(
           <>
             <List>
@@ -74,6 +80,13 @@ export default function ListItems (){
                           </ListItemIcon>
                           <ListItemText primary="Pedidos" onClick = {() => RelPedidos()} />
                           
+                        </ListItem>
+                        <ListItem button className={classes.nested}>
+                          <ListItemIcon>
+                            <BlurOnOutlinedIcon />
+                          </ListItemIcon>
+                          
+                          <ListItemText primary="Clientes" onClick = {() => RelClientes()} />
                         </ListItem>
                       </List>
                     </Collapse>
