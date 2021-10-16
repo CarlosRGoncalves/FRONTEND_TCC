@@ -281,7 +281,7 @@ export default function PedidoAlterar(){
                         InputProps={{ inputProps: { min: 0, step: 0.1 } }}
                         id="qtd_defensivo"
                         name="qtd_defensivo"
-                        label="Valor do Defensivo"
+                        label="Qtd Defensivo"
                         fullWidth
                         autoComplete="qtd_adubacao"
                         value={qtd_defensivo}
@@ -308,7 +308,7 @@ export default function PedidoAlterar(){
                       <TextField
                       required
                         id="date_defensivo"
-                        label="Data do Plantio"
+                        label="Data do Defensivo"
                         type="date"
                         defaultValue=""
                         className={classes.textField}

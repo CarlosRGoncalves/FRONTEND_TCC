@@ -58,6 +58,8 @@ import Plantios_Alterar from '../Plantios/Plantio_alterar';
 import Producoes from '../Producoes/Producao';
 import Producoes_Cadastro from '../Producoes/Producao_cadastro';
 import Producoes_Alterar from '../Producoes/Producao_alterar';
+import Producoes_Relatorio from '../Producoes/Producao_relatorio';
+
 
 import Colheitas from '../Colheitas/Colheita';
 import Colheitas_Cadastro from '../Colheitas/Colheita_cadastro';
@@ -123,6 +125,7 @@ const PagesRoot = () => (
       <PrivateRoute exact path="/producao" component={Producoes} />
       <PrivateRoute exact path="/producao/cadastro" component={Producoes_Cadastro} />
       <PrivateRoute exact path="/producao/alterar/:id_producao" component={Producoes_Alterar} />
+      <PrivateRoute exact path="/producao/relatorio" component={Producoes_Relatorio} />
 
       <PrivateRoute exact path="/colheita" component={Colheitas} />
       <PrivateRoute exact path="/colheita/cadastro" component={Colheitas_Cadastro} />

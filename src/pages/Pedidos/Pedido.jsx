@@ -18,6 +18,7 @@ import Paper from '@material-ui/core/Paper';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
+import Chip from '@material-ui/core/Chip';
 import './Pedido.css';
 const drawerWidth = 240;
 
@@ -160,7 +161,7 @@ export default function MiniDrawer (){
                                   <TableCell align="center">{row.nome_produto_final}</TableCell>
                                   <TableCell align="center">{row.email}</TableCell>
 
-                                  <TableCell align="center">{row.status}</TableCell>
+                                  <TableCell align="center">{row.status ==='Pago'?<Chip label="Pago" color="primary"/>:<Chip label="Não Pago" color="secondary" />}</TableCell>
                                   <TableCell align="center">{row.descricao}</TableCell>
                                   <TableCell align="center">{row.quantidade}</TableCell>
                                   <TableCell align="center">{row.data.substring(0,10)}</TableCell>

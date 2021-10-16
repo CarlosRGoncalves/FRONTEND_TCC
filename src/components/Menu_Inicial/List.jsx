@@ -58,8 +58,12 @@ export default function ListItems (){
   function RelClientes() {
     
     window.location.replace("http://localhost:3000/cliente/relatorio");
+ }
+ function RelProducoes() {
+    
+  window.location.replace("http://localhost:3000/producao/relatorio");
 
-  
+
 }
   return(
           <>
@@ -87,6 +91,13 @@ export default function ListItems (){
                           </ListItemIcon>
                           
                           <ListItemText primary="Clientes" onClick = {() => RelClientes()} />
+                        </ListItem>
+                        <ListItem button className={classes.nested}>
+                          <ListItemIcon>
+                            <BlurOnOutlinedIcon />
+                          </ListItemIcon>
+                          
+                          <ListItemText primary="Produções" onClick = {() => RelProducoes()} />
                         </ListItem>
                       </List>
                     </Collapse>
