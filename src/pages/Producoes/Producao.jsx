@@ -194,7 +194,7 @@ export default function MiniDrawer (){
                                 onClick = {() => cad()}
                                 disabled = {Tp_Usuario()}
                               >
-                                Cadastrar Novo Produção
+                                Cadastrar Nova Produção
                           </Button>
                     </div>
                 </Paper>

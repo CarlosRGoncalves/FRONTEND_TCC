@@ -118,10 +118,10 @@ export default function MiniDrawer (){
   function Tp_Usuario() {
     const token = localStorage.getItem('token');
     if(token){
-        /*  const decoded = jwt_decode(token);
+          const decoded = jwt_decode(token);
           if(decoded.tipo_usuario == 2){
             return("true")
-          }*/
+          }
     }
     return;
   }

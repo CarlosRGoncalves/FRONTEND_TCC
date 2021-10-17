@@ -220,7 +220,7 @@ export default function ClienteAlterar(){
                               style={{backgroundColor: "#00A869"}}
                               onClick ={Alterar}
                             >
-                              Alterar Endereço
+                              Alterar Cliente
                     </Button>
                     </Grid>
                 </Paper>
