@@ -145,7 +145,7 @@ export default function InsumoAlterar(){
         var result = await axios.patch(process.env.REACT_APP_API_URL + 'insumo/'+id_insumo,data).then(res => {
           if(res.status ===202){
             alert(res.data.response.mensagem)
-            window.location.replace(process.env.REACT_APP_FRONT_URL + "insumo");
+            window.location.replace("http://localhost:3000/insumo");
           }
         }).catch(err => {
           if(err.response.status ===500){

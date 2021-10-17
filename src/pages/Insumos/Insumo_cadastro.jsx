@@ -110,7 +110,7 @@ export default function InsumoCadastro(){
     async  function Cadastrar(){
       const data = {
         id_fornecedor:id_fornecedor,
-        nome:nome,
+        nome_insumo:nome,
         descricao:descricao,
         quantidade:quantidade,
         data:date,
@@ -122,12 +122,12 @@ export default function InsumoCadastro(){
           //console.log("AQUI",res.status);
           if(res.status ===201){
             alert(res.data.response.mensagem)
-            window.location.replace(process.env.REACT_APP_FRONT_URL + "insumo");
+            window.location.replace("http://localhost:3000/insumo");
           }
         }).catch(err => {
           if(err.response.status ===500){
             alert('Erro no Cadastro!')
-            //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
+            //window.location.replace("http://localhost:3000/planta/cadastro");
           }
         })
 
@@ -246,7 +246,7 @@ export default function InsumoCadastro(){
                               style={{backgroundColor: "#00A869"}}
                               onClick ={Cadastrar}
                             >
-                              Cadastrar Planta
+                              Cadastrar Insumo
                     </Button>
                     </Grid>
                 </Paper>
