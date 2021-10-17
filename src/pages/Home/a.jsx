@@ -101,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
   //const token = localStorage.getItem('token');
  // const nome =  useState()
 
-  /* axios.get('http://localhost:3006/cliente/')
+  /* axios.get(process.env.REACT_APP_API_URL + 'cliente/')
   .then(response => {
       if(response.status == 200) {
   
@@ -148,7 +148,7 @@ export default function MiniDrawer (){
     const [repositories, setRepositories] = useState([]);
 
     useEffect(() => {
-      const response = axios.get('http://localhost:3006/cliente/')
+      const response = axios.get(process.env.REACT_APP_API_URL + 'cliente/')
       .then(response =>{
         console.log(response.data.cliente);
       setRepositories(response.data.cliente);

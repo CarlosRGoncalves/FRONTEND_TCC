@@ -91,7 +91,7 @@ export default function InsumoCadastro(){
           const token = localStorage.getItem('token');
           const headers = { Authorization: `Bearer ${token}` };
         
-          const response = await axios.get('http://localhost:3006/insumo/',{ headers })
+          const response = await axios.get(process.env.REACT_APP_API_URL + 'insumo/',{ headers })
           .then(response =>{
           //console.log(response.data.usuario);
           setInsumos(response.data.insumo);
@@ -105,7 +105,7 @@ export default function InsumoCadastro(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
       
-        const response = await axios.get('http://localhost:3006/plantio/',{ headers })
+        const response = await axios.get(process.env.REACT_APP_API_URL + 'plantio/',{ headers })
         .then(response =>{
         //console.log(response.data.usuario);
         setPlantios(response.data.plantio);
@@ -119,7 +119,7 @@ export default function InsumoCadastro(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
       
-        const response = await axios.get('http://localhost:3006/pragas_doenca/',{ headers })
+        const response = await axios.get(process.env.REACT_APP_API_URL + 'pragas_doenca/',{ headers })
         .then(response =>{
         //console.log(response.data.usuario);
         setP_doencas(response.data.pragas_doenca);
@@ -149,7 +149,7 @@ export default function InsumoCadastro(){
       }
 
       if(id_plantio!=''&&id_insumo!=''&&adubacao!=''&&defensivo!=''&&qtd_defensivo!=''&&date_adubacao!=''&&date_defensivo!=''&&qtd_adubacao!=''){
-        var result = await axios.post('http://localhost:3006/producao',data).then(res => {
+        var result = await axios.post(process.env.REACT_APP_API_URL + 'producao',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
             const m =res.data.response.mensagem + "\n\nID da Produção: " + res.data.response.producaoCriado.id_producao 

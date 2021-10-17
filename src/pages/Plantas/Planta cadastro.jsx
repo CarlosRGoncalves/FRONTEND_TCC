@@ -84,7 +84,7 @@ export default function SecaoCadastro(){
           const token = localStorage.getItem('token');
           const headers = { Authorization: `Bearer ${token}` };
         
-          const response = await axios.get('http://localhost:3006/tipo_planta/',{ headers })
+          const response = await axios.get(process.env.REACT_APP_API_URL + 'tipo_planta/',{ headers })
           .then(response =>{
           //console.log(response.data.usuario);
           setTipo_plantas(response.data.tipo_planta);
@@ -109,7 +109,7 @@ export default function SecaoCadastro(){
       }
 
       if(descricao!=''&&epoca_plantio!=''&&nome!=''){
-        var result = await axios.post('http://localhost:3006/planta',data).then(res => {
+        var result = await axios.post(process.env.REACT_APP_API_URL + 'planta',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
             alert(res.data.response.mensagem)

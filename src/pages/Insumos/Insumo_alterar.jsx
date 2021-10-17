@@ -94,7 +94,7 @@ export default function InsumoAlterar(){
       async function getInsumo(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/insumo/'+id_insumo,{headers}).then().catch(err => {
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'insumo/'+id_insumo,{headers}).then().catch(err => {
               if(err.response.status ===500){
                 alert('Erro no Servidor!')
               }
@@ -115,7 +115,7 @@ export default function InsumoAlterar(){
       async function getFornecedor(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/fornecedor/',{headers}).then(response =>{
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'fornecedor/',{headers}).then(response =>{
 
               setFornecedores(response.data.fornecedor);
             })
@@ -142,7 +142,7 @@ export default function InsumoAlterar(){
       if(id_fornecedor!=''&&descricao!=''&&quantidade!=''&&date!=''&&valor!=''){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-        var result = await axios.patch('http://localhost:3006/insumo/'+id_insumo,data).then(res => {
+        var result = await axios.patch(process.env.REACT_APP_API_URL + 'insumo/'+id_insumo,data).then(res => {
           if(res.status ===202){
             alert(res.data.response.mensagem)
             window.location.replace("http://localhost:3000/insumo");

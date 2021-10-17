@@ -85,7 +85,7 @@ export default function UsuarioCadastro(){
       }
 
       if(nome!=''&&email!=''&&telefone!=''&&tipo_usuario!=''&&senha!=''){
-        var result = await axios.post('http://localhost:3006/usuario/cadastro',data).then(res => {
+        var result = await axios.post(process.env.REACT_APP_API_URL + 'usuario/cadastro',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
             alert(res.data.response.mensagem)

@@ -79,7 +79,7 @@ export default function MiniDrawer (){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
   
-    const response = await axios.get('http://localhost:3006/pragas_doenca/',{ headers })
+    const response = await axios.get(process.env.REACT_APP_API_URL + 'pragas_doenca/',{ headers })
     .then(response =>{
     //console.log(response.data.pragas_doenca);
 
@@ -97,7 +97,7 @@ export default function MiniDrawer (){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
     if(window.confirm("Você tem certeza que vai excluir essa Praga/Doença ?")){
-      var result = await axios.delete('http://localhost:3006/pragas_doenca/'+id,{ headers }).then(res =>{
+      var result = await axios.delete(process.env.REACT_APP_API_URL + 'pragas_doenca/'+id,{ headers }).then(res =>{
         if(res.status ===202){
           console.log(res)
           alert(res.data.response.mensagem)

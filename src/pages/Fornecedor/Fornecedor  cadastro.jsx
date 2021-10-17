@@ -69,7 +69,7 @@ export default function FornecedorCadastro(){
       }
 
       if(cnpj!=''&&nome!=''){
-        var result = await axios.post('http://localhost:3006/fornecedor',data).then(res => {
+        var result = await axios.post(process.env.REACT_APP_API_URL + 'fornecedor',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
             alert(res.data.response.mensagem)

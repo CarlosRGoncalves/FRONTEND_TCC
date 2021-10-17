@@ -93,7 +93,7 @@ export default function PedidoAlterar(){
       async function getProducao(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/producao/'+id_producao,{headers}).then().catch(err => {
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'producao/'+id_producao,{headers}).then().catch(err => {
               if(err.response.status ===500){
                 alert('Erro no Servidor!')
               }
@@ -118,7 +118,7 @@ export default function PedidoAlterar(){
       async function getInsumo(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/insumo/',{headers}).then(response =>{
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'insumo/',{headers}).then(response =>{
 
               setInsumos(response.data.insumo);
             })
@@ -131,7 +131,7 @@ export default function PedidoAlterar(){
       async function getPlantio(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/plantio/',{headers}).then(response =>{
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'plantio/',{headers}).then(response =>{
 
               setPlantios(response.data.plantio);
             })
@@ -144,7 +144,7 @@ export default function PedidoAlterar(){
       async function getP_doenca(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/pragas_doenca/',{headers}).then(response =>{
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'pragas_doenca/',{headers}).then(response =>{
 
               setP_doencas(response.data.pragas_doenca);
             })
@@ -177,7 +177,7 @@ export default function PedidoAlterar(){
       if(id_plantio!=''&&id_insumo!=''&&adubacao!=''&&defensivo!=''&&qtd_defensivo!=''&&date_adubacao!=''&&date_defensivo!=''&&qtd_adubacao!=''){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-        var result = await axios.patch('http://localhost:3006/producao/'+id_producao,data).then(res => {
+        var result = await axios.patch(process.env.REACT_APP_API_URL + 'producao/'+id_producao,data).then(res => {
           if(res.status ===202){
          
             alert(res.data.response.mensagem)

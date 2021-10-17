@@ -93,7 +93,7 @@ export default function InsumoCadastro(){
           const token = localStorage.getItem('token');
           const headers = { Authorization: `Bearer ${token}` };
         
-          const response = await axios.get('http://localhost:3006/fornecedor/',{ headers })
+          const response = await axios.get(process.env.REACT_APP_API_URL + 'fornecedor/',{ headers })
           .then(response =>{
           //console.log(response.data.usuario);
           setFornecedores(response.data.fornecedor);
@@ -118,7 +118,7 @@ export default function InsumoCadastro(){
       }
 
       if(descricao!=''&&quantidade!=''&&nome!=''&&date!=''&&valor!=''){
-        var result = await axios.post('http://localhost:3006/insumo',data).then(res => {
+        var result = await axios.post(process.env.REACT_APP_API_URL + 'insumo',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
             alert(res.data.response.mensagem)

@@ -92,7 +92,7 @@ export default function UsuarioCadastro(){
       async function getUsuario(){
             const token = localStorage.getItem('token');
             const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/usuario/'+id_usuario,{headers}).then().catch(err => {
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'usuario/'+id_usuario,{headers}).then().catch(err => {
               if(err.response.status ===500){
                 alert('Erro no Servidor!')
               }
@@ -117,7 +117,7 @@ export default function UsuarioCadastro(){
       }
       console.log(data)
       if(nome!=''&&email!=''&&telefone!=''&&tipo_usuario!=''&&senha!=''){
-        var result = await axios.patch('http://localhost:3006/usuario/'+id_usuario,data).then(res => {
+        var result = await axios.patch(process.env.REACT_APP_API_URL + 'usuario/'+id_usuario,data).then(res => {
           if(res.status ===202){
             alert(res.data.response.mensagem)
             window.location.replace("http://localhost:3000/usuario");

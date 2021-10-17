@@ -89,7 +89,7 @@ export default function Tipo_plantaAlterar(){
       async function getTipo_plantaAlterar(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/tipo_planta/'+id_tipo_planta,{headers}).then().catch(err => {
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'tipo_planta/'+id_tipo_planta,{headers}).then().catch(err => {
               if(err.response.status ===500){
                 alert('Erro no Servidor!')
               }
@@ -112,7 +112,7 @@ export default function Tipo_plantaAlterar(){
       if(id_usuario!=''&&descricao!=''&&nome!=''){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-        var result = await axios.patch('http://localhost:3006/tipo_planta/'+id_tipo_planta,data).then(res => {
+        var result = await axios.patch(process.env.REACT_APP_API_URL + 'tipo_planta/'+id_tipo_planta,data).then(res => {
           if(res.status ===202){
             alert(res.data.response.mensagem)
             window.location.replace("http://localhost:3000/tipo_planta");

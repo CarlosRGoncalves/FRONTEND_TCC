@@ -79,7 +79,7 @@ export default function MiniDrawer (){
       const token = localStorage.getItem('token');
       const headers = { Authorization: `Bearer ${token}` };
     
-      const response = axios.get('http://localhost:3006/plantio/',{ headers })
+      const response = axios.get(process.env.REACT_APP_API_URL + 'plantio/',{ headers })
       .then(response =>{
       //console.log(response.data.usuario);
       setPlantios(response.data.plantio);
@@ -96,7 +96,7 @@ export default function MiniDrawer (){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
     if(window.confirm("Você tem certeza que vai excluir esse Plantio?")){
-      var result = await axios.delete('http://localhost:3006/plantio/'+id,{ headers }).then(res =>{
+      var result = await axios.delete(process.env.REACT_APP_API_URL + 'plantio/'+id,{ headers }).then(res =>{
         if(res.status ===202){
           console.log(res)
           alert(res.data.response.mensagem)

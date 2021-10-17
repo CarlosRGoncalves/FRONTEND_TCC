@@ -85,7 +85,7 @@ export default function SecaoAlterar(){
       async function getPlanta(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/planta/'+id_planta,{headers}).then().catch(err => {
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'planta/'+id_planta,{headers}).then().catch(err => {
               if(err.response.status ===500){
                 alert('Erro no Servidor!')
               }
@@ -103,7 +103,7 @@ export default function SecaoAlterar(){
       async function getTipo_Planta(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/tipo_planta/',{headers}).then(response =>{
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'tipo_planta/',{headers}).then(response =>{
               console.log(response.data.tipo_planta)
               setTipo_plantas(response.data.tipo_planta);
             })
@@ -130,7 +130,7 @@ export default function SecaoAlterar(){
       if(id_tipo_planta!=''&&descricao!=''&&epoca_plantio!=''&&forma_plantio!=''&&tempo_colheita!=''){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-        var result = await axios.patch('http://localhost:3006/planta/'+id_planta,data).then(res => {
+        var result = await axios.patch(process.env.REACT_APP_API_URL + 'planta/'+id_planta,data).then(res => {
           if(res.status ===202){
             alert(res.data.response.mensagem)
             window.location.replace("http://localhost:3000/planta");

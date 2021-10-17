@@ -79,7 +79,7 @@ export default function MiniDrawer (){
       const token = localStorage.getItem('token');
       const headers = { Authorization: `Bearer ${token}` };
     
-      const response = axios.get('http://localhost:3006/insumo/',{ headers })
+      const response = axios.get(process.env.REACT_APP_API_URL + 'insumo/',{ headers })
       .then(response =>{
       //console.log(response.data.usuario);
       setInsumos(response.data.insumo);
@@ -96,7 +96,7 @@ export default function MiniDrawer (){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
     if(window.confirm("Você tem certeza que vai excluir esse Insumo?")){
-      var result = await axios.delete('http://localhost:3006/insumo/'+id,{ headers }).then(res =>{
+      var result = await axios.delete(process.env.REACT_APP_API_URL + 'insumo/'+id,{ headers }).then(res =>{
         if(res.status ===202){
           console.log(res)
           alert(res.data.response.mensagem)

@@ -96,7 +96,7 @@ export default function PedidoAlterar(){
       async function getPedido(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/pedido/'+id_pedido,{headers}).then().catch(err => {
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'pedido/'+id_pedido,{headers}).then().catch(err => {
               if(err.response.status ===500){
                 alert('Erro no Servidor!')
               }
@@ -115,7 +115,7 @@ export default function PedidoAlterar(){
       async function getProduto_final(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/produto_final/',{headers}).then(response =>{
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'produto_final/',{headers}).then(response =>{
 
               setProdutos_finais(response.data.produto_final);
             })
@@ -128,7 +128,7 @@ export default function PedidoAlterar(){
       async function getCliente(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/cliente/',{headers}).then(response =>{
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'cliente/',{headers}).then(response =>{
 
               setClientes(response.data.cliente);
             })
@@ -157,7 +157,7 @@ export default function PedidoAlterar(){
       if(id_produto_final!=''&&descricao!=''&&quantidade!=''&&date!=''){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-        var result = await axios.patch('http://localhost:3006/pedido/'+id_pedido,data).then(res => {
+        var result = await axios.patch(process.env.REACT_APP_API_URL + 'pedido/'+id_pedido,data).then(res => {
           if(res.status ===202){
           const m ="Pedido Alterado com Sucesso!!!\n" + "\nID do Pedido: " + res.data.response.pedidoCriado.id_pedido + "\nValor do Pedido: " + res.data.response.pedidoCriado.valor+" R$"
           //console.log(res.data.response.pedidoCriado.valor)

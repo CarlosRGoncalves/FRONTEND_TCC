@@ -8,7 +8,7 @@ const isAuth = async () =>{
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
 
-    const response = await axios.get('http://localhost:3006/validaToken',{headers})
+    const response = await axios.get(process.env.REACT_APP_API_URL + 'validaToken',{headers})
         if(response.status == 200) {
           return true;
         }else if(response.status == 401){

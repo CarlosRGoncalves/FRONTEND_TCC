@@ -93,7 +93,7 @@ export default function ColheitaCadastro(){
           const token = localStorage.getItem('token');
           const headers = { Authorization: `Bearer ${token}` };
         
-          const response = await axios.get('http://localhost:3006/producao/',{ headers })
+          const response = await axios.get(process.env.REACT_APP_API_URL + 'producao/',{ headers })
           .then(response =>{
           //console.log(response.data.usuario);
           setProducoes(response.data.producao);
@@ -107,7 +107,7 @@ export default function ColheitaCadastro(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
       
-        const response = await axios.get('http://localhost:3006/pedido/',{ headers })
+        const response = await axios.get(process.env.REACT_APP_API_URL + 'pedido/',{ headers })
         .then(response =>{
         //console.log(response.data.usuario);
         setPedidos(response.data.pedido);
@@ -131,7 +131,7 @@ export default function ColheitaCadastro(){
       }
 
       if(quantidade!=''&&quantidade!=''&&date!=''&&id_producao!=''&&id_pedido!=''){
-        var result = await axios.post('http://localhost:3006/colheita',data).then(res => {
+        var result = await axios.post(process.env.REACT_APP_API_URL + 'colheita',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
             //console.log(res.data.response.pedidoCriado.quantidade)

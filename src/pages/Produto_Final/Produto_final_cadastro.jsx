@@ -75,7 +75,7 @@ export default function Produto_FinalCadastro(){
       }
 
       if(descricao!=''&&nome!=''&&medida!=''&&valor!=''&&valor>=0){
-        var result = await axios.post('http://localhost:3006/produto_final',data).then(res => {
+        var result = await axios.post(process.env.REACT_APP_API_URL + 'produto_final',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
             alert(res.data.response.mensagem)

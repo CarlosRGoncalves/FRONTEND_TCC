@@ -110,7 +110,7 @@ export default function PedidoRelatorio(){
       }
 
       if(dateInicial!='' && dateFinal!=''){
-        var result = await axios.post('http://localhost:3006/pedido/relatorio',data).then(res => {
+        var result = await axios.post(process.env.REACT_APP_API_URL + 'pedido/relatorio',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===200){
            // console.log(res.data.pedido)

@@ -74,7 +74,7 @@ export default function Pragas_doencaAlterar(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
        // console.log(id_p_doenca)
-          var response = await axios.get('http://localhost:3006/pragas_doenca/'+id_p_doenca,{headers}).then().catch(err => {
+          var response = await axios.get(process.env.REACT_APP_API_URL + 'pragas_doenca/'+id_p_doenca,{headers}).then().catch(err => {
               if(err.response.status ===500){
                 alert('Erro no Servidor!')
               }
@@ -96,7 +96,7 @@ export default function Pragas_doencaAlterar(){
       if(descricao!=''&&nome!=''){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-        var result = await axios.patch('http://localhost:3006/pragas_doenca/'+id_p_doenca,data).then(res => {
+        var result = await axios.patch(process.env.REACT_APP_API_URL + 'pragas_doenca/'+id_p_doenca,data).then(res => {
           if(res.status ===202){
             alert(res.data.response.mensagem)
             window.location.replace("http://localhost:3000/praga_doenca");

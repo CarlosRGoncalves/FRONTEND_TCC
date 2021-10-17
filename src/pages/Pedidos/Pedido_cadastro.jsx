@@ -95,7 +95,7 @@ export default function PedidoCadastro(){
           const token = localStorage.getItem('token');
           const headers = { Authorization: `Bearer ${token}` };
         
-          const response = await axios.get('http://localhost:3006/produto_final/',{ headers })
+          const response = await axios.get(process.env.REACT_APP_API_URL + 'produto_final/',{ headers })
           .then(response =>{
           //console.log(response.data.usuario);
           setProdutos_finais(response.data.produto_final);
@@ -109,7 +109,7 @@ export default function PedidoCadastro(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
       
-        const response = await axios.get('http://localhost:3006/cliente/',{ headers })
+        const response = await axios.get(process.env.REACT_APP_API_URL + 'cliente/',{ headers })
         .then(response =>{
         //console.log(response.data.usuario);
         setClientes(response.data.cliente);
@@ -135,7 +135,7 @@ export default function PedidoCadastro(){
       }
 
       if(descricao!=''&&quantidade!=''&&status!=''&&date!=''){
-        var result = await axios.post('http://localhost:3006/pedido',data).then(res => {
+        var result = await axios.post(process.env.REACT_APP_API_URL + 'pedido',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
             //console.log(res.data.response.pedidoCriado.valor)

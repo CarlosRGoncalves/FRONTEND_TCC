@@ -81,7 +81,7 @@ export default function MiniDrawer (){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
   
-    const response = await axios.get('http://localhost:3006/cliente/relatorio',{ headers })
+    const response = await axios.get(process.env.REACT_APP_API_URL + 'cliente/relatorio',{ headers })
     .then(response =>{
     //console.log(response.data.cliente);
     setClientes(response.data.cliente);
@@ -98,7 +98,7 @@ export default function MiniDrawer (){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
     if(window.confirm("Você tem certeza que vai excluir esse Cliente?")){
-      var result = await axios.delete('http://localhost:3006/cliente/'+id,{ headers }).then(res =>{
+      var result = await axios.delete(process.env.REACT_APP_API_URL + 'cliente/'+id,{ headers }).then(res =>{
         if(res.status ===202){
           console.log(res)
           alert(res.data.response.mensagem)

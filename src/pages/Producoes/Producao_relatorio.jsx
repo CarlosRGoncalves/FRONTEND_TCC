@@ -112,7 +112,7 @@ export default function ProducaoRelatorio(){
       }
 
       if(dateInicial!='' && dateFinal!=''){
-        var result = await axios.post('http://localhost:3006/producao/relatorio',data).then(res => {
+        var result = await axios.post(process.env.REACT_APP_API_URL + 'producao/relatorio',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===200){
            // console.log(res.data.producao)

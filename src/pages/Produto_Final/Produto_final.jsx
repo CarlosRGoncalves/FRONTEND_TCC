@@ -79,7 +79,7 @@ export default function MiniDrawer (){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
   
-    const response = await axios.get('http://localhost:3006/produto_final/',{ headers })
+    const response = await axios.get(process.env.REACT_APP_API_URL + 'produto_final/',{ headers })
     .then(response =>{
     //console.log(response.data.produto_final);
 
@@ -97,7 +97,7 @@ export default function MiniDrawer (){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
     if(window.confirm("Você tem certeza que vai excluir esse Produto Final ?")){
-      var result = await axios.delete('http://localhost:3006/produto_final/'+id,{ headers }).then(res =>{
+      var result = await axios.delete(process.env.REACT_APP_API_URL + 'produto_final/'+id,{ headers }).then(res =>{
         if(res.status ===202){
           console.log(res)
           alert(res.data.response.mensagem)

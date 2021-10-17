@@ -96,7 +96,7 @@ export default function ColheitaAlterar(){
       async function getColheita(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/colheita/'+id_colheita,{headers}).then().catch(err => {
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'colheita/'+id_colheita,{headers}).then().catch(err => {
               if(err.response.status ===500){
                 alert('Erro no Servidor!')
               }
@@ -112,7 +112,7 @@ export default function ColheitaAlterar(){
       async function getProducao(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/producao/',{headers}).then(response =>{
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'producao/',{headers}).then(response =>{
 
               setProducoes(response.data.producao);
             })
@@ -125,7 +125,7 @@ export default function ColheitaAlterar(){
       async function getPedido(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/pedido/',{headers}).then(response =>{
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'pedido/',{headers}).then(response =>{
 
               setPedidos(response.data.pedido);
             })
@@ -152,7 +152,7 @@ export default function ColheitaAlterar(){
       if(quantidade!=''&&date!=''&&id_producao!=''&&id_pedido!=''){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-        var result = await axios.patch('http://localhost:3006/colheita/'+id_colheita,data).then(res => {
+        var result = await axios.patch(process.env.REACT_APP_API_URL + 'colheita/'+id_colheita,data).then(res => {
           if(res.status ===202){
           
           //console.log(res.data.response.colheitaCriado.valor)

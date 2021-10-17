@@ -69,7 +69,7 @@ export default function SecaoCadastro(){
       }
 
       if(descricao!=''&&nome!=''){
-        var result = await axios.post('http://localhost:3006/pragas_doenca',data).then(res => {
+        var result = await axios.post(process.env.REACT_APP_API_URL + 'pragas_doenca',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
             alert(res.data.response.mensagem)

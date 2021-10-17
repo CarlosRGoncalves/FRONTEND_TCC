@@ -85,7 +85,7 @@ export default function ClienteCadastro(){
       }
 
       if(nome!=''&&email!=''&&telefone!=''&&cpf!=''&&endereco!=''){
-        var result = await axios.post('http://localhost:3006/cliente',data).then(res => {
+        var result = await axios.post(process.env.REACT_APP_API_URL + 'cliente',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
             alert(res.data.response.mensagem)

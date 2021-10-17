@@ -91,12 +91,12 @@ export default function ClienteAlterar(){
       async function getUsuario(){
             const token = localStorage.getItem('token');
             const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/cliente/'+id_cliente,{headers}).then().catch(err => {
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'cliente/'+id_cliente,{headers}).then().catch(err => {
               if(err.response.status ===500){
                 alert('Erro no Servidor!')
               }
             })
-            //console.log(response.data)
+            //console.log(process.env.REACT_APP_API_URL + 'cliente/'+id_cliente)
             setNome(response.data.response.cliente.nome);
             setEmail(response.data.response.cliente.email);
             setTelefone(response.data.response.cliente.telefone);
@@ -117,7 +117,7 @@ export default function ClienteAlterar(){
       }
       console.log(data)
       if(nome!=''&&email!=''&&telefone!=''&&cpf!=''&&endereco!=''){
-        var result = await axios.patch('http://localhost:3006/cliente/'+id_cliente,data).then(res => {
+        var result = await axios.patch(process.env.REACT_APP_API_URL + 'cliente/'+id_cliente,data).then(res => {
           if(res.status ===202){
             alert(res.data.response.mensagem)
             window.location.replace("http://localhost:3000/cliente");

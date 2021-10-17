@@ -90,7 +90,7 @@ export default function PedidoAlterar(){
       async function getPlantio(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/plantio/'+id_plantio,{headers}).then().catch(err => {
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'plantio/'+id_plantio,{headers}).then().catch(err => {
               if(err.response.status ===500){
                 alert('Erro no Servidor!')
               }
@@ -109,7 +109,7 @@ export default function PedidoAlterar(){
       async function getSecao(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/secao/',{headers}).then(response =>{
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'secao/',{headers}).then(response =>{
 
               setSecoes(response.data.secao);
             })
@@ -122,7 +122,7 @@ export default function PedidoAlterar(){
       async function getPlanta(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-            var response = await axios.get('http://localhost:3006/planta/',{headers}).then(response =>{
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'planta/',{headers}).then(response =>{
 
               setPlantas(response.data.planta);
             })
@@ -151,7 +151,7 @@ export default function PedidoAlterar(){
       if(id_secao!=''&&id_planta!=''&&descricao!=''&&quantidade!=''&&date!=''&&valor!=''){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
-        var result = await axios.patch('http://localhost:3006/plantio/'+id_plantio,data).then(res => {
+        var result = await axios.patch(process.env.REACT_APP_API_URL + 'plantio/'+id_plantio,data).then(res => {
           if(res.status ===202){
          
             alert(res.data.response.mensagem)

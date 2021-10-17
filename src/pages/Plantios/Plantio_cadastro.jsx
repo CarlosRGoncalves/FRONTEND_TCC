@@ -87,7 +87,7 @@ export default function InsumoCadastro(){
           const token = localStorage.getItem('token');
           const headers = { Authorization: `Bearer ${token}` };
         
-          const response = await axios.get('http://localhost:3006/secao/',{ headers })
+          const response = await axios.get(process.env.REACT_APP_API_URL + 'secao/',{ headers })
           .then(response =>{
           //console.log(response.data.usuario);
           setSecoes(response.data.secao);
@@ -101,7 +101,7 @@ export default function InsumoCadastro(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
       
-        const response = await axios.get('http://localhost:3006/planta/',{ headers })
+        const response = await axios.get(process.env.REACT_APP_API_URL + 'planta/',{ headers })
         .then(response =>{
         //console.log(response.data.usuario);
         setPlantas(response.data.planta);
@@ -127,7 +127,7 @@ export default function InsumoCadastro(){
       }
 
       if(id_secao!=''&&id_planta!=''&&descricao!=''&&quantidade!=''&&date!=''&&valor!=''){
-        var result = await axios.post('http://localhost:3006/plantio',data).then(res => {
+        var result = await axios.post(process.env.REACT_APP_API_URL + 'plantio',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
             alert(res.data.response.mensagem)

@@ -31,7 +31,7 @@ class Login extends Component{
     }else if(data.senha == null){
         alert("Senha sem preencher!!!")
     }else{
-        axios.post('http://localhost:3006/usuario/login', data)
+        axios.post(process.env.REACT_APP_API_URL + 'usuario/login', data)
         .then(response => {
 
             if(response.status == 200){
