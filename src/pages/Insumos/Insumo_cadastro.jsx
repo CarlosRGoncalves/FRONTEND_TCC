@@ -122,12 +122,12 @@ export default function InsumoCadastro(){
           //console.log("AQUI",res.status);
           if(res.status ===201){
             alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/insumo");
+            window.location.replace(process.env.REACT_APP_FRONT_URL + "insumo");
           }
         }).catch(err => {
           if(err.response.status ===500){
             alert('Erro no Cadastro!')
-            //window.location.replace("http://localhost:3000/planta/cadastro");
+            //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
           }
         })
 

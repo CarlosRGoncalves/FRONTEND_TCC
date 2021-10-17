@@ -137,12 +137,12 @@ export default function ColheitaCadastro(){
             //console.log(res.data.response.pedidoCriado.quantidade)
             const m =res.data.response.mensagem + "\n\nID da Colheita: " + res.data.response.colheitaCriado.id_colheita            
             alert(m)
-            window.location.replace("http://localhost:3000/colheita");
+            window.location.replace(process.env.REACT_APP_FRONT_URL + "colheita");
           }
         }).catch(err => {
           if(err.response.status ===500){
             alert('Erro no Cadastro!')
-            //window.location.replace("http://localhost:3000/planta/cadastro");
+            //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
           }
         })
 

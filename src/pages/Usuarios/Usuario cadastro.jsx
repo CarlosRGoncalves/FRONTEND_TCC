@@ -89,7 +89,7 @@ export default function UsuarioCadastro(){
           //console.log("AQUI",res.status);
           if(res.status ===201){
             alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/usuario");
+            window.location.replace(process.env.REACT_APP_FRONT_URL + "usuario");
           }
         }).catch(err => {
           if(err.response.status ===409){
@@ -98,7 +98,7 @@ export default function UsuarioCadastro(){
           }
           else if(err.response.status ===500){
             alert('Erro no Servidor!')
-            //window.location.replace("http://localhost:3000/usuario/cadastro");
+            //window.location.replace(process.env.REACT_APP_FRONT_URL + "usuario/cadastro");
           }
         })
 

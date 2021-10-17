@@ -115,12 +115,12 @@ export default function PedidoRelatorio(){
           if(res.status ===200){
            // console.log(res.data.pedido)
             setPedidos(res.data.pedido);
-           // window.location.replace("http://localhost:3000/pedido");
+           // window.location.replace(process.env.REACT_APP_FRONT_URL + "pedido");
           }
         }).catch(err => {
           if(err.response.status ===500){
             alert('Erro no Cadastro!')
-            //window.location.replace("http://localhost:3000/planta/cadastro");
+            //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
           }
         })
 

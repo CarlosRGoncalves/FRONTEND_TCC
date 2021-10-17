@@ -117,12 +117,12 @@ export default function ProducaoRelatorio(){
           if(res.status ===200){
            // console.log(res.data.producao)
             setProducoes(res.data.producao);
-           // window.location.replace("http://localhost:3000/producao");
+           // window.location.replace(process.env.REACT_APP_FRONT_URL + "producao");
           }
         }).catch(err => {
           if(err.response.status ===500){
             alert('Erro no Cadastro!')
-            //window.location.replace("http://localhost:3000/planta/cadastro");
+            //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
           }
         })
 

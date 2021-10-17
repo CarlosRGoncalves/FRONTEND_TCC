@@ -83,12 +83,12 @@ export default function SecaoCadastro(){
           //console.log("AQUI",res.status);
           if(res.status ===201){
             alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/secao");
+            window.location.replace(process.env.REACT_APP_FRONT_URL + "secao");
           }
         }).catch(err => {
           if(err.response.status ===500){
             alert('Erro no Cadastro!')
-           //window.location.replace("http://localhost:3000/secao/cadastro");
+           //window.location.replace(process.env.REACT_APP_FRONT_URL + "secao/cadastro");
           }
         })
 

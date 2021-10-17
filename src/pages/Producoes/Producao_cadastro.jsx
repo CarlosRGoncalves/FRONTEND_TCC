@@ -154,12 +154,12 @@ export default function InsumoCadastro(){
           if(res.status ===201){
             const m =res.data.response.mensagem + "\n\nID da Produção: " + res.data.response.producaoCriado.id_producao 
             alert(m)
-            window.location.replace("http://localhost:3000/producao");
+            window.location.replace(process.env.REACT_APP_FRONT_URL + "producao");
           }
         }).catch(err => {
           if(err.response.status ===500){
             alert('Erro no Cadastro!')
-            //window.location.replace("http://localhost:3000/pragas_doenca/cadastro");
+            //window.location.replace(process.env.REACT_APP_FRONT_URL + "pragas_doenca/cadastro");
           }
         })
 

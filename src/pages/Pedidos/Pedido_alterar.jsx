@@ -162,7 +162,7 @@ export default function PedidoAlterar(){
           const m ="Pedido Alterado com Sucesso!!!\n" + "\nID do Pedido: " + res.data.response.pedidoCriado.id_pedido + "\nValor do Pedido: " + res.data.response.pedidoCriado.valor+" R$"
           //console.log(res.data.response.pedidoCriado.valor)
             alert(m)
-            window.location.replace("http://localhost:3000/pedido");
+            window.location.replace(process.env.REACT_APP_FRONT_URL + "pedido");
           }
         }).catch(err => {
           if(err.response.status ===500){

@@ -38,7 +38,7 @@ class Login extends Component{
               const token = response.data.token;
             
               localStorage.setItem('token', token);
-              window.location.replace("http://localhost:3000/pagina_inicial");
+              window.location.replace(process.env.REACT_APP_FRONT_URL + "pagina_inicial");
 
              // this.props.history.push("/home");
             }else{

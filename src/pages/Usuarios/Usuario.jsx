@@ -102,7 +102,7 @@ export default function MiniDrawer (){
         if(res.status ===202){
           console.log(res)
           alert(res.data.response.mensagem)
-          window.location.replace("http://localhost:3000/usuario");
+          window.location.replace(process.env.REACT_APP_FRONT_URL + "usuario");
         }
       }).catch(err =>{
         console.log(err)
@@ -114,7 +114,7 @@ export default function MiniDrawer (){
   }
 
   function cad() {
-    window.location.replace("http://localhost:3000/usuario/cadastro");
+    window.location.replace(process.env.REACT_APP_FRONT_URL + "usuario/cadastro");
   }
 
   function Tp_Usuario() {

@@ -156,7 +156,7 @@ export default function PedidoAlterar(){
          
             alert(res.data.response.mensagem)
 
-            window.location.replace("http://localhost:3000/plantio");
+            window.location.replace(process.env.REACT_APP_FRONT_URL + "plantio");
           }
         }).catch(err => {
           if(err.response.status ===500){

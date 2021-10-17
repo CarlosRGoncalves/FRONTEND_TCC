@@ -104,7 +104,7 @@ export default function Pragas_doencaAlterar(){
         var result = await axios.patch(process.env.REACT_APP_API_URL + 'produto_final/'+id_produto_final,data).then(res => {
           if(res.status ===202){
             alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/produto_final");
+            window.location.replace(process.env.REACT_APP_FRONT_URL + "produto_final");
           }
         }).catch(err => {
           if(err.response.status ===500){

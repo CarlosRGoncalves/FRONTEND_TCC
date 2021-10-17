@@ -141,12 +141,12 @@ export default function PedidoCadastro(){
             //console.log(res.data.response.pedidoCriado.valor)
             const m =res.data.response.mensagem + "\n\nID do Pedido: " + res.data.response.pedidoCriado.id_pedido + "\nValor do Pedido: " + res.data.response.pedidoCriado.valor+"R$"
             alert(m)
-            window.location.replace("http://localhost:3000/pedido");
+            window.location.replace(process.env.REACT_APP_FRONT_URL + "pedido");
           }
         }).catch(err => {
           if(err.response.status ===500){
             alert('Erro no Cadastro!')
-            //window.location.replace("http://localhost:3000/planta/cadastro");
+            //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
           }
         })
 

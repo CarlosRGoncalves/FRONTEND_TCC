@@ -17,7 +17,7 @@ const isAuth = async () =>{
             return false;
         }else{
             alert('Usuário não Autorizado!!!')
-          window.location.replace("http://localhost:3000/");
+          window.location.replace(process.env.REACT_APP_FRONT_URL + "");
         }
     }
     console.log("Entrou aqui2")

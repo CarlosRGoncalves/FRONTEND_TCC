@@ -120,7 +120,7 @@ export default function UsuarioCadastro(){
         var result = await axios.patch(process.env.REACT_APP_API_URL + 'usuario/'+id_usuario,data).then(res => {
           if(res.status ===202){
             alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/usuario");
+            window.location.replace(process.env.REACT_APP_FRONT_URL + "usuario");
           }
         }).catch(err => {
           if(err.response.status ===500){

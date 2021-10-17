@@ -36,32 +36,32 @@ export default function ListItems (){
   };
   function listI(text) {
     if(text == 'Página Inicial'){
-      window.location.replace("http://localhost:3000/pagina_inicial");
+      window.location.replace(process.env.REACT_APP_FRONT_URL + "pagina_inicial");
     }else if(text == 'Sair'){
-      window.location.replace("http://localhost:3000/logout");
+      window.location.replace(process.env.REACT_APP_FRONT_URL + "logout");
     }
     else if(text == 'Gerenciar'){
-      window.location.replace("http://localhost:3000/menu_inicial");
+      window.location.replace(process.env.REACT_APP_FRONT_URL + "menu_inicial");
     }
     else if(text == 'Relátorios'){
       handleClick();
-     // window.location.replace("http://localhost:3000/menu_inicial");
+     // window.location.replace(process.env.REACT_APP_FRONT_URL + "menu_inicial");
     }
     
   }
   function RelPedidos() {
     
-      window.location.replace("http://localhost:3000/pedido/relatorio");
+      window.location.replace(process.env.REACT_APP_FRONT_URL + "pedido/relatorio");
   
     
   }
   function RelClientes() {
     
-    window.location.replace("http://localhost:3000/cliente/relatorio");
+    window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente/relatorio");
  }
  function RelProducoes() {
     
-  window.location.replace("http://localhost:3000/producao/relatorio");
+  window.location.replace(process.env.REACT_APP_FRONT_URL + "producao/relatorio");
 
 
 }

@@ -157,7 +157,7 @@ export default function ColheitaAlterar(){
           
           //console.log(res.data.response.colheitaCriado.valor)
             alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/colheita");
+            window.location.replace(process.env.REACT_APP_FRONT_URL + "colheita");
           }
         }).catch(err => {
           if(err.response.status ===500){

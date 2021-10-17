@@ -89,16 +89,16 @@ export default function ClienteCadastro(){
           //console.log("AQUI",res.status);
           if(res.status ===201){
             alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/cliente");
+            window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente");
           }
         }).catch(err => {
             if(err.response.status ===500){
               alert('Erro no Servidor!')
-              //window.location.replace("http://localhost:3000/cliente/cadastro");
+              //window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente/cadastro");
             }
             else if(err.response.status ===401){
               alert(err.response.data.mensagem)
-              //window.location.replace("http://localhost:3000/cliente/cadastro");
+              //window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente/cadastro");
             }
         })
 

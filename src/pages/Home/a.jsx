@@ -139,10 +139,10 @@ export default function MiniDrawer (){
   };
   function listI(text) {
     if(text == 'Página Inicial'){
-      //window.location.replace("http://localhost:3000/teste");
+      //window.location.replace(process.env.REACT_APP_FRONT_URL + "teste");
 
     }else if(text == 'Sair'){
-      window.location.replace("http://localhost:3000/logout");
+      window.location.replace(process.env.REACT_APP_FRONT_URL + "logout");
     }
   }
     const [repositories, setRepositories] = useState([]);

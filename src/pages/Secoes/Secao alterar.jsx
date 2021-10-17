@@ -100,7 +100,7 @@ export default function SecaoAlterar(){
         var result = await axios.patch(process.env.REACT_APP_API_URL + 'secao/'+id_secao,data).then(res => {
           if(res.status ===202){
             alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/secao");
+            window.location.replace(process.env.REACT_APP_FRONT_URL + "secao");
           }
         }).catch(err => {
           if(err.response.status ===500){

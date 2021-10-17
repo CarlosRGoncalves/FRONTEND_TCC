@@ -101,7 +101,7 @@ export default function MiniDrawer (){
         if(res.status ===202){
           console.log(res)
           alert(res.data.response.mensagem)
-          window.location.replace("http://localhost:3000/praga_doenca");
+          window.location.replace(process.env.REACT_APP_FRONT_URL + "praga_doenca");
         }
       }).catch(err =>{
         console.log(err)
@@ -113,7 +113,7 @@ export default function MiniDrawer (){
   }
 
   function cad() {
-    window.location.replace("http://localhost:3000/praga_doenca/cadastro");
+    window.location.replace(process.env.REACT_APP_FRONT_URL + "praga_doenca/cadastro");
   }
 
   function Tp_Usuario() {

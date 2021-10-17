@@ -73,7 +73,7 @@ export default function SecaoCadastro(){
           //console.log("AQUI",res.status);
           if(res.status ===201){
             alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/praga_doenca");
+            window.location.replace(process.env.REACT_APP_FRONT_URL + "praga_doenca");
           }
         }).catch(err => {
           if(err.response.status ===500){

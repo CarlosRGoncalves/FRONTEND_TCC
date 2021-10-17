@@ -84,7 +84,7 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace("http://localhost:3000/usuario")}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "usuario")}
                         >
                             Gerenciar Usuários
                         </Button>
@@ -94,7 +94,7 @@ export default function MiniDrawer (){
                             variant="contained"
                             color="primary"
                             style={{backgroundColor: "#00A869"}}
-                            onClick = {() => window.location.replace("http://localhost:3000/cliente")}
+                            onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente")}
 
                           >
                             Gerenciar clientes
@@ -105,7 +105,7 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace("http://localhost:3000/producao")}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "producao")}
 
                         >
                           
@@ -118,7 +118,7 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace("http://localhost:3000/plantio")}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "plantio")}
 
                         >
                           Gerenciar Plantio
@@ -129,7 +129,7 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace("http://localhost:3000/colheita")}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "colheita")}
 
                         >
                           Gerenciar Colheita
@@ -140,7 +140,7 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace("http://localhost:3000/produto_final")}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "produto_final")}
 
                         >
                           Gerenciar Produto Final
@@ -151,7 +151,7 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace("http://localhost:3000/planta")}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "planta")}
 
                         >
                           Gerenciar Planta
@@ -162,7 +162,7 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace("http://localhost:3000/insumo")}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "insumo")}
 
                         >
                           Gerenciar Insumos
@@ -173,7 +173,7 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace("http://localhost:3000/tipo_planta")}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "tipo_planta")}
                         >
                           Gerenciar Tipo de Planta
                         </Button>
@@ -183,7 +183,7 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace("http://localhost:3000/praga_doenca")}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "praga_doenca")}
 
                         >
                            Pragas e Doenças
@@ -194,7 +194,7 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace("http://localhost:3000/fornecedor")}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "fornecedor")}
                         >
                           Gerenciar Fornecedores
                         </Button>
@@ -204,7 +204,7 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace("http://localhost:3000/secao")}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "secao")}
 
                         >
                           Gerenciar Seções
@@ -215,7 +215,7 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace("http://localhost:3000/pedido")}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "pedido")}
 
                         >
                           Gerenciar Pedidos

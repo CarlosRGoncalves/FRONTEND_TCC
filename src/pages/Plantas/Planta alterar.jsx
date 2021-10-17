@@ -133,7 +133,7 @@ export default function SecaoAlterar(){
         var result = await axios.patch(process.env.REACT_APP_API_URL + 'planta/'+id_planta,data).then(res => {
           if(res.status ===202){
             alert(res.data.response.mensagem)
-            window.location.replace("http://localhost:3000/planta");
+            window.location.replace(process.env.REACT_APP_FRONT_URL + "planta");
           }
         }).catch(err => {
           if(err.response.status ===500){
