@@ -87,6 +87,8 @@ export default function PedidoAlterar(){
     
     
     useEffect(() => {
+      document.getElementById('date').max = new Date().toISOString().split("T")[0]
+
       async function getPlantio(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };

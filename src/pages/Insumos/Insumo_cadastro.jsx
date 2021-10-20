@@ -89,6 +89,8 @@ export default function InsumoCadastro(){
     const [fornecedores, setFornecedores] = useState([]);
 
     useEffect(() => {
+      document.getElementById('date').max = new Date().toISOString().split("T")[0]
+
       async  function tp(){
           const token = localStorage.getItem('token');
           const headers = { Authorization: `Bearer ${token}` };

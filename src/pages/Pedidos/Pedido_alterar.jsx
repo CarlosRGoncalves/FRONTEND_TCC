@@ -195,9 +195,10 @@ export default function PedidoAlterar(){
                             labelId="Produto Final"
                             id="id_produto_final"
                             value={id_produto_final}
+                            disabled
                             onChange={e => setId_produto_final(e.target.value)}
                           > {produtos_finais.map((row) =>(
-                              <MenuItem value={row.id_produto_final}>{row.nome}    Valor =    {row.valor}R$</MenuItem>
+                              <MenuItem value={row.id_produto_final}>{row.nome} </MenuItem>
                             ))}
                       </Select>
                     </FormControl>

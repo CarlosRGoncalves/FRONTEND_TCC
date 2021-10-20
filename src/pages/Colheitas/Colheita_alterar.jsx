@@ -93,6 +93,8 @@ export default function ColheitaAlterar(){
     
     
     useEffect(() => {
+      document.getElementById('date').max = new Date().toISOString().split("T")[0]
+
       async function getColheita(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };

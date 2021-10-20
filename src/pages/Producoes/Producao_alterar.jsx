@@ -90,6 +90,8 @@ export default function PedidoAlterar(){
     
     
     useEffect(() => {
+      document.getElementById('date_defensivo').max = new Date().toISOString().split("T")[0]
+      document.getElementById('date_adubacao').max = new Date().toISOString().split("T")[0]
       async function getProducao(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };

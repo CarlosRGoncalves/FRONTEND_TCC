@@ -98,6 +98,8 @@ export default function ProducaoRelatorio(){
     const [producoes, setProducoes] = useState([]);
 
     useEffect(() => {
+      document.getElementById('dateInicial').max = new Date().toISOString().split("T")[0]
+      document.getElementById('dateInicial').max = new Date().toISOString().split("T")[0]
       
     },[]);
     
@@ -111,6 +113,9 @@ export default function ProducaoRelatorio(){
 
       }
 
+console.log(new Date().getTime()>dateInicial.getTime())
+//const d = new Date().getDate() +"-"+ new Date().getDay() + "-" + new Date().getMonth() 
+//console.log(d)
       if(dateInicial!='' && dateFinal!=''){
         var result = await axios.post(process.env.REACT_APP_API_URL + 'producao/relatorio',data).then(res => {
           //console.log("AQUI",res.status);
@@ -165,7 +170,7 @@ export default function ProducaoRelatorio(){
                         onChange={e => setDateI(e.target.value)}
                       />
                     </form>
-                    
+                   
                     </Grid>
                     <Grid item xs={13} sm={4}>
                     

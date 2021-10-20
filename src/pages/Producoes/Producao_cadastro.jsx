@@ -87,6 +87,9 @@ export default function InsumoCadastro(){
     const [pragas_doencas, setP_doencas] = useState([]);
 
     useEffect(() => {
+      document.getElementById('date_defensivo').max = new Date().toISOString().split("T")[0]
+      document.getElementById('date_adubacao').max = new Date().toISOString().split("T")[0]
+
       async  function insumo(){
           const token = localStorage.getItem('token');
           const headers = { Authorization: `Bearer ${token}` };

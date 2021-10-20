@@ -83,6 +83,8 @@ export default function InsumoCadastro(){
     const [plantas, setPlantas] = useState([]);
 
     useEffect(() => {
+      document.getElementById('date').max = new Date().toISOString().split("T")[0]
+      
       async  function secao(){
           const token = localStorage.getItem('token');
           const headers = { Authorization: `Bearer ${token}` };

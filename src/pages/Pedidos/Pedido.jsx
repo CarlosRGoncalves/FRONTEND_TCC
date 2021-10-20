@@ -148,7 +148,9 @@ export default function MiniDrawer (){
                               <TableCell align="center">Descricão</TableCell>
                               <TableCell align="center">Quantidade&nbsp;</TableCell>
                               <TableCell align="center">Data&nbsp;</TableCell>
-                              <TableCell align="center">Valor&nbsp;</TableCell>
+                              <TableCell align="center">Valor do Produto Vendido&nbsp;</TableCell>
+                              <TableCell align="center">Valor Final do Pedido&nbsp;</TableCell>
+                              
                               <TableCell align="center">Opções&nbsp;</TableCell>
                           </TableRow>
                           </TableHead>
@@ -165,6 +167,8 @@ export default function MiniDrawer (){
                                   <TableCell align="center">{row.descricao}</TableCell>
                                   <TableCell align="center">{row.quantidade}</TableCell>
                                   <TableCell align="center">{row.data.substring(0,10)}</TableCell>
+                                  <TableCell align="center">{row.valor_produto_vendido} R$</TableCell>
+
                                   <TableCell align="center">{row.valor} R$</TableCell>
                                   <TableCell align="right">
                                     <ButtonGroup  aria-label="outlined primary button group">
