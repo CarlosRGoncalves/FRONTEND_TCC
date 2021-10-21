@@ -113,13 +113,15 @@ export default function PedidoRelatorio(){
         var result = await axios.post(process.env.REACT_APP_API_URL + 'pedido/relatorio',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===200){
-           // console.log(res.data.pedido)
-            setPedidos(res.data.pedido);
+           if(res.data.quantidade!=0)
+              setPedidos(res.data.pedido);
+            else
+              alert("Não foi encontrado nenhum Pedido entre essas datas!!!")
            // window.location.replace(process.env.REACT_APP_FRONT_URL + "pedido");
           }
         }).catch(err => {
           if(err.response.status ===500){
-            alert('Erro no Cadastro!')
+            alert('Erro no Cadastro!!!')
             //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
           }
         })

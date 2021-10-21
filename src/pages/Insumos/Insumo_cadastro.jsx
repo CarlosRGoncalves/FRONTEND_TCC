@@ -120,19 +120,22 @@ export default function InsumoCadastro(){
       }
 
       if(descricao!=''&&quantidade!=''&&nome!=''&&date!=''&&valor!=''){
-        var result = await axios.post(process.env.REACT_APP_API_URL + 'insumo',data).then(res => {
-          //console.log("AQUI",res.status);
-          if(res.status ===201){
-            alert(res.data.response.mensagem)
-            window.location.replace(process.env.REACT_APP_FRONT_URL + "insumo");
-          }
-        }).catch(err => {
-          if(err.response.status ===500){
-            alert('Erro no Cadastro!')
-            //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
-          }
-        })
-
+        if(date>new Date().toISOString().split("T")[0]){
+          alert("Data do Plantio preenchida Incorretamente!")
+        }else{
+          var result = await axios.post(process.env.REACT_APP_API_URL + 'insumo',data).then(res => {
+            //console.log("AQUI",res.status);
+            if(res.status ===201){
+              alert(res.data.response.mensagem)
+              window.location.replace(process.env.REACT_APP_FRONT_URL + "insumo");
+            }
+          }).catch(err => {
+            if(err.response.status ===500){
+              alert('Erro no Cadastro!')
+              //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
+            }
+          })
+      }
       }else{
         alert('Campo em Branco ou Preenchido Incorretamente!')
       }

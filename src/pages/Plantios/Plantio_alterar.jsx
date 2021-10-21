@@ -151,21 +151,25 @@ export default function PedidoAlterar(){
       }
       //console.log(data)
       if(id_secao!=''&&id_planta!=''&&descricao!=''&&quantidade!=''&&date!=''&&valor!=''){
-        const token = localStorage.getItem('token');
-        const headers = { Authorization: `Bearer ${token}` };
-        var result = await axios.patch(process.env.REACT_APP_API_URL + 'plantio/'+id_plantio,data).then(res => {
-          if(res.status ===202){
-         
-            alert(res.data.response.mensagem)
+        if(date>new Date().toISOString().split("T")[0]){
+          alert("Data do Plantio preenchida Incorretamente!")
+        }else{
+            const token = localStorage.getItem('token');
+            const headers = { Authorization: `Bearer ${token}` };
+            var result = await axios.patch(process.env.REACT_APP_API_URL + 'plantio/'+id_plantio,data).then(res => {
+              if(res.status ===202){
+            
+                alert(res.data.response.mensagem)
 
-            window.location.replace(process.env.REACT_APP_FRONT_URL + "plantio");
-          }
-        }).catch(err => {
-          if(err.response.status ===500){
-            alert('Erro na Alteração')
-           
-          }
-        })
+                window.location.replace(process.env.REACT_APP_FRONT_URL + "plantio");
+              }
+            }).catch(err => {
+              if(err.response.status ===500){
+                alert('Erro na Alteração')
+              
+              }
+            })
+        }
       }else{
         alert('Campo em Branco ou Preenchido Incorretamente!')
       }

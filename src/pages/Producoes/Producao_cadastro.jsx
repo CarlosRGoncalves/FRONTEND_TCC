@@ -151,7 +151,7 @@ export default function InsumoCadastro(){
         qtd_defensivo:qtd_defensivo
       }
 
-      if(id_plantio!=''&&id_insumo!=''&&adubacao!=''&&defensivo!=''&&qtd_defensivo!=''&&date_adubacao!=''&&date_defensivo!=''&&qtd_adubacao!=''){
+      if(id_plantio!=''&&id_insumo!=''&&adubacao!=''&&defensivo!=''&&qtd_defensivo!=''&&date_adubacao!=''&&date_defensivo!=''&&qtd_adubacao!=''&&id_p_doenca!=''){
         var result = await axios.post(process.env.REACT_APP_API_URL + 'producao',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){

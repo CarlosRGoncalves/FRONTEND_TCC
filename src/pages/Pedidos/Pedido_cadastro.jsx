@@ -15,6 +15,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import ModalI from '../../components/Menu_Inicial/Modal'
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -63,7 +64,14 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl:{
     width:'100%'
-  }
+  } ,paper: {
+    position: 'absolute',
+    width: 380,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
 }));
 
 {
@@ -89,7 +97,7 @@ export default function PedidoCadastro(){
     const [valor, setValor] = useState('');
     const [produtos_finais, setProdutos_finais] = useState([]);
     const [clientes, setClientes] = useState([]);
-
+    
     useEffect(() => {
       async  function prod_final(){
           const token = localStorage.getItem('token');
@@ -101,7 +109,7 @@ export default function PedidoCadastro(){
           setProdutos_finais(response.data.produto_final);
           })
           .catch(err =>{
-            console.log(err)
+            //console.log(err)
             alert(err);
           })
       }
@@ -115,7 +123,7 @@ export default function PedidoCadastro(){
         setClientes(response.data.cliente);
         })
         .catch(err =>{
-          console.log(err)
+          //console.log(err)
           alert(err);
         })
     }
@@ -164,6 +172,7 @@ export default function PedidoCadastro(){
         <main className={classes.content}>
           
             <div className={classes.toolbar} />
+            
             
                 <Typography variant="h6" gutterBottom>
                     Cadastro de Pedido

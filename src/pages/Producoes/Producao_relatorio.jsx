@@ -88,8 +88,6 @@ const useStyles = makeStyles((theme) => ({
 }
 
 export default function ProducaoRelatorio(){
-
-  
   
     const classes = useStyles();
    
@@ -99,7 +97,7 @@ export default function ProducaoRelatorio(){
 
     useEffect(() => {
       document.getElementById('dateInicial').max = new Date().toISOString().split("T")[0]
-      document.getElementById('dateInicial').max = new Date().toISOString().split("T")[0]
+      document.getElementById('dateFinal').max = new Date().toISOString().split("T")[0]
       
     },[]);
     
@@ -113,24 +111,28 @@ export default function ProducaoRelatorio(){
 
       }
 
-console.log(new Date().getTime()>dateInicial.getTime())
-//const d = new Date().getDate() +"-"+ new Date().getDay() + "-" + new Date().getMonth() 
-//console.log(d)
-      if(dateInicial!='' && dateFinal!=''){
-        var result = await axios.post(process.env.REACT_APP_API_URL + 'producao/relatorio',data).then(res => {
-          //console.log("AQUI",res.status);
-          if(res.status ===200){
-           // console.log(res.data.producao)
-            setProducoes(res.data.producao);
-           // window.location.replace(process.env.REACT_APP_FRONT_URL + "producao");
-          }
-        }).catch(err => {
-          if(err.response.status ===500){
-            alert('Erro no Cadastro!')
-            //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
-          }
-        })
 
+      if(dateInicial!='' && dateFinal!=''){
+        if(dateInicial>new Date().toISOString().split("T")[0] && dateFinal>new Date().toISOString().split("T")[0]){
+          alert("Data Inicial ou Final com datas preenchidas incorretamente!")
+        }else
+          {
+            var result = await axios.post(process.env.REACT_APP_API_URL + 'producao/relatorio',data).then(res => {
+              //console.log("AQUI",res.status);
+              if(res.status ===200){
+                if(res.data.quantidade!=0)
+                  setProducoes(res.data.producao);
+                else
+                  alert("Nenhuma Produção encontrada nessas datas!!!")
+              // window.location.replace(process.env.REACT_APP_FRONT_URL + "producao");
+              }
+            }).catch(err => {
+              if(err.response.status ===500){
+                alert('Erro no Cadastro!!!')
+                //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
+              }
+            })
+          }
       }else{
         alert('Campo em Branco ou Preenchido Incorretamente!')
       }
