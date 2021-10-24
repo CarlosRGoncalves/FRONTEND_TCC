@@ -128,7 +128,7 @@ export default function InsumoCadastro(){
         valor_custo:valor
       }
 
-      if(id_secao!=''&&id_planta!=''&&descricao!=''&&quantidade!=''&&date!=''&&valor!=''){
+      if(id_secao!=''&&id_planta!=''&&quantidade!=''&&date!=''&&valor!=''){
 
         if(date>new Date().toISOString().split("T")[0]){
           alert("Data do Plantio preenchida Incorretamente!")
@@ -175,7 +175,7 @@ export default function InsumoCadastro(){
                             value={id_secao}
                             onChange={e => setId_secao(e.target.value)}
                           > {secoes.map((row) =>(
-                              <MenuItem value={row.id_secao}>{row.id_secao}</MenuItem>
+                              <MenuItem value={row.id_secao}>ID = {row.id_secao} NOME: {row.descricao_secao}</MenuItem>
                             ))}
                       </Select>
                     </FormControl>
@@ -216,7 +216,7 @@ export default function InsumoCadastro(){
                     
                     <Grid item xs={12} sm={5}>
                       <TextField
-                        required
+                        
                         id="descricao"
                         name="descricao"
                         label="Descricao"

@@ -70,6 +70,8 @@ export default function FornecedorAlterar(){
     const [nome, setNome] = useState('');
     const {id_fornecedor} = useParams()
     useEffect(() => {
+      document.getElementById('cnpj').maxLength = 14
+
       async function getFornecedor(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
@@ -93,20 +95,25 @@ export default function FornecedorAlterar(){
         nome_fornecedor:nome
       }
       console.log(data)
-      if(cnpj!=''&&nome!=''){
-        const token = localStorage.getItem('token');
-        const headers = { Authorization: `Bearer ${token}` };
-        var result = await axios.patch(process.env.REACT_APP_API_URL + 'fornecedor/'+id_fornecedor,data).then(res => {
-          if(res.status ===202){
-            alert(res.data.response.mensagem)
-            window.location.replace(process.env.REACT_APP_FRONT_URL + "fornecedor");
+      if(nome!=''){
+        if(cnpj.length==0||cnpj.length==14){
+
+            const token = localStorage.getItem('token');
+            const headers = { Authorization: `Bearer ${token}` };
+            var result = await axios.patch(process.env.REACT_APP_API_URL + 'fornecedor/'+id_fornecedor,data).then(res => {
+              if(res.status ===202){
+                alert(res.data.response.mensagem)
+                window.location.replace(process.env.REACT_APP_FRONT_URL + "fornecedor");
+              }
+            }).catch(err => {
+              if(err.response.status ===500){
+                alert('Erro na Alteração')
+              
+              }
+            })
+          }else{
+            alert("Cnpj Inválido!");
           }
-        }).catch(err => {
-          if(err.response.status ===500){
-            alert('Erro na Alteração')
-           
-          }
-        })
       }else{
         alert('Campo em Branco!')
       }
@@ -140,7 +147,6 @@ export default function FornecedorAlterar(){
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField
-                        required
                         id="cnpj"
                         name="cnpj"
                         label="Cnpj"

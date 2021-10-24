@@ -81,7 +81,7 @@ export default function MiniDrawer (){
     
       const response = axios.get(process.env.REACT_APP_API_URL + 'producao/',{ headers })
       .then(response =>{
-      //console.log(response.data.usuario);
+      console.log(response.data.producao);
       setProducoes(response.data.producao);
       })
       .catch(err =>{
@@ -144,12 +144,9 @@ export default function MiniDrawer (){
                               <TableCell align="center">ID Plantio</TableCell>
                               <TableCell align="center">Insumo</TableCell>
                               <TableCell align="center">Pragas/Doença</TableCell>
-                              <TableCell align="center">Adubação</TableCell>
-                              <TableCell align="center">Defensivo&nbsp;</TableCell>
-                              <TableCell align="center">Data Defensivo&nbsp;</TableCell>
-                              <TableCell align="center">Data Adubação&nbsp;</TableCell>
-                              <TableCell align="center">Qtd Adubação&nbsp;</TableCell>
-                              <TableCell align="center">Qtd Defensivo&nbsp;</TableCell>
+                              <TableCell align="center">Quantidade</TableCell>
+                              <TableCell align="center">Unidade de Medida&nbsp;</TableCell>
+                              <TableCell align="center">Data Produção&nbsp;</TableCell>
                               <TableCell align="center">Opções&nbsp;</TableCell>
                           </TableRow>
                           </TableHead>
@@ -164,13 +161,12 @@ export default function MiniDrawer (){
                                   <TableCell align="center">{row.nome_p_doenca}</TableCell>
 
                                   
-                                  <TableCell align="center">{row.adubacao}</TableCell>
-                                  <TableCell align="center">{row.defensivo}</TableCell>
-                                  <TableCell align="center">{row.data_defensivo.substring(0,10)}</TableCell>
-                                  <TableCell align="center">{row.data_adubacao.substring(0,10)}</TableCell>
+                                  <TableCell align="center">{row.quantidade_producao}</TableCell>
+                                  <TableCell align="center">{row.unidade_medida}</TableCell>
+                                  
 
-                                  <TableCell align="center">{row.qtd_adubacao} </TableCell>
-                                  <TableCell align="center">{row.qtd_defensivo} </TableCell>
+                                  <TableCell align="center">{row.data_producao} </TableCell>
+                           
 
                                   <TableCell align="right">
                                     <ButtonGroup  aria-label="outlined primary button group">

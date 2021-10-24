@@ -74,7 +74,7 @@ export default function SecaoCadastro(){
     async  function Cadastrar(){
       const data = {
         id_usuario:jwt_decode(localStorage.getItem("token")).id_usuario,
-        descricao:descricao,
+        descricao_secao:descricao,
         area:area
       }
 

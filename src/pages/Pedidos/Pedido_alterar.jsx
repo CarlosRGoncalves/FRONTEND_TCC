@@ -154,7 +154,7 @@ export default function PedidoAlterar(){
        
       }
       //console.log(data)
-      if(id_produto_final!=''&&descricao!=''&&quantidade!=''&&date!=''){
+      if(id_produto_final!=''&&quantidade!=''&&date!=''){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
         var result = await axios.patch(process.env.REACT_APP_API_URL + 'pedido/'+id_pedido,data).then(res => {
@@ -234,7 +234,7 @@ export default function PedidoAlterar(){
                     </Grid>
                     <Grid item xs={12} sm={5}>
                       <TextField
-                        required
+                        
                         id="descricao"
                         name="descricao"
                         label="Descricao"

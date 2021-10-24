@@ -142,7 +142,7 @@ export default function PedidoCadastro(){
         data:date
       }
 
-      if(descricao!=''&&quantidade!=''&&status!=''&&date!=''){
+      if(quantidade!=''&&status!=''&&date!=''){
         var result = await axios.post(process.env.REACT_APP_API_URL + 'pedido',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
@@ -224,7 +224,7 @@ export default function PedidoCadastro(){
                     </Grid>
                     <Grid item xs={12} sm={5}>
                       <TextField
-                        required
+                        
                         id="descricao"
                         name="descricao"
                         label="Descricao"

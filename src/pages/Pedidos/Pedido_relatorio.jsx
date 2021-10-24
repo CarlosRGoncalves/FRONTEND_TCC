@@ -142,7 +142,7 @@ export default function PedidoRelatorio(){
             <div className={classes.toolbar} />
             
                 <Typography variant="h6" gutterBottom>
-                    Relatório de Pedidos
+                    Relatório de Produtos
                 </Typography>
                 <Paper className = {classes.content} >
                   <Grid container spacing={3}>
@@ -154,7 +154,7 @@ export default function PedidoRelatorio(){
                       <TextField
                       required
                         id="dateInicial"
-                        label="Data do Início de Pedidos"
+                        label="Data Inicial"
                         type="date"
                         defaultValue=""
                         className={classes.textField}
@@ -173,7 +173,7 @@ export default function PedidoRelatorio(){
                       <TextField
                       required
                         id="dateFinal"
-                        label="Data do Final de Pedidos"
+                        label="Data Final"
                         type="date"
                         defaultValue=""
                         className={classes.textField}

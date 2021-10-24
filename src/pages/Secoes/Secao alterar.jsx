@@ -79,9 +79,9 @@ export default function SecaoAlterar(){
                 alert('Erro no Servidor!')
               }
             })
-            console.log(response.data.secao.descricao)
+           // console.log(response.data.secao.descricao)
             setId_usuario(response.data.secao.id_usuario);
-            setDescricao(response.data.secao.descricao);
+            setDescricao(response.data.secao.descricao_secao);
             setArea(response.data.secao.area);
 
       }
@@ -90,7 +90,7 @@ export default function SecaoAlterar(){
 
     async  function Alterar(){
       const data = {
-        descricao:descricao,
+        descricao_secao:descricao,
         area:area
       }
       console.log(data)

@@ -89,6 +89,8 @@ export default function UsuarioCadastro(){
     const [idUsu, setUsu] = useState('');
     const {id_usuario} = useParams()
     useEffect(() => {
+      document.getElementById('telefone').maxLength = 11
+
       async function getUsuario(){
             const token = localStorage.getItem('token');
             const headers = { Authorization: `Bearer ${token}` };

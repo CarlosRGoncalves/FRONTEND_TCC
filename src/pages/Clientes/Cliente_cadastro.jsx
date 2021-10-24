@@ -14,7 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import { useEffect } from 'react';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -74,7 +76,11 @@ export default function ClienteCadastro(){
     const [telefone, setTelefone] = useState('');
     const [cpf, setCpf] = useState('');
     const [endereco, setEndereco] = useState('');
-  
+    useEffect(() => {
+      document.getElementById('cpf').maxLength = 11
+      document.getElementById('telefone').maxLength = 11
+
+    },[]);
     async  function Cadastrar(){
       const data = {
         nome:nome,
@@ -84,26 +90,29 @@ export default function ClienteCadastro(){
         endereco:endereco
       }
 
-      if(nome!=''&&email!=''&&telefone!=''&&cpf!=''&&endereco!=''){
-        var result = await axios.post(process.env.REACT_APP_API_URL + 'cliente',data).then(res => {
-          //console.log("AQUI",res.status);
-          if(res.status ===201){
-            alert(res.data.response.mensagem)
-            window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente");
+      if(nome!=''&&email!=''&&telefone!=''){
+        if(cpf.length==0||cpf.length==11){
+            var result = await axios.post(process.env.REACT_APP_API_URL + 'cliente',data).then(res => {
+              //console.log("AQUI",res.status);
+              if(res.status ===201){
+                alert(res.data.response.mensagem)
+                window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente");
+              }
+            }).catch(err => {
+                if(err.response.status ===500){
+                  alert('Erro no Servidor!')
+                  //window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente/cadastro");
+                }
+                else if(err.response.status ===401){
+                  alert(err.response.data.mensagem)
+                  //window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente/cadastro");
+                }
+            })
+          }else{
+            alert('CPF Inválido!!!')
           }
-        }).catch(err => {
-            if(err.response.status ===500){
-              alert('Erro no Servidor!')
-              //window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente/cadastro");
-            }
-            else if(err.response.status ===401){
-              alert(err.response.data.mensagem)
-              //window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente/cadastro");
-            }
-        })
-
       }else{
-        alert('Campo em Branco!')
+        alert('Nome, Email e Telefone são campos obrigatórios!!!')
       }
     }
     
@@ -162,11 +171,12 @@ export default function ClienteCadastro(){
                     </Grid>
                     <Grid item xs={12} sm={3}>
                       <TextField
-                        required
+                        
                         id="cpf"
                         name="cpf"
                         label="cpf"
                         fullWidth
+                        maxLength="14"
                         autoComplete="cpf"
                         value={cpf}
                         onChange={e => setCpf(e.target.value)}
@@ -174,7 +184,7 @@ export default function ClienteCadastro(){
                     </Grid>
                     <Grid item xs={12} sm={5}>
                       <TextField
-                        required
+                        
                         id="endereco"
                         name="endereco"
                         label="Endereco"

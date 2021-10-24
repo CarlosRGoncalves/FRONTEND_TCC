@@ -86,6 +86,7 @@ export default function InsumoCadastro(){
     const [quantidade, setQuantidade] = useState('');
     const [date, setDate] = useState('');
     const [valor, setValor] = useState('');
+    const [unidade_medida, setUnidade_medida] = useState('');
     const [fornecedores, setFornecedores] = useState([]);
 
     useEffect(() => {
@@ -116,10 +117,11 @@ export default function InsumoCadastro(){
         descricao:descricao,
         quantidade:quantidade,
         data:date,
-        valor:valor
+        valor:valor,
+        unidade_medida:unidade_medida
       }
 
-      if(descricao!=''&&quantidade!=''&&nome!=''&&date!=''&&valor!=''){
+      if(quantidade!=''&&nome!=''&&date!=''&&valor!=''&&unidade_medida!=''){
         if(date>new Date().toISOString().split("T")[0]){
           alert("Data do Plantio preenchida Incorretamente!")
         }else{
@@ -184,7 +186,7 @@ export default function InsumoCadastro(){
                     </Grid>
                     <Grid item xs={12} sm={5}>
                       <TextField
-                        required
+                        
                         id="descricao"
                         name="descricao"
                         label="Descricao"
@@ -194,7 +196,7 @@ export default function InsumoCadastro(){
                         onChange={e => setDescricao(e.target.value)}
                       />
                     </Grid>
-                    <Grid item xs={13} sm={3}>
+                    <Grid item xs={13} sm={4}>
                       <TextField
                         required
                         type="number"
@@ -208,13 +210,29 @@ export default function InsumoCadastro(){
                         onChange={e => setQuantidade(e.target.value)}
                       />
                     </Grid>
+                    <Grid item xs={12} sm={3}>
+                      <FormControl className={classes.formControl}>
+                      <InputLabel id="unidade_medida">Medida</InputLabel>
+                      <Select
+                        labelId="unidade_medida"
+                        id="unidade_medida"
+                        value={unidade_medida}
+                        onChange={e => setUnidade_medida(e.target.value)}
+                      >
+                        <MenuItem value={"kg"}>kg	</MenuItem>
+                        <MenuItem value={"g"}>g	</MenuItem>
+                        <MenuItem value={"mg"}>mg	</MenuItem>
+                      
+                      </Select>
+                    </FormControl>
+                    </Grid>
                     <Grid item xs={13} sm={3}>
                     
                     <form className={classes.container} noValidate>
                       <TextField
                       required
                         id="date"
-                        label="Data do Insumo"
+                        label="Data da Compra"
                         type="date"
                         defaultValue=""
                         className={classes.textField}

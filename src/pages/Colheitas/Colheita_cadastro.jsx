@@ -84,7 +84,7 @@ export default function ColheitaCadastro(){
     const [id_pedido, setId_pedido] = useState('');
     
     const [date, setDate] = useState('');
-    const [quantidade, setQuantidade] = useState('');
+  //  const [quantidade, setQuantidade] = useState('');
     const [producoes, setProducoes] = useState([]);
     const [pedidos, setPedidos] = useState([]);
 
@@ -128,11 +128,11 @@ export default function ColheitaCadastro(){
       const data = {
         id_producao:id_producao,
         id_pedido:id_pedido,
-        quantidade:quantidade,
+    //    quantidade:quantidade,
         data_colheita:date
       }
 
-      if(quantidade!=''&&quantidade!=''&&date!=''&&id_producao!=''&&id_pedido!=''){
+      if(date!=''&&id_producao!=''&&id_pedido!=''){
         var result = await axios.post(process.env.REACT_APP_API_URL + 'colheita',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
@@ -197,20 +197,7 @@ export default function ColheitaCadastro(){
                     </FormControl>
                     </Grid>
                     
-                    <Grid item xs={13} sm={5}>
-                      <TextField
-                        required
-                        type="number"
-                        InputProps={{ inputProps: { min: 1, step: 1 } }}
-                        id="quantidade"
-                        name="quantidade"
-                        label="Quantidade"
-                        fullWidth
-                        autoComplete="quantidade"
-                        value={quantidade}
-                        onChange={e => setQuantidade(e.target.value)}
-                      />
-                    </Grid>
+                    
                     <Grid item xs={13} sm={5}>
                     
                     <form className={classes.container} noValidate>

@@ -150,7 +150,7 @@ export default function PedidoAlterar(){
        
       }
       //console.log(data)
-      if(id_secao!=''&&id_planta!=''&&descricao!=''&&quantidade!=''&&date!=''&&valor!=''){
+      if(id_secao!=''&&id_planta!=''&&quantidade!=''&&date!=''&&valor!=''){
         if(date>new Date().toISOString().split("T")[0]){
           alert("Data do Plantio preenchida Incorretamente!")
         }else{
@@ -238,7 +238,6 @@ export default function PedidoAlterar(){
                     
                     <Grid item xs={12} sm={5}>
                       <TextField
-                        required
                         id="descricao"
                         name="descricao"
                         label="Descricao"

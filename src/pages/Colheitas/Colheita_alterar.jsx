@@ -85,7 +85,7 @@ export default function ColheitaAlterar(){
 
     
     const [date, setDate] = useState('');
-    const [quantidade, setQuantidade] = useState('');
+  //  const [quantidade, setQuantidade] = useState('');
     const [producoes, setProducoes] = useState([]);
     const [pedidos, setPedidos] = useState([]);
     const {id_colheita} = useParams()
@@ -106,7 +106,7 @@ export default function ColheitaAlterar(){
           console.log(response.data)
             setId_producao(response.data.response.colheita.id_producao);
             setId_pedido(response.data.response.colheita.id_pedido);
-            setQuantidade(response.data.response.colheita.quantidade);
+          //  setQuantidade(response.data.response.colheita.quantidade);
             setDate(response.data.response.colheita.data_colheita.substring(0,10));
            // setId_producao(response.data.response.colheita.id_producao);
             
@@ -146,12 +146,12 @@ export default function ColheitaAlterar(){
       const data = {
         id_producao:id_producao,
         id_pedido:id_pedido,
-        quantidade:quantidade,
+       // quantidade:quantidade,
         data_colheita:date
        
       }
       //console.log(data)
-      if(quantidade!=''&&date!=''&&id_producao!=''&&id_pedido!=''){
+      if(date!=''&&id_producao!=''&&id_pedido!=''){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
         var result = await axios.patch(process.env.REACT_APP_API_URL + 'colheita/'+id_colheita,data).then(res => {
@@ -214,20 +214,7 @@ export default function ColheitaAlterar(){
                     </FormControl>
                     </Grid>
                     
-                    <Grid item xs={13} sm={5}>
-                      <TextField
-                        required
-                        type="number"
-                        InputProps={{ inputProps: { min: 1, step: 1 } }}
-                        id="quantidade"
-                        name="quantidade"
-                        label="Quantidade"
-                        fullWidth
-                        autoComplete="quantidade"
-                        value={quantidade}
-                        onChange={e => setQuantidade(e.target.value)}
-                      />
-                    </Grid>
+                    
                     <Grid item xs={13} sm={5}>
                     
                     <form className={classes.container} noValidate>

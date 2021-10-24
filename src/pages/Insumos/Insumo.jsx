@@ -145,6 +145,7 @@ export default function MiniDrawer (){
                               <TableCell align="center">Nome</TableCell>
                               <TableCell align="center">Descricão</TableCell>
                               <TableCell align="center">Quantidade&nbsp;</TableCell>
+                              <TableCell align="center">Medida&nbsp;</TableCell>
                               <TableCell align="center">Data&nbsp;</TableCell>
                               <TableCell align="center">Valor&nbsp;</TableCell>
                               <TableCell align="center">Opções&nbsp;</TableCell>
@@ -160,6 +161,7 @@ export default function MiniDrawer (){
                                   <TableCell align="center">{row.nome_insumo}</TableCell>
                                   <TableCell align="center">{row.descricao}</TableCell>
                                   <TableCell align="center">{row.quantidade}</TableCell>
+                                  <TableCell align="center">{row.unidade_medida}</TableCell>
                                   <TableCell align="center">{row.data.substring(0,10)}</TableCell>
                                   <TableCell align="center">{row.valor} R$</TableCell>
                                   <TableCell align="right">

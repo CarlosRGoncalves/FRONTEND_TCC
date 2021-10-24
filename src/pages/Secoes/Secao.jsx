@@ -141,7 +141,8 @@ export default function MiniDrawer (){
                           <TableHead>
                           <TableRow>
                               <TableCell>ID Seção</TableCell>
-                              <TableCell align="center">ID Usuário</TableCell>
+                              
+                              <TableCell align="center">Usuário</TableCell>
                               <TableCell align="center">Descricão</TableCell>
                               <TableCell align="center">Área&nbsp;</TableCell>
                               <TableCell align="center">Opções&nbsp;</TableCell>
@@ -153,8 +154,9 @@ export default function MiniDrawer (){
                                   <TableCell component="th" scope="row">
                                       {row.id_secao}
                                   </TableCell>
-                                  <TableCell align="center">{row.id_usuario}</TableCell>
-                                  <TableCell align="center">{row.descricao}</TableCell>
+                                  
+                                  <TableCell align="center">{row.nome} </TableCell>
+                                  <TableCell align="center">{row.descricao_secao}</TableCell>
                                   <TableCell align="center">{row.area}</TableCell>
                                   <TableCell align="right">
                                     <ButtonGroup  aria-label="outlined primary button group">

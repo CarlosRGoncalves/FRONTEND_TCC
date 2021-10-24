@@ -85,13 +85,16 @@ export default function PedidoAlterar(){
     const [insumos, setInsumos] = useState([]);
     const [plantios, setPlantios] = useState([]);
     const [pragas_doencas, setP_doencas] = useState([]);
+    const [date_producao, setdate_producao] = useState('');
+    const [unidade_medida, setunidade_medida] = useState('');
+    const [quantidade_producao, setquantidade_producao] = useState('');
     const {id_producao} = useParams()
     
     
     
     useEffect(() => {
-      document.getElementById('date_defensivo').max = new Date().toISOString().split("T")[0]
-      document.getElementById('date_adubacao').max = new Date().toISOString().split("T")[0]
+      document.getElementById('date_producao').max = new Date().toISOString().split("T")[0]
+      
       async function getProducao(){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
@@ -105,15 +108,27 @@ export default function PedidoAlterar(){
 
             setId_plantio(response.data.response.producao.id_plantio);
             setId_insumo(response.data.response.producao.id_insumo);
-            setId_pragas_doenca(response.data.response.producao.id_p_doenca);
+            
+            if(response.data.response.producao.id_p_doenca == null)
+              setId_pragas_doenca('');
+            else
+              setId_pragas_doenca(response.data.response.producao.id_p_doenca);
 
-            setAdubacao(response.data.response.producao.adubacao);
-            setDefensivo(response.data.response.producao.defensivo);
-            setDate_adubacao(response.data.response.producao.data_adubacao.substring(0,10));
-            setDate_defensivo(response.data.response.producao.data_defensivo.substring(0,10));
-            setQtd_adubacao(response.data.response.producao.qtd_adubacao);
-            setQtd_defensivo(response.data.response.producao.qtd_defensivo);
+            if(response.data.response.producao.quantidade_producao == null)
+              setquantidade_producao('');
+            else
+              setquantidade_producao(response.data.response.producao.quantidade_producao);
+              
+            if(response.data.response.producao.unidade_medida == null)
+              setunidade_medida('');
+            else
+             setunidade_medida(response.data.response.producao.unidade_medida);
 
+            if(response.data.response.producao.data_producao == null)
+              setdate_producao('');
+            else
+              setdate_producao(response.data.response.producao.data_producao.substring(0,10));
+           
            // setId_plantio(response.data.response.producao.id_insumo);
             
       }
@@ -167,16 +182,13 @@ export default function PedidoAlterar(){
         id_plantio:id_plantio,
         id_insumo:id_insumo,
         id_p_doenca:id_p_doenca,
-        adubacao:adubacao,
-        defensivo:defensivo,
-        data_defensivo:date_defensivo,
-        data_adubacao:date_adubacao,
-        qtd_adubacao:qtd_adubacao,
-        qtd_defensivo:qtd_defensivo
+        data_producao:date_producao,
+        unidade_medida:unidade_medida,
+        quantidade_producao:quantidade_producao
        
       }
       //console.log(data)
-      if(id_plantio!=''&&id_insumo!=''&&adubacao!=''&&defensivo!=''&&qtd_defensivo!=''&&date_adubacao!=''&&date_defensivo!=''&&qtd_adubacao!=''){
+      if(id_plantio!=''&&id_insumo!=''&&date_producao!=''&&unidade_medida!=''&&quantidade_producao!=''){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
         var result = await axios.patch(process.env.REACT_APP_API_URL + 'producao/'+id_producao,data).then(res => {
@@ -210,139 +222,100 @@ export default function PedidoAlterar(){
                 </Typography>
                 <Paper className = {classes.content} >
                 <Grid container spacing={3}>
-                <Grid item xs={12} sm={4}>
-                      <FormControl className={classes.formControl}>
-                      <InputLabel id="id_plantio">Plantio</InputLabel>
-                      <Select
-                            labelId="Plantio"
-                            id="id_plantio"
-                            value={id_plantio}
-                            onChange={e => setId_plantio(e.target.value)}
-                          > {plantios.map((row) =>(
-                              <MenuItem value={row.id_plantio}>{row.id_plantio}</MenuItem>
-                            ))}
-                      </Select>
-                    </FormControl>
+                    <Grid item xs={12} sm={4}>
+                          <FormControl className={classes.formControl}>
+                            <InputLabel id="id_plantio">Plantio</InputLabel>
+                            <Select
+                                  labelId="Plantio"
+                                  id="id_plantio"
+                                  value={id_plantio}
+                                  onChange={e => setId_plantio(e.target.value)}
+                                > {plantios.map((row) =>(
+                                    <MenuItem value={row.id_plantio}>{row.id_plantio}</MenuItem>
+                                  ))}
+                            </Select>
+                          </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={4}>
-                      <FormControl className={classes.formControl}>
-                      <InputLabel id="id_insumo">Insumo</InputLabel>
-                      <Select
-                            labelId="Insumo"
-                            id="id_insumo"
-                            value={id_insumo}
-                            onChange={e => setId_insumo(e.target.value)}
-                          > {insumos.map((row) =>(
-                              <MenuItem value={row.id_insumo}>{row.nome_insumo}</MenuItem>
-                            ))}
-                      </Select>
-                    </FormControl>
+                          <FormControl className={classes.formControl}>
+                          <InputLabel id="id_insumo">Insumo</InputLabel>
+                          <Select
+                                labelId="Insumo"
+                                id="id_insumo"
+                                value={id_insumo}
+                                onChange={e => setId_insumo(e.target.value)}
+                              > {insumos.map((row) =>(
+                                  <MenuItem value={row.id_insumo}>{row.nome_insumo}</MenuItem>
+                                ))}
+                          </Select>
+                        </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={4}>
-                      <FormControl className={classes.formControl}>
-                      <InputLabel id="id_p_doenca">Pragas/Doencas</InputLabel>
-                      <Select
-                            labelId="Pragas Doenças"
-                            id="id_p_doenca"
-                            value={id_p_doenca}
-                            onChange={e => setId_pragas_doenca(e.target.value)}
-                          > {pragas_doencas.map((row) =>(
-                              <MenuItem value={row.id_p_doenca}>{row.nome_p_doenca}</MenuItem>
-                            ))}
-                      </Select>
-                    </FormControl>
-                    </Grid>
-                    <Grid item xs={12} sm={5}>
-                      <TextField
-                        required
-                        id="adubacao"
-                        name="adubacao"
-                        label="Adubacao"
-                        fullWidth
-                        autoComplete="adubacao"
-                        value={adubacao}
-                        onChange={e => setAdubacao(e.target.value)}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={3}>
-                      <TextField
-                        required
-                        id="defensivo"
-                        name="defensivo"
-                        label="Defensivo"
-                        fullWidth
-                        autoComplete="defensivo"
-                        value={defensivo}
-                        onChange={e => setDefensivo(e.target.value)}
-                      />
+                          <FormControl className={classes.formControl}>
+                          <InputLabel id="id_p_doenca">Pragas/Doencas</InputLabel>
+                          <Select
+                                labelId="Pragas Doenças"
+                                id="id_p_doenca"
+                                value={id_p_doenca}
+                                onChange={e => setId_pragas_doenca(e.target.value)}
+                              > {pragas_doencas.map((row) =>(
+                                  <MenuItem value={row.id_p_doenca}>{row.nome_p_doenca}</MenuItem>
+                                ))}
+                          </Select>
+                        </FormControl>
                     </Grid>
                     <Grid item xs={13} sm={4}>
                       <TextField
                         required
                         type="number"
                         InputProps={{ inputProps: { min: 0, step: 0.1 } }}
-                        id="qtd_defensivo"
-                        name="qtd_defensivo"
-                        label="Qtd Defensivo"
+                        id="quantidade_producao"
+                        name="quantidade_producao"
+                        label="Quantidade"
                         fullWidth
-                        autoComplete="qtd_adubacao"
-                        value={qtd_defensivo}
-                        onChange={e => setQtd_defensivo(e.target.value)}
+                        autoComplete="quantidade_producao"
+                        value={quantidade_producao}
+                        onChange={e => setquantidade_producao(e.target.value)}
                       />
                     </Grid>
-                    <Grid item xs={13} sm={3}>
-                      <TextField
-                        required
-                        type="number"
-                        InputProps={{ inputProps: { min: 1, step: 1 } }}
-                        id="qtd_adubacao"
-                        name="qtd_adubacao"
-                        label="Qtd Adubacao"
-                        fullWidth
-                        autoComplete="qtd_adubacao"
-                        value={qtd_adubacao}
-                        onChange={e => setQtd_adubacao(e.target.value)}
-                      />
+                    <Grid item xs={12} sm={3}>
+                        <FormControl className={classes.formControl}>
+                        <InputLabel id="unidade_medida">Medida</InputLabel>
+                        <Select
+                        
+                          labelId="unidade_medida"
+                          id="unidade_medida"
+                          value={unidade_medida}
+                          onChange={e => setunidade_medida(e.target.value)}
+                        >
+                          <MenuItem value={"kg"}>kg	</MenuItem>
+                          <MenuItem value={"g"}>g	</MenuItem>
+                          <MenuItem value={"mg"}>mg	</MenuItem>
+                        
+                        </Select>
+                      </FormControl>
                     </Grid>
+                    
                     <Grid item xs={13} sm={4}>
                     
-                    <form className={classes.container} noValidate_defensivo>
-                      <TextField
-                      required
-                        id="date_defensivo"
-                        label="Data do Defensivo"
-                        type="date"
-                        defaultValue=""
-                        className={classes.textField}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        value={date_defensivo}
-                        onChange={e => setDate_defensivo(e.target.value)}
-                      />
-                    </form>
+                        <form className={classes.container} noValidate_producao>
+                          <TextField
+                          required
+                            id="date_producao"
+                            label="Data da Produção"
+                            type="date"
+                            defaultValue=""
+                            className={classes.textField}
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                            value={date_producao}
+                            onChange={e => setdate_producao(e.target.value)}
+                          />
+                        </form>
                     
                     </Grid>
-                    <Grid item xs={13} sm={4}>
-                    
-                    <form className={classes.container} noValidate_defensivo>
-                      <TextField
-                      required
-                        id="date_adubacao"
-                        label="Data de Adubação"
-                        type="date"
-                        defaultValue=""
-                        className={classes.textField}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        value={date_adubacao}
-                        onChange={e => setDate_adubacao(e.target.value)}
-                      />
-                    </form>
-                    
-                    </Grid>
-                    
+       
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <br/>

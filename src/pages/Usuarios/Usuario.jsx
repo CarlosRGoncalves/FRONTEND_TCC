@@ -121,7 +121,7 @@ export default function MiniDrawer (){
     const token = localStorage.getItem('token');
     if(token){
           const decoded = jwt_decode(token);
-          if(decoded.tipo_usuario == 2){
+          if(decoded.tipo_usuario == 2 ){
             return("true")
           }
     }
@@ -162,8 +162,8 @@ export default function MiniDrawer (){
                                   <TableCell align="center">{row.tipo_usuario ===1?<Chip label="Administrador" color="primary"/>:<Chip label="Produtor" color="secondary" />}</TableCell>
                                   <TableCell align="right">
                                     <ButtonGroup  aria-label="outlined primary button group">
-                                        <Button color = "primary" align="center" startIcon={<CreateIcon/>} href={'/usuario/alterar/'+row.id_usuario} disabled = {Tp_Usuario()}></Button>
-                                        <Button color = "secondary" align="center" startIcon={<DeleteIcon/>} onClick = {() => Delete(row.id_usuario)} disabled = {Tp_Usuario()}></Button>
+                                        <Button color = "primary" align="center" startIcon={<CreateIcon/>} href={'/usuario/alterar/'+row.id_usuario} disabled = {row.email =='admin@gmail.com'?'true':Tp_Usuario()}></Button>
+                                        <Button color = "secondary" align="center" startIcon={<DeleteIcon/>} onClick = {() => Delete(row.id_usuario)} disabled = {row.email =='admin@gmail.com'?'true':Tp_Usuario()}></Button>
                                     </ButtonGroup>
                                   </TableCell>
 

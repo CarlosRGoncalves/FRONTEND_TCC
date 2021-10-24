@@ -88,6 +88,10 @@ export default function ClienteAlterar(){
     const [endereco, setEndereco] = useState('');
     const {id_cliente} = useParams()
     useEffect(() => {
+        document.getElementById('cpf').maxLength = 11
+        document.getElementById('telefone').maxLength = 11
+  
+      
       async function getUsuario(){
             const token = localStorage.getItem('token');
             const headers = { Authorization: `Bearer ${token}` };
@@ -116,20 +120,26 @@ export default function ClienteAlterar(){
         id_cliente:id_cliente
       }
       console.log(data)
-      if(nome!=''&&email!=''&&telefone!=''&&cpf!=''&&endereco!=''){
-        var result = await axios.patch(process.env.REACT_APP_API_URL + 'cliente/'+id_cliente,data).then(res => {
-          if(res.status ===202){
-            alert(res.data.response.mensagem)
-            window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente");
-          }
-        }).catch(err => {
-          if(err.response.status ===500){
-            alert('E-mail já cadastrado ou Erro no Servidor!')
-           
-          }
-        })
+      if(nome!=''&&email!=''&&telefone!=''){
+        if(cpf.length==0||cpf.length==11){
+
+              var result = await axios.patch(process.env.REACT_APP_API_URL + 'cliente/'+id_cliente,data).then(res => {
+                if(res.status ===202){
+                  alert(res.data.response.mensagem)
+                  window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente");
+                }
+              }).catch(err => {
+                if(err.response.status ===500){
+                  alert('E-mail já cadastrado ou Erro no Servidor!')
+                
+                }
+              })
+            }else{
+              alert('CPF Inválido!!!')
+
+            }
       }else{
-        alert('Campo em Branco!')
+        alert('Nome, Email e Telefone são campos obrigatórios!!!')
       }
     }
     return (       
@@ -187,7 +197,7 @@ export default function ClienteAlterar(){
                     </Grid>
                     <Grid item xs={12} sm={3}>
                       <TextField
-                        required
+                        
                         id="cpf"
                         name="cpf"
                         label="cpf"
@@ -199,7 +209,7 @@ export default function ClienteAlterar(){
                     </Grid>
                     <Grid item xs={12} sm={5}>
                       <TextField
-                        required
+                        
                         id="endereco"
                         name="endereco"
                         label="Endereco"

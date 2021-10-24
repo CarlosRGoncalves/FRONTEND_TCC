@@ -15,6 +15,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import { useEffect } from 'react';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -74,7 +75,12 @@ export default function UsuarioCadastro(){
     const [telefone, setTelefone] = useState('');
     const [tipo_usuario, setTipo_usuario] = useState('');
     const [senha, setSenha] = useState('');
+    
   
+    useEffect(() => {
+      document.getElementById('telefone').maxLength = 11
+
+    },[]);
     async  function Cadastrar(){
       const data = {
         nome:nome,

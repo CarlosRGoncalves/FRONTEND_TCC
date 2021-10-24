@@ -77,19 +77,7 @@ export default function MiniDrawer (){
               <Paper className = {classes.content} >
                   <Grid container spacing={40} >
                   
-                    
-                    
-                      <div className="botao2">
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "usuario")}
-                        >
-                            Gerenciar Usuários
-                        </Button>
-                      </div>
-                      <div className="botao2">
+                  <div className="botao2">
                           <Button
                             variant="contained"
                             color="primary"
@@ -99,6 +87,82 @@ export default function MiniDrawer (){
                           >
                             Gerenciar clientes
                           </Button>
+                      </div>
+                      <div className="botao2">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "colheita")}
+
+                        >
+                          Gerenciar Colheita
+                        </Button>
+                      </div>
+                      <div className="botao2">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "fornecedor")}
+                        >
+                          Gerenciar Fornecedores
+                        </Button>
+                      </div>
+                      <div className="botao2">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "insumo")}
+
+                        >
+                          Gerenciar Insumos
+                        </Button>
+                      </div>
+                      <div className="botao2">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "pedido")}
+
+                        >
+                          Gerenciar Pedidos
+                        </Button>
+                      </div>
+                      <div className="botao2">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "planta")}
+
+                        >
+                          Gerenciar Planta
+                        </Button>
+                      </div>
+                      <div className="botao2">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "plantio")}
+
+                        >
+                          Gerenciar Plantio
+                        </Button>
+                      </div>
+                      <div className="botao2">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "praga_doenca")}
+
+                        >
+                           Pragas e Doenças
+                        </Button>
                       </div>
                       <div className="botao2">
                         <Button
@@ -118,28 +182,6 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "plantio")}
-
-                        >
-                          Gerenciar Plantio
-                        </Button>
-                      </div>
-                      <div className="botao2">
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "colheita")}
-
-                        >
-                          Gerenciar Colheita
-                        </Button>
-                      </div>
-                      <div className="botao2">
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          style={{backgroundColor: "#00A869"}}
                           onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "produto_final")}
 
                         >
@@ -151,23 +193,13 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "planta")}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "secao")}
 
                         >
-                          Gerenciar Planta
+                          Gerenciar Seções
                         </Button>
                       </div>
-                      <div className="botao2">
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "insumo")}
 
-                        >
-                          Gerenciar Insumos
-                        </Button>
-                      </div>
                       <div className="botao2">
                         <Button
                           variant="contained"
@@ -183,44 +215,14 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "praga_doenca")}
-
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "usuario")}
                         >
-                           Pragas e Doenças
+                            Gerenciar Usuários
                         </Button>
                       </div>
-                      <div className="botao2">
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "fornecedor")}
-                        >
-                          Gerenciar Fornecedores
-                        </Button>
-                      </div>
-                      <div className="botao2">
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "secao")}
-
-                        >
-                          Gerenciar Seções
-                        </Button>
-                      </div>
-                      <div className="botao2">
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          style={{backgroundColor: "#00A869"}}
-                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "pedido")}
-
-                        >
-                          Gerenciar Pedidos
-                        </Button>
-                      </div>
+                      
+                      
+                      
                   </Grid>
              
                   </Paper>

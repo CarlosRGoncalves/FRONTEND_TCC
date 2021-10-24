@@ -11,6 +11,8 @@ import green from '@material-ui/core/colors/green';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { useEffect } from 'react';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -59,7 +61,11 @@ export default function FornecedorCadastro(){
     const [cnpj, setCnpj] = useState('');
     const [nome, setNome] = useState('');
     
-    
+    useEffect(() => {
+      
+      document.getElementById('cnpj').maxLength = 14
+
+    },[]);
     
     async  function Cadastrar(){
       const data = {
@@ -68,18 +74,23 @@ export default function FornecedorCadastro(){
        
       }
 
-      if(cnpj!=''&&nome!=''){
-        var result = await axios.post(process.env.REACT_APP_API_URL + 'fornecedor',data).then(res => {
-          //console.log("AQUI",res.status);
-          if(res.status ===201){
-            alert(res.data.response.mensagem)
-            window.location.replace(process.env.REACT_APP_FRONT_URL + "fornecedor");
-          }
-        }).catch(err => {
-          if(err.response.status ===500){
-            alert('Erro no Cadastro!')
-          }
-        })
+      if(nome!=''){
+        if(cnpj.length==0||cnpj.length==14){
+          var result = await axios.post(process.env.REACT_APP_API_URL + 'fornecedor',data).then(res => {
+            //console.log("AQUI",res.status);
+            if(res.status ===201){
+              alert(res.data.response.mensagem)
+              window.location.replace(process.env.REACT_APP_FRONT_URL + "fornecedor");
+            }
+          }).catch(err => {
+            if(err.response.status ===500){
+              alert('Erro no Cadastro!')
+            }
+          })
+        }else{
+          alert('Cnpj Inválido!')
+
+        }
 
       }else{
         alert('Campo em Branco!')
@@ -115,7 +126,6 @@ export default function FornecedorCadastro(){
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField
-                        required
                         id="cnpj"
                         name="cnpj"
                         label="Cnpj"

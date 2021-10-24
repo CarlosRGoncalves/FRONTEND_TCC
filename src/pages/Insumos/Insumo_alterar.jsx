@@ -86,11 +86,14 @@ export default function InsumoAlterar(){
     const [date, setDate] = useState('');
     const [valor, setValor] = useState('');
     const [fornecedores, setFornecedores] = useState([]);
+    const [unidade_medida, setUnidade_medida] = useState('');
+
     const {id_insumo} = useParams()
     
     
     
     useEffect(() => {
+      
       document.getElementById('date').max = new Date().toISOString().split("T")[0]
 
       async function getInsumo(){
@@ -112,6 +115,7 @@ export default function InsumoAlterar(){
             setDate(response.data.response.insumo.data.substring(0,10));
             setValor(response.data.response.insumo.valor);
             setId_fornecedor(response.data.response.insumo.id_fornecedor);
+            setUnidade_medida(response.data.response.insumo.unidade_medida);
             
       }
       async function getFornecedor(){
@@ -138,10 +142,12 @@ export default function InsumoAlterar(){
         descricao:descricao,
         quantidade:quantidade,
         data:date,
-        valor:valor
+        valor:valor,
+        unidade_medida:unidade_medida
+
       }
       console.log(data)
-      if(id_fornecedor!=''&&descricao!=''&&quantidade!=''&&date!=''&&valor!=''){
+      if(id_fornecedor!=''&&quantidade!=''&&date!=''&&valor!=''&&unidade_medida!=''){
         if(date>new Date().toISOString().split("T")[0]){
           alert("Data do Plantio preenchida Incorretamente!")
         }else{
@@ -175,7 +181,7 @@ export default function InsumoAlterar(){
                     Alteração de Insumos
                 </Typography>
                 <Paper className = {classes.content} >
-                  <Grid container spacing={3}>
+                <Grid container spacing={3}>
                   <Grid item xs={12} sm={4}>
                       <FormControl className={classes.formControl}>
                       <InputLabel id="id_fornecedor">Fornecedor</InputLabel>
@@ -190,7 +196,7 @@ export default function InsumoAlterar(){
                       </Select>
                     </FormControl>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={3}>
                       <TextField
                         required
                         id="nome"
@@ -200,12 +206,11 @@ export default function InsumoAlterar(){
                         autoComplete="nome"
                         value={nome}
                         onChange={e => setNome(e.target.value)}
-                       // disabled
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={5}>
                       <TextField
-                        required
+                        
                         id="descricao"
                         name="descricao"
                         label="Descricao"
@@ -213,10 +218,9 @@ export default function InsumoAlterar(){
                         autoComplete="descricao"
                         value={descricao}
                         onChange={e => setDescricao(e.target.value)}
-                       // disabled
                       />
                     </Grid>
-                    <Grid item xs={13} sm={3}>
+                    <Grid item xs={13} sm={4}>
                       <TextField
                         required
                         type="number"
@@ -230,13 +234,29 @@ export default function InsumoAlterar(){
                         onChange={e => setQuantidade(e.target.value)}
                       />
                     </Grid>
+                    <Grid item xs={12} sm={3}>
+                      <FormControl className={classes.formControl}>
+                      <InputLabel id="unidade_medida">Medida</InputLabel>
+                      <Select
+                        labelId="unidade_medida"
+                        id="unidade_medida"
+                        value={unidade_medida}
+                        onChange={e => setUnidade_medida(e.target.value)}
+                      >
+                        <MenuItem value={"kg"}>kg	</MenuItem>
+                        <MenuItem value={"g"}>g	</MenuItem>
+                        <MenuItem value={"mg"}>mg	</MenuItem>
+                      
+                      </Select>
+                    </FormControl>
+                    </Grid>
                     <Grid item xs={13} sm={3}>
                     
                     <form className={classes.container} noValidate>
                       <TextField
                       required
-                        id="data"
-                        label="Data do Insumo"
+                        id="date"
+                        label="Data da Compra"
                         type="date"
                         defaultValue=""
                         className={classes.textField}
@@ -256,7 +276,7 @@ export default function InsumoAlterar(){
                         InputProps={{ inputProps: { min: 0, step: 0.1 } }}
                         id="valor"
                         name="valor"
-                        label="Valor Insumo"
+                        label="Valor do Insumo"
                         fullWidth
                         autoComplete="valor"
                         value={valor}

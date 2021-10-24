@@ -15,6 +15,8 @@ import Collapse from '@material-ui/core/Collapse';
 import { makeStyles } from '@material-ui/core/styles';
 import BlurOnOutlinedIcon from '@material-ui/icons/BlurOnOutlined';
 import DraftsIcon from '@material-ui/icons/Drafts';
+import ListSubheader from '@material-ui/core/ListSubheader';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,22 +69,40 @@ export default function ListItems (){
 }
   return(
           <>
-            <List>
-                  {['Sair', 'Página Inicial', 'Gerenciar', 'Relátorios'].map((text, index) => (
-                      <ListItem button key={text} onClick = {() => listI(text)}>
-                        <ListItemIcon>{(index === 0 ? <PowerSettingsNewIcon /> : (index === 1?<KeyboardArrowRightIcon />:(index === 2?<BuildIcon/>:< AssignmentIcon/>)))}</ListItemIcon>
-                        <ListItemText ext primary={text}/>
-                        {open ? <ExpandMore /> : <ExpandLess/>}
-                      </ListItem>
-                      
-                    ))}
+            <List
+            component="nav"
+            aria-labelledby="nested-list-subheader"
+           
+            className={classes.root}
+                  
+                    >
+                  <ListItem button onClick = {() => listI("Página Inicial")}>
+                        <ListItemIcon>
+                          <KeyboardArrowRightIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Página Inicial" onClick = {() => listI("Página Inicial")}/>
+                  </ListItem>
+                  <ListItem button onClick = {() => listI("Gerenciar")} >
+                        <ListItemIcon>
+                          <BuildIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Gerenciar" onClick = {() => listI("Gerenciar")} />
+                  </ListItem>
+                  <ListItem button onClick={handleClick}>
+                        <ListItemIcon>
+                                <AssignmentIcon />
+                        </ListItemIcon>
+                                <ListItemText primary="Relatórios" />
+                                {open ? <ExpandLess /> : <ExpandMore />}
+                  </ListItem>
+            
                     <Collapse in={!open} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
                         <ListItem button className={classes.nested}>
                           <ListItemIcon>
                             <BlurOnOutlinedIcon />
                           </ListItemIcon>
-                          <ListItemText primary="Pedidos" onClick = {() => RelPedidos()} />
+                          <ListItemText primary="Produtos" onClick = {() => RelPedidos()} />
                           
                         </ListItem>
                         <ListItem button className={classes.nested}>
@@ -101,6 +121,12 @@ export default function ListItems (){
                         </ListItem>
                       </List>
                     </Collapse>
+                    <ListItem button onClick = {() => listI("Sair")}>
+                          <ListItemIcon>
+                            <PowerSettingsNewIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="Sair" onClick = {() => listI("Sair")} />
+                  </ListItem>
             </List>
           </>
   )
