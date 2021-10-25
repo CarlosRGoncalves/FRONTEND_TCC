@@ -25,8 +25,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
 import Chip from '@material-ui/core/Chip';
-
-import './Producao.css';
+import './Pedido.css';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -87,17 +86,16 @@ const useStyles = makeStyles((theme) => ({
  
 }
 
-export default function ProducaoRelatorio(){
+export default function PedidoRelatorio(){
+
+  
   
     const classes = useStyles();
    
-    const [dateInicial, setDateI] = useState('');
-    const [dateFinal, setDateF] = useState('');
-    const [producoes, setProducoes] = useState([]);
+    const [nome_cliente, setNome_cliente] = useState('');
+    const [pedidos, setPedidos] = useState([]);
 
     useEffect(() => {
-      document.getElementById('dateInicial').max = new Date().toISOString().split("T")[0]
-      document.getElementById('dateFinal').max = new Date().toISOString().split("T")[0]
       
     },[]);
     
@@ -105,34 +103,29 @@ export default function ProducaoRelatorio(){
     async  function Cadastrar(){
       const data = {
         
-        data_inicial:dateInicial,
-        data_final:dateFinal,
+        nome_cliente:nome_cliente
+        
 
 
       }
 
-
-      if(dateInicial!='' && dateFinal!=''){
-        if(dateInicial>new Date().toISOString().split("T")[0] && dateFinal>new Date().toISOString().split("T")[0]){
-          alert("Data Inicial ou Final com datas preenchidas incorretamente!")
-        }else
-          {
-            var result = await axios.post(process.env.REACT_APP_API_URL + 'producao/relatorio',data).then(res => {
-              //console.log("AQUI",res.status);
-              if(res.status ===200){
-                if(res.data.quantidade!=0)
-                  setProducoes(res.data.producao);
-                else
-                  alert("Nenhuma Produção encontrada nessas datas!!!")
-              // window.location.replace(process.env.REACT_APP_FRONT_URL + "producao");
-              }
-            }).catch(err => {
-              if(err.response.status ===500){
-                alert('Erro no Cadastro!!!')
-                //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
-              }
-            })
+      if(nome_cliente!=''){
+        var result = await axios.post(process.env.REACT_APP_API_URL + 'pedido/relatorio2',data).then(res => {
+          //console.log("AQUI",res.status);
+          if(res.status ===200){
+           if(res.data.quantidade!=0)
+              setPedidos(res.data.pedido);
+            else
+              alert("Não foi encontrado nenhum Pedido para esse Cliente!!!")
+           // window.location.replace(process.env.REACT_APP_FRONT_URL + "pedido");
           }
+        }).catch(err => {
+          if(err.response.status ===500){
+            alert('Erro no Cadastro!!!')
+            //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
+          }
+        })
+
       }else{
         alert('Campo em Branco ou Preenchido Incorretamente!')
       }
@@ -149,7 +142,7 @@ export default function ProducaoRelatorio(){
             <div className={classes.toolbar} />
             
                 <Typography variant="h6" gutterBottom>
-                    Relatório de Produções
+                    Relatório de Pedidos
                 </Typography>
                 <Paper className = {classes.content} >
                   <Grid container spacing={3}>
@@ -160,39 +153,21 @@ export default function ProducaoRelatorio(){
                     <form className={classes.container} noValidate>
                       <TextField
                       required
-                        id="dateInicial"
-                        label="Data Início Produções"
-                        type="date"
+                        id="nome_cliente"
+                        label="Nome do Cliente"
+                        
                         defaultValue=""
                         className={classes.textField}
                         InputLabelProps={{
                           shrink: true,
                         }}
-                        value={dateInicial}
-                        onChange={e => setDateI(e.target.value)}
-                      />
-                    </form>
-                   
-                    </Grid>
-                    <Grid item xs={13} sm={4}>
-                    
-                    <form className={classes.container} noValidate>
-                      <TextField
-                      required
-                        id="dateFinal"
-                        label="Data Final Produções"
-                        type="date"
-                        defaultValue=""
-                        className={classes.textField}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        value={dateFinal}
-                        onChange={e => setDateF(e.target.value)}
+                        value={nome_cliente}
+                        onChange={e => setNome_cliente(e.target.value)}
                       />
                     </form>
                     
                     </Grid>
+                    
                   
                   <Grid item xs={12} sm={5}>
                     <br/>
@@ -206,51 +181,51 @@ export default function ProducaoRelatorio(){
                               Gerar Relatório 
                     </Button>
                   </Grid>
+
                   </Grid>
                 </Paper>
-<br/>
+                <br/>
                 <Paper className = {classes.content} >
                 <TableContainer component={Paper}>
                       <Table className={classes.table} size="small" aria-label="a dense table">
                           <TableHead>
                           <TableRow>
-                              <TableCell>ID Produção</TableCell>
-                              <TableCell align="center">ID Plantio</TableCell>
-                              <TableCell align="center">Insumo</TableCell>
-                              <TableCell align="center">Pragas/Doença</TableCell>
-                              <TableCell align="center">Quantidade</TableCell>
-                              <TableCell align="center">Unidade de Medida&nbsp;</TableCell>
-                              <TableCell align="center">Data Produção&nbsp;</TableCell>
-                              
+                              <TableCell>ID Pedido</TableCell>
+                              <TableCell align="center">Produto Final</TableCell>
+                              <TableCell align="center">Cliente</TableCell>
+                              <TableCell align="center">Status</TableCell>
+                              <TableCell align="center">Descricão</TableCell>
+                              <TableCell align="center">Quantidade&nbsp;</TableCell>
+                              <TableCell align="center">Data&nbsp;</TableCell>
+                              <TableCell align="center">Valor do Produto Vendido&nbsp;</TableCell>
+                              <TableCell align="center">Valor Final do Pedido&nbsp;</TableCell>
                           </TableRow>
                           </TableHead>
                           <TableBody>
-                              {producoes.map((row) => (
-                                  <TableRow key={row.id_producao}>
+                              {pedidos.map((row) => (
+                                  <TableRow key={row.id_pedido}>
                                   <TableCell component="th" scope="row">
-                                      {row.id_producao}
+                                      {row.id_pedido}
                                   </TableCell>
-                                  <TableCell align="center">{row.id_plantio}</TableCell>
-                                  <TableCell align="center">{row.nome_insumo}</TableCell>
-                                  <TableCell align="center">{row.nome_p_doenca}</TableCell>
+                                  <TableCell align="center">{row.nome_produto_final}</TableCell>
+                                  <TableCell align="center">{row.nome_cliente}</TableCell>
 
-                                  
-                                  <TableCell align="center">{row.quantidade_producao}</TableCell>
-                                  <TableCell align="center">{row.unidade_medida}</TableCell>
-                                  
+                                  <TableCell align="center">{row.status ==='Pago'?<Chip label="Pago" color="primary"/>:<Chip label="Não Pago" color="secondary" />}</TableCell>
+                                  <TableCell align="center">{row.descricao}</TableCell>
+                                  <TableCell align="center">{row.quantidade}</TableCell>
+                                  <TableCell align="center">{row.data.substring(0,10)}</TableCell>
+                                  <TableCell align="center">{row.valor_produto_vendido} R$</TableCell>
 
-                                  <TableCell align="center">{row.data_producao} </TableCell>
-                           
-
-                                  
+                                  <TableCell align="center">{row.valor} R$</TableCell>
+                                 
 
                                   </TableRow>
                               ))}
                           </TableBody>
                       </Table>
                   </TableContainer>
-                    <br/>
-                    
+
+
                 </Paper>
 
         </main>

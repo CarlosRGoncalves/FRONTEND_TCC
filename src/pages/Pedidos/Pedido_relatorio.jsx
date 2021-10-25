@@ -116,7 +116,7 @@ export default function PedidoRelatorio(){
            if(res.data.quantidade!=0)
               setPedidos(res.data.pedido);
             else
-              alert("Não foi encontrado nenhum Pedido entre essas datas!!!")
+              alert("Não foi encontrado nenhum Produto Vendido entre essas datas!!!")
            // window.location.replace(process.env.REACT_APP_FRONT_URL + "pedido");
           }
         }).catch(err => {
@@ -200,7 +200,7 @@ export default function PedidoRelatorio(){
                     </Button>
                   </Grid>
                 </Paper>
-
+<br/>
                 <Paper className = {classes.content} >
                   <TableContainer component={Paper}>
                       <Table className={classes.table} size="small" aria-label="a dense table">

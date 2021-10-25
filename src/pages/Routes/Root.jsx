@@ -49,6 +49,7 @@ import Pedidos from '../Pedidos/Pedido';
 import Pedidos_Cadastro from '../Pedidos/Pedido_cadastro';
 import Pedidos_Alterar from '../Pedidos/Pedido_alterar';
 import Pedidos_Relatorio from '../Pedidos/Pedido_relatorio';
+import Pedidos_Relatorio2 from '../Pedidos/Pedido_relatorio2';
 
 
 import Plantios from '../Plantios/Plantio';
@@ -117,6 +118,7 @@ const PagesRoot = () => (
       <PrivateRoute exact path="/pedido/cadastro" component={Pedidos_Cadastro} />
       <PrivateRoute exact path="/pedido/alterar/:id_pedido" component={Pedidos_Alterar} />
       <PrivateRoute exact path="/pedido/relatorio" component={Pedidos_Relatorio} />
+      <PrivateRoute exact path="/pedido/relatorio2" component={Pedidos_Relatorio2} />
       
       <PrivateRoute exact path="/plantio" component={Plantios} />
       <PrivateRoute exact path="/plantio/cadastro" component={Plantios_Cadastro} />

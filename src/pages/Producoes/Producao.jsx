@@ -145,7 +145,7 @@ export default function MiniDrawer (){
                               <TableCell align="center">Insumo</TableCell>
                               <TableCell align="center">Pragas/Doença</TableCell>
                               <TableCell align="center">Quantidade</TableCell>
-                              <TableCell align="center">Unidade de Medida&nbsp;</TableCell>
+                              <TableCell align="center">Medida&nbsp;</TableCell>
                               <TableCell align="center">Data Produção&nbsp;</TableCell>
                               <TableCell align="center">Opções&nbsp;</TableCell>
                           </TableRow>

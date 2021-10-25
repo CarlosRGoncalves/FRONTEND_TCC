@@ -57,6 +57,12 @@ export default function ListItems (){
   
     
   }
+  function RelPedidos2() {
+    
+    window.location.replace(process.env.REACT_APP_FRONT_URL + "pedido/relatorio2");
+
+  
+}
   function RelClientes() {
     
     window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente/relatorio");
@@ -98,13 +104,7 @@ export default function ListItems (){
             
                     <Collapse in={!open} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
-                        <ListItem button className={classes.nested}>
-                          <ListItemIcon>
-                            <BlurOnOutlinedIcon />
-                          </ListItemIcon>
-                          <ListItemText primary="Produtos" onClick = {() => RelPedidos()} />
-                          
-                        </ListItem>
+                        
                         <ListItem button className={classes.nested}>
                           <ListItemIcon>
                             <BlurOnOutlinedIcon />
@@ -117,8 +117,23 @@ export default function ListItems (){
                             <BlurOnOutlinedIcon />
                           </ListItemIcon>
                           
+                          <ListItemText primary="Pedidos" onClick = {() => RelPedidos2()} />
+                        </ListItem>
+                        <ListItem button className={classes.nested}>
+                          <ListItemIcon>
+                            <BlurOnOutlinedIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="Produtos" onClick = {() => RelPedidos()} />
+                          
+                        </ListItem>
+                        <ListItem button className={classes.nested}>
+                          <ListItemIcon>
+                            <BlurOnOutlinedIcon />
+                          </ListItemIcon>
+                          
                           <ListItemText primary="Produções" onClick = {() => RelProducoes()} />
                         </ListItem>
+
                       </List>
                     </Collapse>
                     <ListItem button onClick = {() => listI("Sair")}>
