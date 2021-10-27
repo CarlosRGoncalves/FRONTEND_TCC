@@ -81,7 +81,7 @@ export default function MiniDrawer (){
     
       const response = axios.get(process.env.REACT_APP_API_URL + 'producao/',{ headers })
       .then(response =>{
-      console.log(response.data.producao);
+      //console.log(response.data.producao);
       setProducoes(response.data.producao);
       })
       .catch(err =>{
@@ -162,7 +162,7 @@ export default function MiniDrawer (){
 
                                   
                                   <TableCell align="center">{row.quantidade_producao}</TableCell>
-                                  <TableCell align="center">{row.unidade_medida}</TableCell>
+                                  <TableCell align="center">{row.nome_unidade_medida}</TableCell>
                                   
 
                                   <TableCell align="center">{row.data_producao} </TableCell>

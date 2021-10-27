@@ -215,6 +215,16 @@ export default function MiniDrawer (){
                           variant="contained"
                           color="primary"
                           style={{backgroundColor: "#00A869"}}
+                          onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "unidade_medida")}
+                        >
+                           Unidade de Medida
+                        </Button>
+                        </div>
+                      <div className="botao2">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          style={{backgroundColor: "#00A869"}}
                           onClick = {() => window.location.replace(process.env.REACT_APP_FRONT_URL + "usuario")}
                         >
                             Gerenciar Usuários

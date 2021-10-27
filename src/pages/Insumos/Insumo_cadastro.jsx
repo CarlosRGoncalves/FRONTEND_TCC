@@ -81,13 +81,15 @@ export default function InsumoCadastro(){
   
     const classes = useStyles();
     const [id_fornecedor, setId_fornecedor] = useState('');
+    const [id_unidade_medida, setId_unidade_medida] = useState('');
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
     const [quantidade, setQuantidade] = useState('');
     const [date, setDate] = useState('');
     const [valor, setValor] = useState('');
-    const [unidade_medida, setUnidade_medida] = useState('');
+   
     const [fornecedores, setFornecedores] = useState([]);
+    const [unidade_medida, setUnidade_medida] = useState([]);
 
     useEffect(() => {
       document.getElementById('date').max = new Date().toISOString().split("T")[0]
@@ -106,22 +108,37 @@ export default function InsumoCadastro(){
             alert(err);
           })
       }
+      async  function um(){
+        const token = localStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}` };
+      
+        const response = await axios.get(process.env.REACT_APP_API_URL + 'unidade_medida/',{ headers })
+        .then(response =>{
+        //console.log(response.data.usuario);
+        setUnidade_medida(response.data.unidade_medida);
+        })
+        .catch(err =>{
+          console.log(err)
+          alert(err);
+        })
+    }
       tp();
+      um();
     },[]);
     
     
     async  function Cadastrar(){
       const data = {
         id_fornecedor:id_fornecedor,
+        id_unidade_medida:id_unidade_medida,
         nome_insumo:nome,
         descricao:descricao,
         quantidade:quantidade,
         data:date,
-        valor:valor,
-        unidade_medida:unidade_medida
+        valor:valor
       }
 
-      if(quantidade!=''&&nome!=''&&date!=''&&valor!=''&&unidade_medida!=''){
+      if(quantidade!=''&&nome!=''&&date!=''&&valor!=''&&id_unidade_medida!=''&&id_fornecedor!=''){
         if(date>new Date().toISOString().split("T")[0]){
           alert("Data do Plantio preenchida Incorretamente!")
         }else{
@@ -172,6 +189,7 @@ export default function InsumoCadastro(){
                       </Select>
                     </FormControl>
                     </Grid>
+                    
                     <Grid item xs={12} sm={3}>
                       <TextField
                         required
@@ -210,19 +228,17 @@ export default function InsumoCadastro(){
                         onChange={e => setQuantidade(e.target.value)}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={3}>
+                    <Grid item xs={12} sm={2}>
                       <FormControl className={classes.formControl}>
-                      <InputLabel id="unidade_medida">Medida</InputLabel>
+                      <InputLabel id="id_unidade_medida">Medida</InputLabel>
                       <Select
-                        labelId="unidade_medida"
-                        id="unidade_medida"
-                        value={unidade_medida}
-                        onChange={e => setUnidade_medida(e.target.value)}
-                      >
-                        <MenuItem value={"kg"}>kg	</MenuItem>
-                        <MenuItem value={"g"}>g	</MenuItem>
-                        <MenuItem value={"mg"}>mg	</MenuItem>
-                      
+                            labelId="Medida"
+                            id="id_unidade_medida"
+                            value={id_unidade_medida}
+                            onChange={e => setId_unidade_medida(e.target.value)}
+                          > {unidade_medida.map((row) =>(
+                              <MenuItem value={row.id_unidade_medida}>{row.nome_unidade_medida}</MenuItem>
+                            ))}
                       </Select>
                     </FormControl>
                     </Grid>

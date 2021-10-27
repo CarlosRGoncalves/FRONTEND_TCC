@@ -75,6 +75,8 @@ export default function PedidoAlterar(){
     const [id_plantio, setId_plantio] = useState('');
     const [id_insumo, setId_insumo] = useState('');
     const [id_p_doenca, setId_pragas_doenca] = useState('');
+    const [id_unidade_medida, setId_unidade_medida] = useState('');
+    const [medidas, setmedida] = useState([]);
 
     const [adubacao, setAdubacao] = useState('');
     const [defensivo, setDefensivo] = useState('');
@@ -119,16 +121,15 @@ export default function PedidoAlterar(){
             else
               setquantidade_producao(response.data.response.producao.quantidade_producao);
               
-            if(response.data.response.producao.unidade_medida == null)
-              setunidade_medida('');
-            else
-             setunidade_medida(response.data.response.producao.unidade_medida);
+            
+            setId_unidade_medida(response.data.response.producao.id_unidade_medida);
 
             if(response.data.response.producao.data_producao == null)
               setdate_producao('');
             else
               setdate_producao(response.data.response.producao.data_producao.substring(0,10));
-           
+            
+
            // setId_plantio(response.data.response.producao.id_insumo);
             
       }
@@ -171,9 +172,23 @@ export default function PedidoAlterar(){
               }
             })
       }
+      async function getUnidade_medida(){
+        const token = localStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}` };
+            var response = await axios.get(process.env.REACT_APP_API_URL + 'unidade_medida/',{headers}).then(response =>{
+            //  console.log(response.data.unidade_medida)
+              setmedida(response.data.unidade_medida);
+            })
+            .catch(err => {
+              if(err.response.status ===500){
+                alert('Erro no Servidor!')
+              }
+            })
+      }
       getP_doenca();
       getInsumo();
       getPlantio();
+      getUnidade_medida();   
       getProducao();      
     },[]);
 
@@ -183,12 +198,12 @@ export default function PedidoAlterar(){
         id_insumo:id_insumo,
         id_p_doenca:id_p_doenca,
         data_producao:date_producao,
-        unidade_medida:unidade_medida,
+        id_unidade_medida:id_unidade_medida,
         quantidade_producao:quantidade_producao
        
       }
       //console.log(data)
-      if(id_plantio!=''&&id_insumo!=''&&date_producao!=''&&unidade_medida!=''&&quantidade_producao!=''){
+      if(id_plantio!=''&&id_insumo!=''&&date_producao!=''&&id_unidade_medida!=''&&quantidade_producao!=''){
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
         var result = await axios.patch(process.env.REACT_APP_API_URL + 'producao/'+id_producao,data).then(res => {
@@ -279,21 +294,20 @@ export default function PedidoAlterar(){
                       />
                     </Grid>
                     <Grid item xs={12} sm={3}>
-                        <FormControl className={classes.formControl}>
-                        <InputLabel id="unidade_medida">Medida</InputLabel>
-                        <Select
-                        
-                          labelId="unidade_medida"
-                          id="unidade_medida"
-                          value={unidade_medida}
-                          onChange={e => setunidade_medida(e.target.value)}
-                        >
-                          <MenuItem value={"kg"}>kg	</MenuItem>
-                          <MenuItem value={"g"}>g	</MenuItem>
-                          <MenuItem value={"mg"}>mg	</MenuItem>
-                        
-                        </Select>
-                      </FormControl>
+                      <FormControl className={classes.formControl}>
+                      <InputLabel id="id_unidade_medida">Medida</InputLabel>
+                      <Select
+                            labelId="Medida"
+                            id="id_unidade_medida"
+                            value={id_unidade_medida}
+                            onChange={e => setId_unidade_medida(e.target.value)}
+                          > {
+                           // console.log(medidas)
+                            medidas.map((row) =>( 
+                              <MenuItem value={row.id_unidade_medida}>{row.nome_unidade_medida}</MenuItem>
+                            ))}
+                      </Select>
+                    </FormControl>
                     </Grid>
                     
                     <Grid item xs={13} sm={4}>

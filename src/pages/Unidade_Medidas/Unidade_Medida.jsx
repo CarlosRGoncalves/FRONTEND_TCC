@@ -18,7 +18,7 @@ import Paper from '@material-ui/core/Paper';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
-import './Insumo.css';
+import './Unidade_Medida.css';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -71,36 +71,37 @@ const useStyles = makeStyles((theme) => ({
 export default function MiniDrawer (){
   
   const classes = useStyles();
-  const [insumos, setInsumos] = useState([]);
+  const [unidade_medida , setUnidade_medida ] = useState([]);
 
 
   useEffect(() => {
-    async function insumo(){
-      const token = localStorage.getItem('token');
-      const headers = { Authorization: `Bearer ${token}` };
-    
-      const response = axios.get(process.env.REACT_APP_API_URL + 'insumo/',{ headers })
-      .then(response =>{
-      //console.log(response.data.usuario);
-      setInsumos(response.data.insumo);
-      })
-      .catch(err =>{
-        console.log(err)
-        alert(err);
-      })
-    }
-    insumo();
+    async function unidade_medida(){
+    const token = localStorage.getItem('token');
+    const headers = { Authorization: `Bearer ${token}` };
+  
+    const response = await axios.get(process.env.REACT_APP_API_URL + 'unidade_medida/',{ headers })
+    .then(response =>{
+    //console.log(response.data.unidade_medida );
+
+    setUnidade_medida (response.data.unidade_medida);
+    })
+    .catch(err =>{
+      console.log(err)
+      alert(err);
+    })
+  }
+  unidade_medida ();
   },[]);
 
   async function Delete(id){
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
-    if(window.confirm("Você tem certeza que vai excluir esse Insumo?")){
-      var result = await axios.delete(process.env.REACT_APP_API_URL + 'insumo/'+id,{ headers }).then(res =>{
+    if(window.confirm("Você tem certeza que vai excluir esse unidade_medida  ?")){
+      var result = await axios.delete(process.env.REACT_APP_API_URL + 'unidade_medida/'+id,{ headers }).then(res =>{
         if(res.status ===202){
           console.log(res)
           alert(res.data.response.mensagem)
-          window.location.replace(process.env.REACT_APP_FRONT_URL + "insumo");
+          window.location.replace(process.env.REACT_APP_FRONT_URL + "unidade_medida");
         }
       }).catch(err =>{
         console.log(err)
@@ -112,7 +113,7 @@ export default function MiniDrawer (){
   }
 
   function cad() {
-    window.location.replace(process.env.REACT_APP_FRONT_URL + "insumo/cadastro");
+    window.location.replace(process.env.REACT_APP_FRONT_URL + "unidade_medida/cadastro");
   }
 
   function Tp_Usuario() {
@@ -133,41 +134,33 @@ export default function MiniDrawer (){
       <main className={classes.content}>
           <div className={classes.toolbar} />
           
-          <h2>Insumos</h2>
+          <h2>Unidade de Medidas</h2>
             <Grid container spacing={20}>
             <Paper className = {classes.content} >
                   <TableContainer component={Paper}>
                       <Table className={classes.table} size="small" aria-label="a dense table">
                           <TableHead>
                           <TableRow>
-                              <TableCell>ID Insumo</TableCell>
-                              <TableCell align="center">Fornecedor</TableCell>
-                              <TableCell align="center">Nome</TableCell>
-                              <TableCell align="center">Descricão</TableCell>
-                              <TableCell align="center">Quantidade&nbsp;</TableCell>
-                              <TableCell align="center">Medida&nbsp;</TableCell>
-                              <TableCell align="center">Data&nbsp;</TableCell>
-                              <TableCell align="center">Valor&nbsp;</TableCell>
+                              <TableCell>ID Unidade Medida </TableCell>
+                              <TableCell align="center">Nome&nbsp;</TableCell>
+                              
                               <TableCell align="center">Opções&nbsp;</TableCell>
                           </TableRow>
                           </TableHead>
                           <TableBody>
-                              {insumos.map((row) => (
-                                  <TableRow key={row.id_insumo}>
+                              {unidade_medida .map((row) => (
+                                
+                                  <TableRow key={row.id_unidade_medida }>
                                   <TableCell component="th" scope="row">
-                                      {row.id_insumo}
+                                      {row.id_unidade_medida }
                                   </TableCell>
-                                  <TableCell align="center">{row.nome_fornecedor}</TableCell>
-                                  <TableCell align="center">{row.nome_insumo}</TableCell>
-                                  <TableCell align="center">{row.descricao}</TableCell>
-                                  <TableCell align="center">{row.quantidade}</TableCell>
                                   <TableCell align="center">{row.nome_unidade_medida}</TableCell>
-                                  <TableCell align="center">{row.data.substring(0,10)}</TableCell>
-                                  <TableCell align="center">{row.valor} R$</TableCell>
-                                  <TableCell align="right">
+                                 
+                                  
+                                  <TableCell align="center">
                                     <ButtonGroup  aria-label="outlined primary button group">
-                                        <Button color = "primary" align="center" startIcon={<CreateIcon/>} href={'/insumo/alterar/'+row.id_insumo} disabled = {Tp_Usuario()}></Button>
-                                        <Button color = "secondary" align="center" startIcon={<DeleteIcon/>} onClick = {() => Delete(row.id_insumo)} disabled = {Tp_Usuario()}></Button>
+                                        <Button color = "primary" align="center" startIcon={<CreateIcon/>} href={'/unidade_medida/alterar/'+row.id_unidade_medida } disabled = {Tp_Usuario()}></Button>
+                                        <Button color = "secondary" align="center" startIcon={<DeleteIcon/>} onClick = {() => Delete(row.id_unidade_medida )} disabled = {Tp_Usuario()}></Button>
                                     </ButtonGroup>
                                   </TableCell>
 
@@ -179,14 +172,14 @@ export default function MiniDrawer (){
                     <br/>
                     <div >
                           <Button
-                                id = "cadInsumo"
+                                id = "cadunidade_medida"
                                 variant="contained"
                                 color="primary"
                                 style={{backgroundColor: "#00A869"}}
                                 onClick = {() => cad()}
                                 disabled = {Tp_Usuario()}
                               >
-                                Cadastrar Novo Insumo
+                                Cadastrar Novo Unidade de Medida
                           </Button>
                     </div>
                 </Paper>

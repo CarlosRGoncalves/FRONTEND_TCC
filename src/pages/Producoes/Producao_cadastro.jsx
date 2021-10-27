@@ -75,16 +75,17 @@ export default function InsumoCadastro(){
     const [id_plantio, setId_plantio] = useState('');
     const [id_insumo, setId_insumo] = useState('');
     const [id_p_doenca, setId_pragas_doenca] = useState('');
-
+    const [id_unidade_medida, setId_unidade_medida] = useState('');
  //   const [adubacao, setAdubacao] = useState('');
   //  const [defensivo, setDefensivo] = useState('');
   //  const [date_defensivo, setDate_defensivo] = useState('');
     const [date_producao, setdate_producao] = useState('');
-    const [unidade_medida, setunidade_medida] = useState('');
+    const [unidade_medida, setUnidade_medida] = useState([]);
     const [quantidade_producao, setquantidade_producao] = useState('');
     const [insumos, setInsumos] = useState([]);
     const [plantios, setPlantios] = useState([]);
     const [pragas_doencas, setP_doencas] = useState([]);
+    
 
     useEffect(() => {
      
@@ -132,9 +133,24 @@ export default function InsumoCadastro(){
           alert(err);
         })
     }
+    async  function um(){
+      const token = localStorage.getItem('token');
+      const headers = { Authorization: `Bearer ${token}` };
+    
+      const response = await axios.get(process.env.REACT_APP_API_URL + 'unidade_medida/',{ headers })
+      .then(response =>{
+      //console.log(response.data.usuario);
+      setUnidade_medida(response.data.unidade_medida);
+      })
+      .catch(err =>{
+        console.log(err)
+        alert(err);
+      })
+  }
       plantio();
       pragas_doenca();
       insumo();
+      um();
     },[]);
     
     
@@ -144,11 +160,11 @@ export default function InsumoCadastro(){
         id_insumo:id_insumo,
         id_p_doenca:id_p_doenca,
         data_producao:date_producao,
-        unidade_medida:unidade_medida,
+        id_unidade_medida:id_unidade_medida,
         quantidade_producao:quantidade_producao
       }
 
-      if(id_plantio!=''&&id_insumo!=''&&date_producao!=''&&unidade_medida!=''&&quantidade_producao!=''){
+      if(id_plantio!=''&&id_insumo!=''&&date_producao!=''&&id_unidade_medida!=''&&quantidade_producao!=''){
         var result = await axios.post(process.env.REACT_APP_API_URL + 'producao',data).then(res => {
           //console.log("AQUI",res.status);
           if(res.status ===201){
@@ -240,21 +256,19 @@ export default function InsumoCadastro(){
                       />
                     </Grid>
                     <Grid item xs={12} sm={3}>
-                        <FormControl className={classes.formControl}>
-                        <InputLabel id="unidade_medida">Medida</InputLabel>
-                        <Select
-                        
-                          labelId="unidade_medida"
-                          id="unidade_medida"
-                          value={unidade_medida}
-                          onChange={e => setunidade_medida(e.target.value)}
-                        >
-                          <MenuItem value={"kg"}>kg	</MenuItem>
-                          <MenuItem value={"g"}>g	</MenuItem>
-                          <MenuItem value={"mg"}>mg	</MenuItem>
-                        
-                        </Select>
-                      </FormControl>
+                    
+                      <FormControl className={classes.formControl}>
+                      <InputLabel id="id_unidade_medida">Medida</InputLabel>
+                      <Select
+                            labelId="Medida"
+                            id="id_unidade_medida"
+                            value={id_unidade_medida}
+                            onChange={e => setId_unidade_medida(e.target.value)}
+                          > {unidade_medida.map((row) =>(
+                              <MenuItem value={row.id_unidade_medida}>{row.nome_unidade_medida}</MenuItem>
+                            ))}
+                      </Select>
+                    </FormControl>
                     </Grid>
                     
                     <Grid item xs={13} sm={4}>

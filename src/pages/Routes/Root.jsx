@@ -32,6 +32,10 @@ import Fornecedor from '../Fornecedor/Fornecedor';
 import Fornecedor_Cadastro from '../Fornecedor/Fornecedor  cadastro';
 import Fornecedor_Alterar from '../Fornecedor/Fornecedor alterar';
 
+import Unidade_Medida from '../Unidade_Medidas/Unidade_Medida';
+import Unidade_Medida_Cadastro from '../Unidade_Medidas/Unidade_Medida_cadastro';
+import Unidade_Medida_Alterar from '../Unidade_Medidas/Unidade_Medida_alterar';
+
 import Produto_Final from '../Produto_Final/Produto_final';
 import Produto_Final_Cadastro from '../Produto_Final/Produto_final_cadastro';
 import Produto_Final_Alterar from '../Produto_Final/Produto_final_alterar';
@@ -100,6 +104,11 @@ const PagesRoot = () => (
       <PrivateRoute exact path="/fornecedor" component={Fornecedor} />
       <PrivateRoute exact path="/fornecedor/cadastro" component={Fornecedor_Cadastro} />
       <PrivateRoute exact path="/fornecedor/alterar/:id_fornecedor" component={Fornecedor_Alterar} />
+
+      <PrivateRoute exact path="/unidade_medida" component={Unidade_Medida} />
+      <PrivateRoute exact path="/unidade_medida/cadastro" component={Unidade_Medida_Cadastro} />
+      <PrivateRoute exact path="/unidade_medida/alterar/:id_unidade_medida" component={Unidade_Medida_Alterar} />
+
 
       <PrivateRoute exact path="/produto_final" component={Produto_Final} />
       <PrivateRoute exact path="/produto_final/cadastro" component={Produto_Final_Cadastro} />
