@@ -94,6 +94,9 @@ export default function PedidoRelatorio(){
    
     const [nome_cliente, setNome_cliente] = useState('');
     const [pedidos, setPedidos] = useState([]);
+    const [status, setStatus] = useState('');
+    const [dateInicial, setDateI] = useState('');
+    const [dateFinal, setDateF] = useState('');
 
     useEffect(() => {
       
@@ -103,31 +106,39 @@ export default function PedidoRelatorio(){
     async  function Cadastrar(){
       const data = {
         
-        nome_cliente:nome_cliente
+        nome_cliente:nome_cliente,
+        status:status,
+        data_inicial:dateInicial,
+        data_final:dateFinal
         
 
 
       }
 
-      if(nome_cliente!=''){
-        var result = await axios.post(process.env.REACT_APP_API_URL + 'pedido/relatorio2',data).then(res => {
-          //console.log("AQUI",res.status);
-          if(res.status ===200){
-           if(res.data.quantidade!=0)
-              setPedidos(res.data.pedido);
-            else
-              alert("Não foi encontrado nenhum Pedido para esse Cliente!!!")
-           // window.location.replace(process.env.REACT_APP_FRONT_URL + "pedido");
-          }
-        }).catch(err => {
-          if(err.response.status ===500){
-            alert('Erro no Cadastro!!!')
-            //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
-          }
-        })
+      if(nome_cliente!=''&&status!=''){
+        if((dateInicial != '' && dateFinal != '')||(dateInicial == '' && dateFinal == ''))
+        {
+          var result = await axios.post(process.env.REACT_APP_API_URL + 'pedido/relatorio2',data).then(res => {
+            //console.log("AQUI",res.status);
+            if(res.status ===200){
+            if(res.data.quantidade!=0)
+                setPedidos(res.data.pedido);
+              else
+                alert("Não foi encontrado nenhum Pedido para esse Cliente!!!")
+            // window.location.replace(process.env.REACT_APP_FRONT_URL + "pedido");
+            }
+          }).catch(err => {
+            if(err.response.status ===500){
+              alert('Erro no Cadastro!!!')
+              //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
+            }
+          })
+        }else{
+          alert('É obrigatório que Data Final e Inicial sejam preenchidas ou ambas não podem estar assinaladas!')
+        }
 
       }else{
-        alert('Campo em Branco ou Preenchido Incorretamente!')
+        alert('Nome do Cliente e Status do Pagamento são obrigatórios!!!')
       }
     }
     
@@ -146,29 +157,85 @@ export default function PedidoRelatorio(){
                 </Typography>
                 <Paper className = {classes.content} >
                   <Grid container spacing={3}>
-                  
-                   
-                    <Grid item xs={13} sm={4}>
+                      <Grid item xs={13} sm={3}>
+                      
+                          <form className={classes.container} noValidate>
+                          
+                            <TextField
+
+                            required
+                              id="nome_cliente"
+                              name="nome"
+                              label="Nome do Cliente"
+                              fullWidth
+                              autoComplete="nome"
+
+                              defaultValue=""
+                              className={classes.textField}
+                              
+                              value={nome_cliente}
+                              onChange={e => setNome_cliente(e.target.value)}
+                            />
+                          </form>
+                      
+                      </Grid>
+                      <Grid item xs={13} sm={2}>
+                          <FormControl className={classes.formControl}>
+                            <InputLabel required id="status">Status Pagamento</InputLabel>
+                            <Select
+                            
+                              labelId="status"
+                              id="status"
+                              value={status}
+                              onChange={e => setStatus(e.target.value)}
+                            >
+                              <MenuItem value="Pago">Pago</MenuItem>
+                              <MenuItem value="Não Pago">Não Pago</MenuItem>
+                              <MenuItem value="Todos">Todos os Tipos</MenuItem>
+                            
+                            </Select>
+                          </FormControl>
+                      </Grid>
+                      <Grid item xs={13} sm={3}>
                     
                     <form className={classes.container} noValidate>
                       <TextField
-                      required
-                        id="nome_cliente"
-                        label="Nome do Cliente"
-                        
+                      
+                        id="dateInicial"
+                        label="Data Inicial"
+                        type="date"
                         defaultValue=""
                         className={classes.textField}
                         InputLabelProps={{
                           shrink: true,
                         }}
-                        value={nome_cliente}
-                        onChange={e => setNome_cliente(e.target.value)}
+                        value={dateInicial}
+                        onChange={e => setDateI(e.target.value)}
                       />
                     </form>
                     
                     </Grid>
+                    <Grid item xs={13} sm={3}>
                     
-                  
+                    <form className={classes.container} noValidate>
+                      <TextField
+                      
+                        id="dateFinal"
+                        label="Data Final"
+                        type="date"
+                        defaultValue=""
+                        className={classes.textField}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        value={dateFinal}
+                        onChange={e => setDateF(e.target.value)}
+                      />
+                    </form>
+                    
+                    </Grid>
+                  </Grid>
+                  <br/>
                   <Grid item xs={12} sm={5}>
                     <br/>
                     <Button
@@ -182,7 +249,7 @@ export default function PedidoRelatorio(){
                     </Button>
                   </Grid>
 
-                  </Grid>
+                  
                 </Paper>
                 <br/>
                 <Paper className = {classes.content} >
@@ -210,7 +277,7 @@ export default function PedidoRelatorio(){
                                   <TableCell align="center">{row.nome_produto_final}</TableCell>
                                   <TableCell align="center">{row.nome_cliente}</TableCell>
 
-                                  <TableCell align="center">{row.status ==='Pago'?<Chip label="Pago" color="primary"/>:<Chip label="Não Pago" color="secondary" />}</TableCell>
+                                  <TableCell align="center">{row.status ==='Pago'?<Chip label="Pago" color="primary"/>:(row.status ==='Não Pago'?<Chip label="Não Pago" color="secondary" />:'')}</TableCell>
                                   <TableCell align="center">{row.descricao}</TableCell>
                                   <TableCell align="center">{row.quantidade}</TableCell>
                                   <TableCell align="center">{row.data.substring(0,10)}</TableCell>

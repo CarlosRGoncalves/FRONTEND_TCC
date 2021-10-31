@@ -104,7 +104,7 @@ export default function PedidoRelatorio(){
       const data = {
         
         data_inicial:dateInicial,
-        data_final:dateFinal,
+        data_final:dateFinal
 
 
       }
@@ -126,8 +126,25 @@ export default function PedidoRelatorio(){
           }
         })
 
+      }else if(dateInicial == '' && dateFinal == ''){
+        var result = await axios.post(process.env.REACT_APP_API_URL + 'pedido/relatorio',data).then(res => {
+          //console.log("AQUI",res.status);
+          if(res.status ===200){
+           if(res.data.quantidade!=0)
+              setPedidos(res.data.pedido);
+            else
+              alert("Não foi encontrado nenhum Produto Vendido entre essas datas!!!")
+           // window.location.replace(process.env.REACT_APP_FRONT_URL + "pedido");
+          }
+        }).catch(err => {
+          if(err.response.status ===500){
+            alert('Erro no Cadastro!!!')
+            //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
+          }
+        })
+
       }else{
-        alert('Campo em Branco ou Preenchido Incorretamente!')
+        alert('Ambas as datas devem estar preenchidas ou não preenchidas!')
       }
     }
     
@@ -152,7 +169,7 @@ export default function PedidoRelatorio(){
                     
                     <form className={classes.container} noValidate>
                       <TextField
-                      required
+                      
                         id="dateInicial"
                         label="Data Inicial"
                         type="date"
@@ -171,7 +188,7 @@ export default function PedidoRelatorio(){
                     
                     <form className={classes.container} noValidate>
                       <TextField
-                      required
+                      
                         id="dateFinal"
                         label="Data Final"
                         type="date"
