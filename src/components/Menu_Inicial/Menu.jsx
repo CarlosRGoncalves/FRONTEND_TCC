@@ -12,6 +12,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { createTheme } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
+import jwt_decode from "jwt-decode";
+
 import ListM from './List';
 
 const drawerWidth = 240;
@@ -83,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function MenuI (){
   const drawerWidth = 240;
 
@@ -103,6 +106,17 @@ export default function MenuI (){
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  function tipo() {
+    
+    if(jwt_decode(localStorage.getItem('token')).tipo_usuario == 1){
+      return (localStorage.getItem("nome") + " (Administrador)")
+      }  
+      else{
+        return (localStorage.getItem("nome") + " (Produtor)")
+      }
+      return;
+  
+  }
   return(
     <>
         <AppBar
@@ -125,7 +139,9 @@ export default function MenuI (){
                 <MenuIcon />
               </IconButton>
               <Typography variant="h6" noWrap>
-                Bem Vindo,   { localStorage.getItem("nome")}
+                Bem Vindo,   {
+                tipo()
+              }
               </Typography>
             </Toolbar>
         </AppBar>

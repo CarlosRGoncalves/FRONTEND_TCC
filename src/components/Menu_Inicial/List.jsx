@@ -198,7 +198,7 @@ function RelPlantio() {
                         <ListItemText primary="Página Inicial" onClick = {() => listI("Página Inicial")}/>
                   </ListItem>
                   <ListItem button onClick={handleClickCad}>
-                        <ListItemIcon color="secondary">
+                        <ListItemIcon >
                                 <AssignmentTurnedInOutlinedIcon />
                         </ListItemIcon>
                                 <ListItemText primary="Cadastros"  />
