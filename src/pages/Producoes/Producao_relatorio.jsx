@@ -220,11 +220,12 @@ export default function ProducaoRelatorio(){
                               style={{backgroundColor: "#00A869"}}
                               onClick ={Cadastrar}
                             >
-                              Gerar Relatório 
+                              Consultar Relatório 
                     </Button>
                   </Grid>
-                  </Grid>
-                </Paper>
+                  
+                </Grid>
+              </Paper>
 <br/>
                 <Paper className = {classes.content} >
                 <TableContainer component={Paper}>

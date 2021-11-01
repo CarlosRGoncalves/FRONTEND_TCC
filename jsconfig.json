@@ -3,7 +3,7 @@
     "jsx": "react",
     "baseUrl": "src"
   },
-  "include": ["src"],
+  "include": ["src", "src/jquery.maskedinput.min.js"],
   "exclude": [
     "node_modules"
   ]

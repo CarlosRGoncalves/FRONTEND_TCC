@@ -213,7 +213,7 @@ export default function PedidoRelatorio(){
                               style={{backgroundColor: "#00A869"}}
                               onClick ={Cadastrar}
                             >
-                              Gerar Relatório 
+                              Consultar Relatório 
                     </Button>
                   </Grid>
                 </Paper>

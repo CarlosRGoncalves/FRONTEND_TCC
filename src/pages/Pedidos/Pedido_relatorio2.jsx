@@ -26,6 +26,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
 import Chip from '@material-ui/core/Chip';
 import './Pedido.css';
+import pedidosPDF from '../../components/Relatorios/pedidos.jsx'
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -94,6 +95,8 @@ export default function PedidoRelatorio(){
    
     const [nome_cliente, setNome_cliente] = useState('');
     const [pedidos, setPedidos] = useState([]);
+    const [pedidosRel, setPedidosRel] = useState([]);
+
     const [status, setStatus] = useState('');
     const [dateInicial, setDateI] = useState('');
     const [dateFinal, setDateF] = useState('');
@@ -103,7 +106,7 @@ export default function PedidoRelatorio(){
     },[]);
     
     
-    async  function Cadastrar(){
+    async  function Cadastrar(isPdf){
       const data = {
         
         nome_cliente:nome_cliente,
@@ -114,32 +117,52 @@ export default function PedidoRelatorio(){
 
 
       }
-
+      var teste; 
       if(nome_cliente!=''&&status!=''){
         if((dateInicial != '' && dateFinal != '')||(dateInicial == '' && dateFinal == ''))
         {
           var result = await axios.post(process.env.REACT_APP_API_URL + 'pedido/relatorio2',data).then(res => {
             //console.log("AQUI",res.status);
             if(res.status ===200){
-            if(res.data.quantidade!=0)
-                setPedidos(res.data.pedido);
+            if(res.data.quantidade!=0){
+              setPedidos(res.data.pedido);
+              teste = res.data.pedido;
+            }
+                
               else
-                alert("Não foi encontrado nenhum Pedido para esse Cliente!!!")
+              {
+                  alert("Não foi encontrado nenhum Pedido para esse Cliente!!!")
+                  throw "Erro"
+              }
             // window.location.replace(process.env.REACT_APP_FRONT_URL + "pedido");
             }
           }).catch(err => {
-            if(err.response.status ===500){
+            console.log(err)
+            if(err.response && err.response.status === 500){
               alert('Erro no Cadastro!!!')
-              //window.location.replace(process.env.REACT_APP_FRONT_URL + "planta/cadastro");
+              return
+             
             }
+            return
           })
         }else{
           alert('É obrigatório que Data Final e Inicial sejam preenchidas ou ambas não podem estar assinaladas!')
+          return;
         }
 
       }else{
         alert('Nome do Cliente e Status do Pagamento são obrigatórios!!!')
+        return;
       }
+      //console.log(teste)
+      if(isPdf && teste){
+        console.log("entrou")
+        document.getElementById('tab').style.display = 'none'
+        pedidosPDF(teste)
+      }else{
+        document.getElementById('tab').style.display = 'table-row-group'
+      }
+
     }
     
  
@@ -234,25 +257,37 @@ export default function PedidoRelatorio(){
                     </form>
                     
                     </Grid>
-                  </Grid>
-                  <br/>
-                  <Grid item xs={12} sm={5}>
+                  
+                  
+                  <Grid item xs={12} sm={4}>
                     <br/>
                     <Button
                               
                               variant="contained"
                               color="primary"
                               style={{backgroundColor: "#00A869"}}
-                              onClick ={Cadastrar}
+                              onClick ={ ()=>{Cadastrar(false)}}
                             >
-                              Gerar Relatório 
+                              Consultar Relatório 
                     </Button>
                   </Grid>
-
-                  
-                </Paper>
+                  <Grid item xs={12} sm={2}>
+                    <br/>
+                    <Button
+                              
+                              variant="contained"
+                              color="primary"
+                              style={{backgroundColor: "#ff0000"}}
+                              onClick ={()=> {Cadastrar(true)}
+                            }
+                            >
+                              Gerar PDF 
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Paper>
                 <br/>
-                <Paper className = {classes.content} >
+              <Paper className = {classes.content} >
                 <TableContainer component={Paper}>
                       <Table className={classes.table} size="small" aria-label="a dense table">
                           <TableHead>
@@ -268,7 +303,7 @@ export default function PedidoRelatorio(){
                               <TableCell align="center">Valor Final do Pedido&nbsp;</TableCell>
                           </TableRow>
                           </TableHead>
-                          <TableBody>
+                          <TableBody id = "tab">
                               {pedidos.map((row) => (
                                   <TableRow key={row.id_pedido}>
                                   <TableCell component="th" scope="row">
