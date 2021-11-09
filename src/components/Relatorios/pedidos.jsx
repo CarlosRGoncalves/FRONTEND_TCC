@@ -18,8 +18,8 @@ function pedidosPDF(pedidos){
             {text: pedido.status,  fontSize: 9, margin: [0,2,0,2]},
             {text: pedido.descricao,  fontSize: 9, margin: [0,2,0,2]},
             {text: pedido.data.substring(0,10),  fontSize: 9, margin: [0,2,0,2]},
-            {text: pedido.valor_produto_vendido + ' R$',  fontSize: 9, margin: [0,2,0,2]},
-            {text: pedido.valor + ' R$', fontSize: 9, margin: [0,2,0,2]}
+            {text: pedido.valor_produto_vendido + 'R$',  fontSize: 9, margin: [0,2,0,2]},
+            {text: pedido.valor + 'R$', fontSize: 9, margin: [0,2,0,2]}
         ]
     })
 

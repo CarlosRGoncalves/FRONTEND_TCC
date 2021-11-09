@@ -317,20 +317,20 @@ function RelPlantio() {
                             <BlurOnOutlinedIcon />
                           </ListItemIcon>
                           
-                          <ListItemText primary="Colheita" onClick = {() => RelColhe()} />
+                          <ListItemText primary="Colheitas" onClick = {() => RelColhe()} />
                         </ListItem>
                         <ListItem button className={classes.nested}>
                           <ListItemIcon>
                             <BlurOnOutlinedIcon />
                           </ListItemIcon>
                           
-                          <ListItemText primary="Plantio" onClick = {() => RelPlantio()} />
+                          <ListItemText primary="Plantios" onClick = {() => RelPlantio()} />
                         </ListItem>
                         <ListItem button className={classes.nested}>
                           <ListItemIcon>
                             <BlurOnOutlinedIcon />
                           </ListItemIcon>
-                          <ListItemText primary="Produção" onClick = {() => RelProd()} />
+                          <ListItemText primary="Produções" onClick = {() => RelProd()} />
                           
                         </ListItem>
 

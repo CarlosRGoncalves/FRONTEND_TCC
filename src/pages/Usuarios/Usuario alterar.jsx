@@ -167,7 +167,7 @@ export default function UsuarioCadastro(){
                         required
                         id="email"
                         name="email"
-                        label="Email"
+                        label="Login"
                         fullWidth
                         autoComplete="email"
                         value={email}

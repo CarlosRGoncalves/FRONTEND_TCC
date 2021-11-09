@@ -70,7 +70,7 @@ class Login extends Component{
 
           <form>
             <div className="user-login__form-control">
-              <InputLabel htmlFor="email">E-mail</InputLabel>
+              <InputLabel htmlFor="email">Login</InputLabel>
               <Input id="email" type="text" name="email" autoComplete="off"  required onChange={e => this.email = e.target.value}/>
             </div>
             <div className="user-login__form-control">

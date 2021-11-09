@@ -144,7 +144,7 @@ export default function MiniDrawer (){
                           <TableRow>
                               <TableCell>ID Usuário</TableCell>
                               <TableCell align="center">Nome</TableCell>
-                              <TableCell align="center">Email</TableCell>
+                              <TableCell align="center">Login</TableCell>
                               <TableCell align="center">Telefone&nbsp;</TableCell>
                               <TableCell align="center">Tipo Usuário&nbsp;</TableCell>
                               <TableCell align="center">Opções&nbsp;</TableCell>
