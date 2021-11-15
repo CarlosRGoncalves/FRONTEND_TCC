@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { useEffect } from 'react';
-
+import validaCpfCnpj from '../../components/Validacoes/cpfcnpj'
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -75,7 +75,20 @@ export default function FornecedorCadastro(){
       }
 
       if(nome!=''){
-        if(cnpj.length==0||cnpj.length==14){
+        if((cnpj.length==0||cnpj.length==14)){
+          if(cnpj.length==0){
+            var result = await axios.post(process.env.REACT_APP_API_URL + 'fornecedor',data).then(res => {
+              //console.log("AQUI",res.status);
+              if(res.status ===201){
+                alert(res.data.response.mensagem)
+                window.location.replace(process.env.REACT_APP_FRONT_URL + "fornecedor");
+              }
+            }).catch(err => {
+              if(err.response.status ===500){
+                alert('Erro no Cadastro!')
+              }
+            })
+        }else if(cnpj.length==14 && validaCpfCnpj(cnpj) == true){
           var result = await axios.post(process.env.REACT_APP_API_URL + 'fornecedor',data).then(res => {
             //console.log("AQUI",res.status);
             if(res.status ===201){
@@ -88,6 +101,9 @@ export default function FornecedorCadastro(){
             }
           })
         }else{
+          alert('Cnpj Inválido!')
+        }
+      }else{
           alert('Cnpj Inválido!')
 
         }

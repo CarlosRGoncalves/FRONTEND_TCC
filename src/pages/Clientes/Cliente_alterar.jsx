@@ -27,6 +27,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import { useParams } from 'react-router';
+import validaCpfCnpj from '../../components/Validacoes/cpfcnpj'
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -122,6 +124,8 @@ export default function ClienteAlterar(){
       console.log(data)
       if(nome!=''&&email!=''&&telefone!=''){
         if(cpf.length==0||cpf.length==11){
+          if(cpf.length == 0){
+
 
               var result = await axios.patch(process.env.REACT_APP_API_URL + 'cliente/'+id_cliente,data).then(res => {
                 if(res.status ===202){
@@ -134,6 +138,23 @@ export default function ClienteAlterar(){
                 
                 }
               })
+            }else if(cpf.length==11 && validaCpfCnpj(cpf)==true){
+
+                var result = await axios.patch(process.env.REACT_APP_API_URL + 'cliente/'+id_cliente,data).then(res => {
+                  if(res.status ===202){
+                    alert(res.data.response.mensagem)
+                    window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente");
+                  }
+                }).catch(err => {
+                  if(err.response.status ===500){
+                    alert('E-mail já cadastrado ou Erro no Servidor!')
+                  
+                  }
+                })
+              
+              }else{
+                alert('CPF Inválido!!!')
+              }
             }else{
               alert('CPF Inválido!!!')
 

@@ -96,6 +96,7 @@ export default function ProducaoRelatorio(){
     const [producoes, setProducoes] = useState([]);
 
     useEffect(() => {
+      
       document.getElementById('dateInicial').max = new Date().toISOString().split("T")[0]
       document.getElementById('dateFinal').max = new Date().toISOString().split("T")[0]
       

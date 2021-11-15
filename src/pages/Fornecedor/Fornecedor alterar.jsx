@@ -12,6 +12,8 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { useParams } from 'react-router';
+import validaCpfCnpj from '../../components/Validacoes/cpfcnpj'
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -94,10 +96,9 @@ export default function FornecedorAlterar(){
         cnpj:cnpj,
         nome_fornecedor:nome
       }
-      console.log(data)
       if(nome!=''){
-        if(cnpj.length==0||cnpj.length==14){
-
+        if((cnpj.length==0||cnpj.length==14)){
+          if(cnpj.length==0){
             const token = localStorage.getItem('token');
             const headers = { Authorization: `Bearer ${token}` };
             var result = await axios.patch(process.env.REACT_APP_API_URL + 'fornecedor/'+id_fornecedor,data).then(res => {
@@ -111,13 +112,28 @@ export default function FornecedorAlterar(){
               
               }
             })
-          }else{
-            alert("Cnpj Inválido!");
-          }
+        }else if(cnpj.length==14 && validaCpfCnpj(cnpj) == true){
+          const token = localStorage.getItem('token');
+            const headers = { Authorization: `Bearer ${token}` };
+            var result = await axios.patch(process.env.REACT_APP_API_URL + 'fornecedor/'+id_fornecedor,data).then(res => {
+              if(res.status ===202){
+                alert(res.data.response.mensagem)
+                window.location.replace(process.env.REACT_APP_FRONT_URL + "fornecedor");
+              }
+            }).catch(err => {
+              if(err.response.status ===500){
+                alert('Erro na Alteração')
+              
+              }
+            })
+        }else{
+          alert('Cnpj Inválido!')
+        }
       }else{
-        alert('Campo em Branco!')
+        alert('Cnpj Inválido!')
       }
     }
+  }
     return (       
       
       <div className={classes.root}>

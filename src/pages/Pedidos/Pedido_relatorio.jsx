@@ -96,7 +96,8 @@ export default function PedidoRelatorio(){
     const [pedidos, setPedidos] = useState([]);
 
     useEffect(() => {
-      
+      document.getElementById('dateInicial').max = new Date().toISOString().split("T")[0]
+      document.getElementById('dateFinal').max = new Date().toISOString().split("T")[0]
     },[]);
     
     

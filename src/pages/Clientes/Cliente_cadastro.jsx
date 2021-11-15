@@ -16,6 +16,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import { useEffect } from 'react';
+import validaCpfCnpj from '../../components/Validacoes/cpfcnpj'
+
 
 const drawerWidth = 240;
 
@@ -92,8 +94,8 @@ export default function ClienteCadastro(){
 
       if(nome!=''&&email!=''&&telefone!=''){
         if(cpf.length==0||cpf.length==11){
+          if(cpf.length == 0){
             var result = await axios.post(process.env.REACT_APP_API_URL + 'cliente',data).then(res => {
-              //console.log("AQUI",res.status);
               if(res.status ===201){
                 alert(res.data.response.mensagem)
                 window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente");
@@ -108,9 +110,30 @@ export default function ClienteCadastro(){
                   //window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente/cadastro");
                 }
             })
+          }else if(cpf.length==11 && validaCpfCnpj(cpf) == true){
+            
+              var result = await axios.post(process.env.REACT_APP_API_URL + 'cliente',data).then(res => {
+                //console.log("AQUI",res.status);
+                if(res.status ===201){
+                  alert(res.data.response.mensagem)
+                  window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente");
+                }
+              }).catch(err => {
+                  if(err.response.status ===500){
+                    alert('Erro no Servidor!')
+                    //window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente/cadastro");
+                  }
+                  else if(err.response.status ===401){
+                    alert(err.response.data.mensagem)
+                    //window.location.replace(process.env.REACT_APP_FRONT_URL + "cliente/cadastro");
+                  }
+              })
           }else{
             alert('CPF Inválido!!!')
           }
+        }else{
+          alert('CPF Inválido!!!')
+        }
       }else{
         alert('Nome, Email e Telefone são campos obrigatórios!!!')
       }
